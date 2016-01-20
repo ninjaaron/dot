@@ -15,13 +15,10 @@ dt() {
   git pull origin master
   echo "== Pushing Changes =="
   git push origin master
-  )
-}
-
-dtdn() {
-  (
-  cd $DOT
-  git pull origin master
+  cd ../conf
+  hg commit -m "updating dotfiles"
+  hg pull -u
+  hg push
   )
 }
 
