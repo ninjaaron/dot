@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+server=$1
+
+source $HOME/.dmenurc
+DMENU=${DMENU-dmenu}
+
+ssh $server ls /usr/bin > ~/.cache/$server
+cmd=$($DMENU < ~/.cache/$server)
+
+case "$cmd" in
+  vim*|vi*|ed*|nano* )
+    urxvt -e $SHELL -c ssh $server "$cmd"
+    ;;
+  *)
+    ssh $server $cmd
+esac

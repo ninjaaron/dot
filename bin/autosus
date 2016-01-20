@@ -1,0 +1,19 @@
+#!/bin/bash
+# manages some events based on power levels.
+
+discharge() { acpi|grep Discharging ;}
+level() { acpi|sed 's/.*ing, \(.*\)%.*/\1/' ;}
+psg() { ps aux|grep "$@"|grep -v grep; }
+
+sleepless="$HOME/sleepless"
+
+toggle() {
+  [ -a $sleepless ]  && rm $sleepless || touch $sleepless
+}
+
+idle() {
+  [ -n "$(discharge)" ] && [ -z "$(psg mpv)" ] && [ ! -e "$sleepless" ] &&
+    systemctl hybrid-sleep
+}
+
+$@

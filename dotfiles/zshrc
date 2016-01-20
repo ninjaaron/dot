@@ -1,0 +1,85 @@
+# The following lines were added by compinstall
+zstyle ':completion:*' completer _complete _ignored _correct _approximate
+zstyle ':completion:*' completions 'NUMERIC == 2'
+zstyle ':completion:*' format '%d'
+zstyle ':completion:*' glob 'NUMERIC == 2'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*' list-colors ''
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+zstyle ':completion:*' matcher-list '' 'r:|[._-]=* r:|=*' 'm:{[:lower:]}={[:upper:]}' 'm:{[:lower:]}={[:upper:]}'
+zstyle ':completion:*' max-errors 0
+zstyle ':completion:*' menu select=0
+zstyle ':completion:*' prompt 'Errors: %e'
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+zstyle ':completion:*' substitute 'NUMERIC == 2'
+zstyle ':completion:*' verbose true
+zstyle ':completion:*' rehash true
+zstyle :compinstall filename '/home/ninjaaron/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=10000
+SAVEHIST=10000
+# End of lines configured by zsh-newuser-install
+
+LEADER=","
+
+# vi keybindings
+
+autoload up-line-or-beginning-search
+autoload down-line-or-beginning-search
+
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+bindkey -v
+bindkey '^P' history-incremental-search-backward
+bindkey '^N' history-incremental-search-forward
+bindkey -a '^P' history-incremental-search-backward
+bindkey -a '^N' history-incremental-search-forward
+bindkey '^[[A' up-line-or-beginning-search
+bindkey '^[[B' down-line-or-beginning-search
+bindkey -a 'k' up-line-or-beginning-search
+bindkey -a 'j' down-line-or-beginning-search
+
+# bind UP and DOWN arrow keys
+zmodload zsh/terminfo
+#bindkey "$terminfo[kcuu1]" history-substring-search-up
+#bindkey "$terminfo[kcud1]" history-substring-search-down
+
+#filtypes
+alias -s txt=vim
+alias -s c=vim
+alias -s vim=vim
+alias -s md=vim
+alias -s html="w3m -cookie"
+alias -s com="w3m -cookie"
+alias -s org="w3m -cookie"
+alias -s net="w3m -cookie"
+alias -s flv=mpv
+alias -s mp4=mpv
+alias -s mp3=mpv
+alias -s ogg=mpv
+alias -s ogv=mpv
+alias -s avi=mpv
+alias -s mkv=mpv
+alias -s jpg=fbv
+alias -s png=fbv
+alias -s gif=firefox
+alias -s pdf=zathura
+
+
+# PROMPT
+
+theme=$(cat ~/.theme) 2> /dev/null && source ~/.themes/$theme
+[[ -z $prom ]] && PROMPT="%F{green}%m%f:%F{blue}%~%f> " || PROMPT=$prom
+[[ $USER = 'root' ]] && PROMPT="%F{yellow}%m%f:%F{red}%~%f# "
+
+setopt sharehistory autocd extendedglob
+source $HOME/.aliases
+
+# syntax highlighting
+[[ -n $HIGHLIGHT ]] && source $HIGHLIGHT

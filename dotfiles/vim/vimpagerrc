@@ -1,0 +1,43 @@
+set nocompatible backspace=indent,eol,start history=50 wrap mouse=a backup
+set ruler showcmd incsearch hlsearch lbr expandtab tabstop=2 shiftwidth=2 ic
+set nu wildmenu wildmode=list:longest,full scs deco tw=0 cc=+1
+set backupdir=./.backup,$HOME/.vim/backups,/tmp
+set directory=./.backup,$HOME/.vim/backups,/tmp
+let g:SuperTabDefaultCompletionType = "context"
+syntax on
+filetype plugin indent on
+
+" autocmd stuff
+augroup vimrcEx
+  au!
+  autocmd BufRead /tmp/pentadacty*.txt source $HOME/.vim/pentadactyl.vim
+  autocmd BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$")
+        \| exe "normal! g`\"" | endif
+  "autocmd vimenter * if !argc() | NERDTree | endif
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&
+        \b:NERDTreeType == "primary") | q | endif
+  autocmd BufRead,BufNewFile *.txt,README,TODO,CHANGELOG,NOTES
+        \ setlocal filetype=asciidoc
+augroup END
+
+execute pathogen#infect()
+
+" bindings are in a seperate file. there are lots.
+source $HOME/.vim/bind.vim
+
+set gfn=Ubuntu\ Mono\ 10 go=
+
+if $COLORTERM == 'gnome-terminal'
+  set t_Co=256
+endif
+
+if has("gui_running")
+  colorscheme molokai
+elseif $TERM == 'linux'
+  colorscheme default
+elseif $TERM == 'screen'
+  colorscheme default
+else
+  colorscheme cterm
+endif

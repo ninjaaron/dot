@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+dia() {
+  module=$(tr 'a-z' 'A-Z' <<< "$1")
+  diatheke -b "$module" -o cva -k ${@:2:$#-1}
+}
+
+while true; do
+  read -p "Enter module and reference (or q): " input
+
+  if [[ $input == "q" ]]; then
+    break
+  fi
+
+  output=$(dia $input)
+  echo "$output"
+  pbcopy <<< "$output"
+
+done

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Count lines of code in a bash script. Should work for others that use
+# hash to open comments as well.
+
+file="$1"
+total=$(wc -l $file|cut -d' ' -f1)
+code=$(sed '/^\s*#/d;/^\s*$/d' $file|wc -l)
+comments=$(grep '^ *#' $file|wc -l)
+blanklines=$(grep '^ *$' $file|wc -l)
+
+cat << EOF
+total lines: $total
+$code lines of code
+$comments comments
+$blanklines blank lines
+EOF
+
+exit

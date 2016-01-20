@@ -1,0 +1,40 @@
+#!/bin/bash
+
+source $HOME/.dmenurc
+Prompt="Power Button Pushed; What would you like to do?"
+Options="shutdown
+reboot
+suspend
+hibernate
+suspend-hybrid
+logout"
+
+
+read -t 10 -r entry< <(echo "$Options"|${DMENU:-dmenu} -p "$Prompt")
+(( $? == 142 )) && ( systemctl poweroff )
+
+case $entry in
+  shutdown )
+    sudo umount -fl /data
+    umount /media/public/
+    systemctl poweroff
+    ;;
+  reboot )
+    sudo umount -fl /data
+    umount /media/public/
+    sudo systemctl reboot
+    ;;
+  suspend )
+    systemctl suspend
+    ;;
+  hibernate )
+    systemctl hibernate
+    ;;
+  suspend-hybrid )
+    systemctl hybrid-sleep
+    ;;
+  logout )
+    pkill X
+    ;;
+  *)
+esac

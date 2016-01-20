@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# this script started it's life as dmenu_run
+
+# get user configs
+source $HOME/.dmenurc
+DMENU=${DMENU-dmenu}
+
+PATH="$PATH:$HOME/bin"
+cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}
+if [ -d "$cachedir" ]; then
+    cache=$cachedir/dmenu_run
+else
+    cache=$HOME/.dmenu_cache # if no xdg dir, fall back to dotfile in ~
+fi
+
+cmd=$(
+(
+    IFS=:
+    if stest -dqr -n "$cache" $PATH; then
+    echo -e ".\n$(stest -flx $PATH | sort -u)\n$(ls)"| tee "$cache"
+    else
+    cat "$cache"
+    fi
+)|$DMENU)
+
+# if the user selects a directory, go there and execute brws.
+echo $cmd
+[[ -d $cmd && $cmd != . ]] && cd "$cmd" && cmd="brws"
+
+case "$cmd" in
+  . ) # fm makes a list of files in all subdirectors and opens the selection
+    fm &
+    ;;
+  theme ) # changes the color scheme
+    theme=$(ls $HOME/.themes|sed '/Ad/d ; /~$/d ; /xres/d'|\
+      $DMENU -p 'themes:')
+    theme $theme&
+    ;;
+  mv|cp|"ln -s" ) # helpers for selecting files
+    sour=$(find . |$DMENU -p "$cmd SOURCE:")
+    [[ -z $sour ]] && exit
+    dest=$(find $HOME -type d|$DMENU -p "$cmd $sour DEST:")
+    [[ -z $dest ]] && exit
+    $cmd "$sour" "$dest"&
+    ;; # launch interactive programs in a terminal.
+  man )
+    entry=$(
+    (IFS=':'
+    find $(manpath))|
+    sed -n 's/.*\/\(.*\).1.gz/\1/p'|sort|
+    $DMENU -p "man:")
+    urxvtc -e $SHELL -c "man $entry"
+    ;;
+  youtube-viewer*|torrtux*|vifm*|vim*|vi*|ed*|nano*|mocp*|cmatrix*|\
+    info*|weechat-curses|htop|yaourt*|ipython*|python*|"man "* )
+    urxvtc -e $SHELL -c "$cmd"
+    ;;
+  *)
+    echo "$cmd"|${SHELL:-"/bin/sh"} &
+esac
+
+exit

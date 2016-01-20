@@ -1,0 +1,26 @@
+#!/bin/bash
+
+board=$1
+
+layout="us, tnk, usvi, gr"
+variant=" , , intl, polytonic"
+
+case "$board" in
+  hh*)
+    setxkbmap -layout "$layout" -variant "$variant" \
+      -option "grp:shifts_toggle"
+     xmodmap -e 'keycode 135 = Menu'
+    ;;
+  te*)
+    setxkbmap -layout "$layout" -variant "$variant" \
+      -option "grp:shifts_toggle,lv3:menu_switch"
+    xmodmap -e 'keycode 64 = Alt_L'
+    ;;
+  *)
+    setxkbmap -layout "$layout" -variant "$variant" \
+      -option "grp:shifts_toggle,ctrl:swapcaps"
+     xmodmap -e 'keycode 135 = Menu'
+    ;;
+esac
+
+exit

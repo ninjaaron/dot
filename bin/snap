@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+mount /media/btrfs &&
+cd /media/btrfs/snapshots && {
+
+snapshots=( $(ls) )
+
+for (( i = 0; i < ${#snapshots[@]}; i++ )); do
+
+    if (( i > ${#snapshots[@]} - 4 ));then
+        echo "Keeping snapshot of ${snapshots[$i]}"
+    else
+        btrfs subvolume delete "${snapshots[$i]}"
+    fi
+done
+
+btrfs subvolume snapshot /media/btrfs/rootvol/ "$(date +%F.%T)"
+
+cd /
+umount /media/btrfs/
+}

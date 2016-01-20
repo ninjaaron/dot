@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Just some functions with xbacklighter for keybindings.
+
+level=$(($(xbacklight|cut -d "." -f1) + 1))
+
+# cuts the backlight by half
+half() {
+  [ $level -ge 99 ] && half=64 || half=$(( $level / 2 ))
+  [ $half -eq 0 ] && half=2
+  xbacklight -set $half
+}
+
+# doubles the backlight
+dub() {
+  dub=$(( $level * 2 ))
+  echo $dub
+  [[ $dub -z  ]] &&
+  xbacklight -set 10 ||
+  xbacklight -set $dub
+}
+
+"$@"

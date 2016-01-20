@@ -1,0 +1,6 @@
+*~
+*.backup*
+*.swp
+*/.*
+shell/vim/backups
+shell/vim/autoload/

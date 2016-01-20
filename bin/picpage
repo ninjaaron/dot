@@ -1,0 +1,56 @@
+#!/bin/bash
+# make html documents containing all of the pictures in a folder.
+
+limit=${1:-50}	#sets how many pictures per page
+page=1
+totalPages=$(( $(ls|wc -l) / $limit + 1 ))
+IFS="
+"
+# function for navigation links
+nav() {
+  [ $page -gt 1 ] &&
+    echo "<br><a href="$(($page - 1))pics.html">< previous page </a> - " >> \
+    "$page"pics.html ||
+    echo "<br>" >> "$page"pics.html 
+  [ $page -eq $totalPages ] &&
+    echo " <a href="1pics.html"><< first page</a><br>" >> "$page"pics.html ||
+    echo " <a href="$(($page + 1))pics.html">next page ></a><br>" >> \
+    "$page"pics.html; 
+}
+
+mkdir res
+
+#start the first page
+nav
+#loop that creates pages with $limit pics plus links at top and bottom
+for pic in *{jpg,png,gif,svg};do
+  # see if it makes sense to resize
+# size="$(identify "$pic"|cut -d' ' -f3)"
+# width="$(cut -dx -f1 <<< $size)"
+# height="$(cut -dx -f2 <<< $size)"
+# if (( width < 630 ));then
+#   resize=$width
+# elif (( width < height ));then
+#   resize=630
+# elif (( width < 1890 ));then
+#   resize=$width
+# else
+#   resize=1890
+# fi
+# #creates the actual image tags
+# echo "<a href=\"res/$pic\"><img width=$resize src=\"res/$pic\"></a>" >> \
+  echo "<a href=\"res/$pic\"><img src=\"res/$pic\"></a>" >> \
+    "$page"pics.html
+  mv $pic res
+  (( count++ ))
+  #put nav links and close the page.
+  test $count -ge $limit && {
+    nav
+    (( page++ ))
+    count=""
+    nav; }
+done
+#finishes off the last page
+nav
+
+exit

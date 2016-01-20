@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# simple alarm
+
+command="$1"
+time="$2"
+
+while [ "$(date +%R)" != "$time"  ];do
+  sleep 5
+done
+
+$command&
+exit
