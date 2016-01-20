@@ -9,12 +9,11 @@ alias gd='git diff'
 dt() {
   (
   cd $DOT
-  echo "== Committing Changes =="
+  echo "== Primary Files =="
   git commit -am "updating dotfiles"
-  echo "== Pulling Remote =="
   git pull origin master
-  echo "== Pushing Changes =="
   git push origin master
+  echo "== Secondary Configs =="
   cd ../conf
   hg commit -m "updating dotfiles"
   hg pull -u
