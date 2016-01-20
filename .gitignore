@@ -3,4 +3,4 @@
 *.swp
 */.*
 shell/vim/backups
-shell/vim/autoload/
+shell/vim/autoload
