@@ -3,5 +3,5 @@
 *.swp
 */.*
 dotfiles/vim/backups/*
-dotfiles/vim/autoload
+dotfiles/vim/autoload/*
 dotfiles/vim/.netwhist
