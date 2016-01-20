@@ -2,5 +2,5 @@
 *.backup*
 *.swp
 */.*
-shell/vim/backups
-shell/vim/autoload
+dotfiles/vim/backups/*
+dotfiles/vim/autoload
