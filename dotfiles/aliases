@@ -12,6 +12,7 @@ dt() {
   echo "== committing =="
   pushd conf
   git commit -am "updating dotfiles"
+  git push
   popd
   git commit -am "updating dotfiles"
   echo "== pulling changes =="
