@@ -1,4 +1,4 @@
-#vim: ft=sh
+#vim: filettype=sh
 
 # git aliases
 alias g='git'
@@ -9,15 +9,15 @@ alias gd='git diff'
 dt() {
   (
   cd $DOT
-  echo "== Primary Files =="
+  echo "== committing =="
+  pushd conf
   git commit -am "updating dotfiles"
-  git pull origin master
+  popd
+  git commit -am "updating dotfiles"
+  echo "== pulling changes =="
+  git pull --recurse-submodules origin master
+  echo "== pushing changes =="
   git push origin master
-  echo "== Secondary Configs =="
-  cd ../conf
-  hg commit -m "updating dotfiles"
-  hg pull -u
-  hg push
   )
 }
 
