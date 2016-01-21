@@ -22,7 +22,7 @@ dt() {
   echo "== committing =="
   hg commit -m 'updating configs'
   echo "== pulling changes =="
-  hg pull
+  hg pull -u
   echo "== pushing changes =="
   hg push
   )
