@@ -13,6 +13,3 @@
 [submodule "dotfiles/vim/bundle/emmet-vim"]
 	path = dotfiles/vim/bundle/emmet-vim
 	url = https://github.com/mattn/emmet-vim.git
-[submodule "conf"]
-	path = conf
-	url = ssh://sink/home/ninjaaron/conf.git
