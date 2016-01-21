@@ -9,15 +9,22 @@ alias gd='git diff'
 dt() {
   (
   cd $DOT
+  echo "================ git ================"
   echo "== committing =="
-  pushd conf
-  git commit -am "updating dotfiles"
-  popd
   git commit -am "updating dotfiles"
   echo "== pulling changes =="
   git pull --recurse-submodules origin master
   echo "== pushing changes =="
   git push origin master
+  echo "================ hg ================"
+  cd ../conf
+  hg addremove
+  echo "== committing =="
+  hg commit -m 'updating configs'
+  echo "== pulling changes =="
+  hg pull
+  echo "== pushing changes =="
+  hg push
   )
 }
 
