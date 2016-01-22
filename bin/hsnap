@@ -1,40 +1,41 @@
 #!/usr/bin/env python3
-"""Make and cleanup Btrfs snapshots -- designed to be run as a cron job"""
+
 import os
+import subprocess
 import yaml
-from subprocess import run
 from time import strftime
 
 
-def make_snap(home, snap_dir='.snapshots'):
-    """Make a new snapshot, as well as any other regular snapshots needed"""
+def MakeSnap(home, snap_dir='.snapdir'):
     os.chdir('%s/%s' % (home, snap_dir))
     time = strftime('%F.%T')
-    btrfs_snap(home, 'new/%s' % time)
-    if strftime('%F.%H') not in [x.split(':')[0] for x in os.listdir('hour')]:
-        btrfs_snap(home, 'hour/%s' % time)
-    if strftime('%F') not in [x.split('.')[0] for x in os.listdir('day')]:
-        btrfs_snap(home, 'day/%s' % time)
+    btrfssnap(home, 'new/%s' % time)
+
+    hours = [x.split(':')[0] for x in os.listdir('hour')]
+    if strftime('%F.%H') not in hours:
+        btrfssnap(home, 'hour/%s' % time)
+    days = [x.split('.')[0] for x in os.listdir('day')]
+    if strftime('%F') not in days:
+        btrfssnap(home, 'day/%s' % time)
 
 
-def btrfs_snap(home, target):
-    run(['btrfs', 'subvolume', 'snapshot', home, target])
+def btrfssnap(home, target):
+    subprocess.run(['btrfs', 'subvolume', 'snapshot', home, target])
 
 
-def cleanup(home, snap_dir='.snapshots', new_limit=9,
-            hour_limit=9, day_limit=5):
+def Cleanup(home, snap_dir='.snapdir', new_limit=9, hour_limit=9, day_limit=5):
     os.chdir('%s/%s' % (home, snap_dir))
     for i in ['new', new_limit], ['hour', hour_limit], ['day', day_limit]:
-        del_extra(i[0], i[1])
+        DelExtra(i[0], i[1])
 
 
-def del_extra(folder, limit):
+def DelExtra(folder, limit):
     snapshots = os.listdir(folder)
     overage = len(snapshots) - limit
     if overage > 0:
         for extra in range(overage):
             snap = '%s/%s' % (folder, snapshots[extra])
-            run(['btrfs', 'subvolume', 'delete', snap])
+            subprocess.run(['btrfs', 'subvolume', 'delete', snap])
 
 
 if __name__ == '__main__':
@@ -50,15 +51,15 @@ if __name__ == '__main__':
     if args.cleanup:
         home = '/home/%s' % args.cleanup
         if os.path.isfile('%s/.hsnaprc' % home):
-            cfg = yaml.safe_load(open('%s/.hsnaprc' % home))
-            cleanup(home, cfg['snap_dir'], cfg['new_limit'],
+            cfg = yaml.load(open('%s/.hsnaprc' % home))
+            Cleanup(home, cfg['snap_dir'], cfg['new_limit'],
                     cfg['hour_limit'], cfg['day_limit'])
         else:
-            cleanup(home)
+            Cleanup(home)
     elif args.new:
         home = os.environ['HOME']
         if os.path.isfile('%s/.hsnaprc' % home):
-            cfg = yaml.safe_load(open('%s/.hsnaprc' % home))
-            make_snap(home, cfg['snap_dir'])
+            cfg = yaml.load(open('%s/.hsnaprc' % home))
+            MakeSnap(home, cfg['snap_dir'])
         else:
-            make_snap(home)
+            MakeSnap(home)
