@@ -4,6 +4,7 @@ set nocompatible backspace=indent,eol,start history=50 nowrap mouse=a backup scs
 set ruler showcmd incsearch hlsearch lbr expandtab tabstop=4 shiftwidth=4 deco
 set softtabstop=4 nu wildmenu wildmode=list:longest,full cc=+1 foldmethod=indent
 set foldlevel=99 clipboard=unnamed listchars=tab:\|·,trail:· list
+set cot=longest,menuone
 set backupdir=./.backup,$HOME/.vim/backups,/tmp
 set directory=./.backup,$HOME/.vim/backups,/tmp
 
@@ -31,6 +32,8 @@ augroup END
 
 execute pathogen#infect()
 let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabLongestEnhanced = 1
+"let g:SuperTabLongestHighlight = 1
 let g:jedi#force_py_version = 3
 
 " bindings are in a seperate file. there are lots.
