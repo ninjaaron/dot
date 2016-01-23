@@ -1,0 +1,1 @@
+/home/ninjaaron/.config/dot/dotfiles/vimrc
