@@ -13,3 +13,6 @@
 [submodule "dotfiles/vim/bundle/emmet-vim"]
 	path = dotfiles/vim/bundle/emmet-vim
 	url = https://github.com/mattn/emmet-vim.git
+[submodule "dotfiles/vim/bundle/AutoComplPop"]
+	path = dotfiles/vim/bundle/AutoComplPop
+	url = https://github.com/vim-scripts/AutoComplPop.git
