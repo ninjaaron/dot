@@ -33,7 +33,7 @@ augroup END
 execute pathogen#infect()
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabLongestEnhanced = 1
-"let g:SuperTabLongestHighlight = 1
+let g:SuperTabLongestHighlight = 1
 let g:jedi#force_py_version = 3
 
 " bindings are in a seperate file. there are lots.
