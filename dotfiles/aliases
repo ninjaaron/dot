@@ -1,4 +1,4 @@
-#vim: filettype=sh
+#vim: filetype=sh
 
 # git aliases
 alias g='git'
