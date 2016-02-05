@@ -1,5 +1,3 @@
-#vim: filetype=sh
-
 # git aliases
 alias g='git'
 alias ga='git add'
