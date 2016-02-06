@@ -5,5 +5,6 @@
 dotfiles/vim/backups/*
 dotfiles/vim/autoload/*
 dotfiles/vim/.netwhist
+dotfiles/vim/extra.vim
 dotfiles/vim/doc
 *.pyc
