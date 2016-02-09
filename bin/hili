@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+lexer=$1
+name="$2"
+style=$3
+
+cat > "${name}.html" << EOF
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$name</title>
+    <STYLE type="text/css">
+    $(pygmentize -S $style -f html -a body)
+    </STYLE>
+</head>
+<body>
+    <h2>$name</h2>
+    $(pygmentize -f html -l $lexer -O linenos=1 "$name")
+</body>
+</html>
+EOF
