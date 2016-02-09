@@ -6,11 +6,11 @@ code="$(cat $name)"
 
 {
 cat << EOF
+= $name
 :source-highlighter: pygments
-:pygments-style: paraiso-light
+:pygments-style: paraiso-dark
 
 [source,$language,linenums]
-.$name
 ----
 $code
 ----
