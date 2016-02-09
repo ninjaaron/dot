@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+language=$1
+name=$2
+style=${3:-paraiso-dark}
+code="$(cat $name)"
+
+{
+cat << EOF
+= $name
+:source-highlighter: pygments
+:pygments-style: $style
+
+[source,$language,linenums]
+----
+$code
+----
+EOF
+} | asciidoctor -o "$name.html" -
+
+mv "$name.html" /var/www/code/
+rm $name.html
+rm $name
