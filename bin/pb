@@ -1,20 +1,28 @@
 #!/usr/bin/env bash
 
-language=$1
-name=$2
+lexer=$1
+name="$2"
 style=${3:-paraiso-dark}
-{
-cat << EOF
-= $name
-:source-highlighter: pygments
-:pygments-style: $style
 
-[source,$language,linenums]
-----
-$code
-----
+cat > "${name}.html" << EOF
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$name</title>
+    <STYLE type="text/css">
+$(pygmentize -S $style -f html -a .highlighttable)
+.title { font-style: italic; font-size: 20px }
+    </STYLE>
+</head>
+<body bgcolor="#161616" text="white">
+    <div class="title">$name</div>
+    <br/>
+    $(pygmentize -f html -l $lexer -O linenos=1 "$name")
+</body>
+</html>
 EOF
-} | asciidoctor -o "$name.html" -
+
 rsync "$name.html" sink:/var/www/code/
 echo "http://phosmin.org/code/$name.html"
 rm $name.html
