@@ -3,7 +3,6 @@
 language=$1
 name=$2
 code="$(cat $name)"
-
 {
 cat << EOF
 = $name
