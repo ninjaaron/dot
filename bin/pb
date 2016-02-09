@@ -13,6 +13,7 @@ cat > "${name}.html" << EOF
     <STYLE type="text/css">
 $(pygmentize -S $style -f html -a .highlighttable)
 .title { font-style: italic; font-size: 20px }
+.highlight { padding-left: 10px; padding-right: 10px }
     </STYLE>
 </head>
 <body bgcolor="#161616" text="white">
