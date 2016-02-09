@@ -11,11 +11,13 @@ cat > "${name}.html" << EOF
     <meta charset="UTF-8">
     <title>$name</title>
     <STYLE type="text/css">
-    $(pygmentize -S $style -f html -a body)
+$(pygmentize -S $style -f html -a .highlighttable)
+.title { font-style: italic; font-size: 20px }
     </STYLE>
 </head>
-<body>
-    <h2>$name</h2>
+<body bgcolor="#161616" text="white">
+    <div class="title">$name</div>
+    <br/>
     $(pygmentize -f html -l $lexer -O linenos=1 "$name")
 </body>
 </html>
