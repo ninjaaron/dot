@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+'''
+Just posting this to test posting code snippits to my home-made pastebin from
+the FREAKING TERMINAL ON MY TABLET.
+
+works good.
+'''
+
+import sys, subprocess
+
+subprocess.Popen(sys.argv[1:], stderr=subprocess.DEVNULL)

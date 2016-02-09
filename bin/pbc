@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+language=$1
+name=$2
+code="$(cat $name)"
+
+{
+cat << EOF
+= $name
+:source-highlighter: coderay
+
+[source,$language,linenums]
+----
+$code
+----
+EOF
+} | asciidoctor -o "$name.html" -
+
+rsync "$name.html" sink:/var/www/code/
+echo "http://phosmin.org/code/$name.html"
+rm $name.html
