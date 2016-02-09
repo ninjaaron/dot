@@ -2,7 +2,7 @@
 
 language=$1
 name=$2
-style=${3:-paraiso-dark}
+style=$3:
 code="$(cat $name)"
 
 {

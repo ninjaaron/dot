@@ -2,21 +2,9 @@
 
 language=$1
 name=$2
-code="$(cat $name)"
+style=${3:-paraiso-dark}
 
-{
-cat << EOF
-= $name
-:source-highlighter: pygments
-:pygments-style: paraiso-dark
 
-[source,$language,linenums]
-----
-$code
-----
-EOF
-} | asciidoctor -o "$name.html" -
-
-rsync "$name.html" sink:/var/www/code/
+rsync "$name" sink:
+ssh sink ~/bin/pbs $language $name $style
 echo "http://phosmin.org/code/$name.html"
-rm $name.html
