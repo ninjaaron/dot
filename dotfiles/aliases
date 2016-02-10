@@ -74,8 +74,8 @@ alias sus="systemctl suspend"
 
 # misc command shortcuts
 alias ls="ls --color=auto -F"
-alias ll="ls -lh"
-alias la="ls -A"
+alias ll="ls --color=auto -lh"
+alias la="ls --color=auto -A"
 alias lla="ls -lhA"
 lr() {
   for i in *; do
