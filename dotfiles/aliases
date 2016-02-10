@@ -54,13 +54,13 @@ alias pSyu="sudo ~/bin/snap; sudo pacmatic -Syu"
 
 alias sc="sudo systemctl"
 
-alias agi='s apt-get install'
-alias agp='s apt-get purge'
-alias agu='s apt-get update'
-alias agdu='s apt-get dist-upgrade'
-alias agac='s apt-get autoclean'
-alias agar='s apt-get autoremove'
-alias aar='s add-apt-repository'
+alias agi='sudo apt-get install'
+alias agp='sudo apt-get purge'
+alias agu='sudo apt-get update'
+alias agdu='sudo apt-get dist-upgrade'
+alias agac='sudo apt-get autoclean'
+alias agar='sudo apt-get autoremove'
+alias aar='sudo add-apt-repository'
 
 alias acs='apt-cache search'
 alias acsh='apt-cache show'
