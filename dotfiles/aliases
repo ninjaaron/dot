@@ -76,7 +76,7 @@ alias sus="systemctl suspend"
 alias ls="ls --color=auto -F"
 alias ll="ls --color=auto -lh"
 alias la="ls --color=auto -A"
-alias lla="ls -lhA"
+alias lla="ls --color=auto -lhA"
 lr() {
   for i in *; do
     [[ -d $i ]] &&
@@ -108,8 +108,9 @@ ta() {
 alias tl="ssh sink transmission-remote -l"
 alias tcl='transmission-cli'
 trr() {
-  for i in $argv
-    ssh sink transmission-remote -t $i --remove-and-delete;
+    for i in $@; do
+        ssh sink transmission-remote -t $1 --remove-and-delete;
+    done
 }
 
 tf(){ ssh sink transmission-remote -t $@ -f;}
