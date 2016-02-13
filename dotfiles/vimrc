@@ -15,6 +15,9 @@ if &shell =~# 'fish$'
     set shell=bash
 endif
 
+" bindings are in a seperate file. there are lots.
+source $HOME/.vim/bind.vim
+
 " autocmd stuff
 augroup vimrcEx
       au!
@@ -36,8 +39,6 @@ let g:SuperTabLongestEnhanced = 1
 let g:SuperTabLongestHighlight = 1
 let g:jedi#force_py_version = 3
 
-" bindings are in a seperate file. there are lots.
-source $HOME/.vim/bind.vim
 
 set gfn=Ubuntu\ Mono\ 11 go=
 
