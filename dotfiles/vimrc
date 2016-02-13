@@ -24,7 +24,7 @@ augroup vimrcEx
             \| exe "normal! g`\"" | endif
       autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&
             \b:NERDTreeType == "primary") | q | endif
-      autocmd BufRead,BufNewFile *.asciidoc,README,TODO,CHANGELOG,NOTES
+      autocmd BufRead,BufNewFile *.asciidoc,*.adoc,*.ad
             \ setlocal filetype=asciidoc
       autocmd BufRead,BufNewFile *.md
             \ setlocal filetype=markdown

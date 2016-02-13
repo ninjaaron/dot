@@ -61,7 +61,7 @@ hi StatusLineNC ctermfg=8 cterm=underline
 hi VertSplit ctermfg=8 ctermbg=none cterm=none
 hi Folded ctermfg=4 ctermbg=none
 
-hi Pmenu ctermfg=15 ctermbg=none
+hi Pmenu ctermfg=8 ctermbg=0
 hi PmenuSel ctermfg=6 ctermbg=0
 
 hi Visual ctermbg=none cterm=reverse
