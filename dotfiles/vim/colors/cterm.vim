@@ -64,6 +64,11 @@ hi Folded ctermfg=4 ctermbg=none
 hi Pmenu ctermfg=8 ctermbg=0
 hi PmenuSel ctermfg=6 ctermbg=0
 
+hi DiffAdd ctermfg=4 ctermbg=none cterm=underline
+hi DiffChange ctermfg=5 ctermbg=none cterm=underline
+hi DiffDelete ctermfg=12 ctermbg=none cterm=underline
+hi DiffText ctermfg=9 ctermbg=none cterm=reverse
+
 hi Visual ctermbg=none cterm=reverse
 hi spellBad ctermfg=1 ctermbg=None  cterm=underline
 hi spellCap ctermfg=17 ctermbg=None cterm=underline
