@@ -16,5 +16,4 @@ function! Snippits()
 endfunction
 
 let g:SnipOn = 0
-call Snippits()
 noremap <Leader>sn :call Snippits()<CR>

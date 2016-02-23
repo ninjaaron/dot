@@ -38,7 +38,7 @@ noremap <leader>r mvgq}`v
 noremap <leader>c g
 noremap <leader>C :set ic!<CR>
 
-vnoremap # :s/^/#/<CR>:noh<cr>
+xnoremap # :s/^/#/<CR>:noh<cr>
 
 " saving and quitting
 for key in ['w', 'q', 'x']
@@ -67,19 +67,19 @@ noremap k gk
 
 " get ya some output from shell commands
 nnoremap <leader>sh :.!sh<CR>
-vnoremap <leader>sh dmvo<Esc>p:.!sh<CR>0d$`vPjdd`v
+xnoremap <leader>sh dmvo<Esc>p:.!sh<CR>0d$`vPjdd`v
 nnoremap <leader>py :.!python<CR>
-vnoremap <leader>py :!python<CR>
+xnoremap <leader>py :!python<CR>
 
-" function GB(verse)
-"   exe "r! diatheke -b 2TGreek -o a -k" a:verse
-" endfunction
+function! BibleGen(mod, key)
+    exe 'command -nargs=+' a:mod "let @h=system('diatheke -b" a:mod
+                \"-o acv -k <args> | grep -v" a:mod "')"
+    exe "inoremap <leader>".a:key '<space><Esc>"hd2B:'.a:mod '<C-R>h<CR>i<C-r>h'
+    exe "xnoremap <leader>".a:key '"hd:'.a:mod '<C-R>h<CR>i<C-R>h<Esc>'
+endfunction
 
-command -nargs=* GB r!diatheke -b 2TGreek -o a -k <args>
-inoremap <leader>gb <space><Esc>"ad2Bmv:GB <C-R>a<CR>dd0d$`vi<C-R>"
-
-command -nargs=* HB r!diatheke -b OSMHB -o cv -k <args>
-inoremap <leader>hb <space><Esc>"ad2Bmv:HB <C-R>a<CR>dd0d$`vi<C-R>"
+call BibleGen('MorphGNT', 'gb')
+call BibleGen('OSHB', 'hb')
 
 " close brackets, braces and parentheses when the opening character is followed
 " by a new line.
