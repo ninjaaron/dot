@@ -16,6 +16,10 @@ for file in *;do
   rm "$HOME/.$file"
   ln -s "$PWD/$file" "$HOME/.$file"
 done
+rm "$HOME/.config/nvim"
+ln -s "$PDW/vim" "$HOME/.config/nvim"
+rm "$PWD/vim/init.vim"
+ln -s "$PDW/vimrc" "$PWD/vim/init.vim"
 popd
 
 rm "$HOME/bin"
