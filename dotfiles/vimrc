@@ -41,7 +41,7 @@ let g:jedi#force_py_version = 3
 
 
 set gfn=Ubuntu\ Mono\ 11 go=
-python import vim, re
+"python import vim, re
 
 if $COLORTERM == 'gnome-terminal'
     set t_Co=256
