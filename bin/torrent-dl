@@ -12,4 +12,4 @@ torrents = [t.split() for t in torrents]
 files = ['"'+' '.join(t[9:])+'"' for t in torrents if t[0] in tornums]
 
 for f in files:
-    sp.run(['sftp', '-r', server+':dls/"'+f+'"', '.'])
+    sp.run(['sftp', '-r', server+":dls/"+f, '.'])
