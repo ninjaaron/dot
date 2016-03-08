@@ -17,9 +17,9 @@ for file in *;do
   ln -s "$PWD/$file" "$HOME/.$file"
 done
 rm "$HOME/.config/nvim"
-ln -s "$PDW/vim" "$HOME/.config/nvim"
+ln -s "$PWD/vim" "$HOME/.config/nvim"
 rm "$PWD/vim/init.vim"
-ln -s "$PDW/vimrc" "$PWD/vim/init.vim"
+ln -s "$PWD/vimrc" "$PWD/vim/init.vim"
 popd
 
 rm "$HOME/bin"

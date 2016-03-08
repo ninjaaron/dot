@@ -4,6 +4,13 @@ lexer=$1
 name="$2"
 style=${3:-paraiso-dark}
 
+if [[ -n $name ]]; then
+    code="$(pygmentize -f html -l $lexer -O linenos=1 "$name")"
+else
+    code="$(pygmentize -f html -l $lexer -O linenos=1 <&0 )"
+    name="$(date +%F_%H.%M.%S)"
+fi
+
 cat > "${name}.html" << EOF
 <!DOCTYPE html>
 <html lang="en">
@@ -19,11 +26,11 @@ $(pygmentize -S $style -f html -a .highlighttable)
 <body bgcolor="#161616" text="white">
     <div class="title">$name</div>
     <br/>
-    $(pygmentize -f html -l $lexer -O linenos=1 "$name")
+$code
 </body>
 </html>
 EOF
 
 rsync "$name.html" sink:/var/www/code/
 echo "http://phosmin.org/code/$name.html"
-rm $name.html
+rm "$name.html"

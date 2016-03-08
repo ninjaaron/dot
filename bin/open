@@ -1,5 +1,2 @@
-#!/usr/bin/env python3
-
-import sys, subprocess
-
-subprocess.Popen(sys.argv[1:], stderr=subprocess.DEVNULL)
+#!/usr/bin/env bash
+nohup $@ &> /dev/null
