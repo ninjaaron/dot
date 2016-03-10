@@ -31,6 +31,7 @@ $code
 </html>
 EOF
 
-rsync "$name.html" sink:/var/www/code/
+chmod 644 "$name.html"
+rsync "$name.html" sink:code/
 echo "http://phosmin.org/code/$name.html"
 rm "$name.html"
