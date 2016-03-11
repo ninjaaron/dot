@@ -21,7 +21,7 @@ def run(cmd, **kwargs):
     object Refer to the official subprocess module documentation for more
     info.
     '''
-    return sp.run( shlex.split(cmd), universal_newlines=True, **kwargs)
+    return sp.run(shlex.split(cmd), universal_newlines=True, **kwargs)
 
 
 def grab(cmd, split=True, **kwargs):
