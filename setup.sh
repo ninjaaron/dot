@@ -37,6 +37,7 @@ export EDITOR="vim"
 export DOT="$PWD"
 export PYTHONSTARTUP="\$DOT/pystart.py"
 export PYTHONPATH="\$PYTHONPATH"
+export PYTHONDONTWRITEBYTECODE=1
 EOF
 cp $HOME/.zshenv $HOME/.profile
 echo "source ~/.aliases" >> $HOME/.bashrc

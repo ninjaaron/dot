@@ -21,6 +21,8 @@ dt() {
   hg commit -m 'updating configs'
   echo "== pulling changes =="
   hg pull -u
+  hg merge
+  hg commit -m 'merging'
   echo "== pushing changes =="
   hg push
   )
