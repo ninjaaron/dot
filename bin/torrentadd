@@ -1,0 +1,4 @@
+#!/bin/bash
+
+torrent="$1"
+ssh sink "transmission-remote -a '$torrent'"
