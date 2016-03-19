@@ -36,7 +36,7 @@ alias rm='rm -r'
 # vim aliases
 alias zshrc="$EDITOR $HOME/.zshrc; dt"
 alias vimrc="$EDITOR $HOME/.vimrc; dt"
-alias al="$EDITOR /home/ninjaaron/.aliases; dt"
+alias al="$EDITOR $HOME/.aliases; dt"
 alias book="$EDITOR ~/doc/work/heb/book.asciidoc"
 alias heb="cd ~/doc/work/heb/git/"
 alias hla="$EDITOR ~/.config/herbstluftwm/autostart"
@@ -111,9 +111,15 @@ alias tl="ssh sink transmission-remote -l"
 alias tcl='transmission-cli'
 alias tdl="$HOME/bin/torrent-dl sink"
 trr() {
-    for i in $@; do
-        ssh sink transmission-remote -t $i --remove-and-delete;
-    done
+  for i in $@; do
+    ssh sink transmission-remote -t $i --remove-and-delete;
+  done
+}
+tdlr() {
+  for i in $@; do
+    $HOME/bin/torrent-dl sink $i
+    trr $i
+  done
 }
 
 tf(){ ssh sink transmission-remote -t $@ -f;}
