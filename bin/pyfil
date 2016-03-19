@@ -16,7 +16,7 @@ You can also pipe in some lines from stdin.
 The only advantage this has over real sed and grep (leaving aside numerous
 disadvantages) is that it uses Python regex. The only advantage it has over
 Perl regex is that the replacement string for a substitution can be a lambda
-expression, which is kinda bitchen.
+expression, which is kinda bitchin'.
 
 Grep <file> for 'pattern':
 

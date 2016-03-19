@@ -21,6 +21,8 @@ dt() {
   hg commit -m 'updating configs'
   echo "== pulling changes =="
   hg pull -u
+  hg merge
+  hg commit -m 'merging'
   echo "== pushing changes =="
   hg push
   )
@@ -168,6 +170,6 @@ alias von='xrandr --output VGA1 --auto --right-of HDMI2'
 alias pip='pip3'
 alias xr720='xrandr;xrandr --output HDMI1 --mode 1280x720'
 alias xr1080='xrandr --output HDMI1 --mode 1920x1080'
-alias zathura='~/bin/open zathura'
+alias zathura='~/bin/popen zathura'
 
 # vim: syntax=sh

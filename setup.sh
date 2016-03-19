@@ -16,6 +16,10 @@ for file in *;do
   rm "$HOME/.$file"
   ln -s "$PWD/$file" "$HOME/.$file"
 done
+rm "$HOME/.config/nvim"
+ln -s "$PWD/vim" "$HOME/.config/nvim"
+rm "$PWD/vim/init.vim"
+ln -s "$PWD/vimrc" "$PWD/vim/init.vim"
 popd
 
 rm "$HOME/bin"
@@ -33,6 +37,7 @@ export EDITOR="vim"
 export DOT="$PWD"
 export PYTHONSTARTUP="\$DOT/pystart.py"
 export PYTHONPATH="\$PYTHONPATH"
+export PYTHONDONTWRITEBYTECODE=1
 EOF
 cp $HOME/.zshenv $HOME/.profile
 echo "source ~/.aliases" >> $HOME/.bashrc
