@@ -9,6 +9,7 @@ Torrent = namedtuple('Torrent',
                      'id, perc, have, eta, up, down, ratio, status, name')
 gap = re.compile('[ ]{2,}')
 
+
 @click.command()
 @click.option('-s',prompt='server', help='server address')
 @click.option('-r', is_flag=True, help='delete torrent after downloading')
@@ -25,7 +26,7 @@ def main(s, r, p, ext, targets):
         if targets[1]:
             pat = re.compile('(?{})'.format(targets[1])+targets[0])
         else:
-            re.compile(targets[0])
+            pat = re.compile(targets[0])
         matches = (t for t in torrents
                    if pat.search(t.name) and t.perc == '100%')
     else:
