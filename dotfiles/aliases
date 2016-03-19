@@ -110,7 +110,7 @@ alias tcl='transmission-cli'
 alias tdl="$HOME/bin/torrent-dl sink"
 trr() {
     for i in $@; do
-        ssh sink transmission-remote -t $1 --remove-and-delete;
+        ssh sink transmission-remote -t $i --remove-and-delete;
     done
 }
 
