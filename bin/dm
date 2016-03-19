@@ -4,7 +4,7 @@
 
 # get user configs
 source $HOME/.dmenurc
-DMENU=${DMENU-dmenu}
+DMENU="eval ${DMENU-dmenu}"
 
 PATH="$PATH:$HOME/bin"
 cachedir=${XDG_CACHE_HOME:-"$HOME/.cache"}
