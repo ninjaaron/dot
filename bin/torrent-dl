@@ -42,5 +42,6 @@ def main(s, r, p, ext, targets):
             ep.run(['ssh', srv, 'transmission-remote',
                     '-t', torrent.id, '--remove-and-delete'])
 
+
 if __name__ == '__main__':
     main()
