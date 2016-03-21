@@ -23,14 +23,14 @@ def main(s, r, p, ext, targets):
     try:
         int(targets[0])
     except ValueError:
-        if targets[1]:
+        if targets[1:]:
             pat = re.compile('(?{})'.format(targets[1])+targets[0])
         else:
             pat = re.compile(targets[0])
         matches = (t for t in torrents
                    if pat.search(t.name) and t.perc == '100%')
     else:
-        matches = (t for t in torrents if t.id in targets)
+        matches = (t for t in torrents if t.id.strip('*') in targets)
     if p:
         print('\n'.join(t.name for t in matches))
         exit()
@@ -40,8 +40,8 @@ def main(s, r, p, ext, targets):
             filename += '/*' + ext
         ep.run(['sftp', '-r', filename, '.'], check=True)
         if r:
-            ep.run(['ssh', srv, 'transmission-remote',
-                    '-t', torrent.id, '--remove-and-delete'])
+            ep.run(['ssh', srv, 'transmission-remote', '-t',
+                    torrent.id.strip('*'), '--remove-and-delete'])
 
 
 if __name__ == '__main__':
