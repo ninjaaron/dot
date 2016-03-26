@@ -101,7 +101,7 @@ alias tm='tmux new-session'
 alias w3g='w3m -cookie google.com'
 alias w3d='w3m duckduckgo.com'
 alias png="ping google.com"
-alias trans=" ~/bin/popen ssh -nNT -L 9091:localhost:9091 sink"
+alias trans="ssh -nNT -L 9091:localhost:9091 sink"
 alias td="transmission-daemon"
 ta() {
     torrent="$1"
