@@ -1,7 +1,7 @@
 "~/.vimrc
 " environment
 set nocompatible backspace=indent,eol,start history=50 nowrap mouse=a backup scs
-set ruler showcmd incsearch hlsearch lbr expandtab tabstop=4 shiftwidth=4 deco
+set ruler showcmd incsearch hlsearch lbr expandtab tabstop=2 shiftwidth=2 deco
 set softtabstop=4 nu wildmenu wildmode=list:longest,full cc=+1 foldmethod=indent
 set foldlevel=99 clipboard=unnamed listchars=tab:\|·,trail:· list
 set cot=longest,menuone
@@ -12,7 +12,7 @@ syntax on
 filetype plugin indent on
 
 if &shell =~# 'fish$'
-    set shell=bash
+  set shell=bash
 endif
 
 " bindings are in a seperate file. there are lots.
@@ -20,17 +20,17 @@ source $HOME/.vim/bind.vim
 
 " autocmd stuff
 augroup vimrcEx
-      au!
-      autocmd BufRead /tmp/pentadacty*.txt source $HOME/.vim/pentadactyl.vim
-      autocmd BufReadPost *
-            \ if line("'\"") > 1 && line("'\"") <= line("$")
-            \| exe "normal! g`\"" | endif
-      autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&
-            \b:NERDTreeType == "primary") | q | endif
-      autocmd BufRead,BufNewFile *.asciidoc,*.adoc,*.ad
-            \ setlocal filetype=asciidoc
-      autocmd BufRead,BufNewFile *.md
-            \ setlocal filetype=markdown
+  au!
+  autocmd BufRead /tmp/pentadacty*.txt source $HOME/.vim/pentadactyl.vim
+  autocmd BufReadPost *
+        \ if line("'\"") > 1 && line("'\"") <= line("$")
+        \| exe "normal! g`\"" | endif
+  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&
+        \b:NERDTreeType == "primary") | q | endif
+  autocmd BufRead,BufNewFile *.asciidoc,*.adoc,*.ad
+        \ setlocal filetype=asciidoc
+  autocmd BufRead,BufNewFile *.md
+        \ setlocal filetype=markdown
 augroup END
 
 execute pathogen#infect()
@@ -44,15 +44,15 @@ set gfn=Ubuntu\ Mono\ 11 go=
 "python import vim, re
 
 if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
+  set t_Co=256
 endif
 
 if has("gui_running")
-    colorscheme molokai
+  colorscheme molokai
 elseif $TERM == 'linux'
-    colorscheme default
+  colorscheme default
 elseif $TERM == 'screen'
-    colorscheme default
+  colorscheme default
 else
-    colorscheme cterm
+  colorscheme cterm
 endif

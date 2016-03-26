@@ -7,7 +7,6 @@ import click
 
 Torrent = namedtuple('Torrent',
                      'id, perc, have, eta, up, down, ratio, status, name')
-gap = re.compile('[ ]{2,}')
 
 
 @click.command()
@@ -17,16 +16,13 @@ gap = re.compile('[ ]{2,}')
 @click.option('--ext', type=str, help='grab only this file extention')
 @click.argument('targets', type=str, nargs=-1)
 def main(s, r, p, ext, targets):
-    srv = s
-    command = 'ssh ' + srv + ' transmission-remote -l'
+    gap = re.compile(' {2,}')
+    command = 'transmission-remote -l'
     torrents = (Torrent(*gap.split(t.strip())) for t in ep.grab(command)[1:-1])
     try:
         int(targets[0])
     except ValueError:
-        if targets[1:]:
-            pat = re.compile('(?{})'.format(targets[1])+targets[0])
-        else:
-            pat = re.compile(targets[0])
+        pat = re.compile('(?i)' + targets[0])
         matches = (t for t in torrents
                    if pat.search(t.name) and t.perc == '100%')
     else:
@@ -35,13 +31,13 @@ def main(s, r, p, ext, targets):
         print('\n'.join(t.name for t in matches))
         exit()
     for torrent in matches:
-        filename = srv + ":dls/'" + torrent.name + "'"
+        filename = s + ":dls/'" + torrent.name + "'"
         if ext:
             filename += '/*' + ext
         ep.run(['sftp', '-r', filename, '.'], check=True)
         if r:
-            ep.run(['ssh', srv, 'transmission-remote', '-t',
-                    torrent.id.strip('*'), '--remove-and-delete'])
+            ep.run(['transmission-remote', '-t', torrent.id.strip('*'),
+                    '--remove-and-delete'])
 
 
 if __name__ == '__main__':

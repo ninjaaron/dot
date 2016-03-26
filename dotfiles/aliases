@@ -101,21 +101,21 @@ alias tm='tmux new-session'
 alias w3g='w3m -cookie google.com'
 alias w3d='w3m duckduckgo.com'
 alias png="ping google.com"
-alias trans="ssh -nNT -L 9091:localhost:9091 sink& firefox localhost:9091"
+alias trans=" ~/bin/popen ssh -nNT -L 9091:localhost:9091 sink"
 alias td="transmission-daemon"
 ta() {
     torrent="$1"
-    ssh sink "transmission-remote -a '$torrent'"
+    transmission-remote -a "$torrent"
 }
-alias tl="ssh sink transmission-remote -l"
+alias tl="transmission-remote -l"
 alias tcl='transmission-cli'
 alias tdl="$HOME/bin/torrent-dl -s sink"
 trr() {
   for i in $@; do
-    ssh sink transmission-remote -t $i --remove-and-delete;
+    transmission-remote -t $i --remove-and-delete;
   done
 }
-tf(){ ssh sink transmission-remote -t $@ -f;}
+tf(){ transmission-remote -t $@ -f;}
 alias hc="herbstclient"
 alias di="diatheke"
 alias dk="diatheke -b NET -k"
