@@ -15,5 +15,3 @@ $code lines of code
 $comments comments
 $blanklines blank lines
 EOF
-
-exit
