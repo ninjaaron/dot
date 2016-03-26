@@ -1,0 +1,15 @@
+#!/usr/bin/env perl
+
+while (<>){
+    $total++;
+    $code++ if not /^\s*#|^\s*$/;
+    $comments++ if /^\s*#/;
+    $blanklines++ if /^\s*$/;
+}
+
+print << "END";
+total lines: $total
+$code lines of code
+$comments comments
+$blanklines blank lines
+END
