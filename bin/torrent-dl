@@ -3,6 +3,7 @@
 from collections import namedtuple
 import re
 import easyproc as ep
+from collist import collist
 import click
 
 Torrent = namedtuple('Torrent',
@@ -28,7 +29,7 @@ def main(s, r, p, ext, targets):
     else:
         matches = (t for t in torrents if t.id.strip('*') in targets)
     if p:
-        print('\n'.join(t.name for t in matches))
+        collist(t.name for t in matches)
         exit()
     for torrent in matches:
         filename = s + ":dls/'" + torrent.name + "'"
