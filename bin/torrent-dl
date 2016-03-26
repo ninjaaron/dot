@@ -17,7 +17,7 @@ Torrent = namedtuple('Torrent',
 @click.argument('targets', type=str, nargs=-1)
 def main(s, r, p, ext, targets):
     gap = re.compile(' {2,}')
-    command = 'transmission-remote -l'
+    command = 'ssh sink transmission-remote -l'
     torrents = (Torrent(*gap.split(t.strip())) for t in ep.grab(command)[1:-1])
     try:
         int(targets[0])
@@ -36,8 +36,8 @@ def main(s, r, p, ext, targets):
             filename += '/*' + ext
         ep.run(['sftp', '-r', filename, '.'], check=True)
         if r:
-            ep.run(['transmission-remote', '-t', torrent.id.strip('*'),
-                    '--remove-and-delete'])
+            ep.run(['ssh', s, 'transmission-remote', '-t',
+                    torrent.id.strip('*'), '--remove-and-delete'])
 
 
 if __name__ == '__main__':
