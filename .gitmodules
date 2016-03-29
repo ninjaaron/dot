@@ -16,3 +16,6 @@
 [submodule "dotfiles/vim/bundle/AutoComplPop"]
 	path = dotfiles/vim/bundle/AutoComplPop
 	url = https://github.com/vim-scripts/AutoComplPop.git
+[submodule "sub/zsh-syntax-highlighting"]
+	path = sub/zsh-syntax-highlighting
+	url = http://github.com/zsh-users/zsh-syntax-highlighting
