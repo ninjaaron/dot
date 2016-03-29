@@ -82,5 +82,5 @@ setopt sharehistory autocd extendedglob
 source $HOME/.aliases
 
 # syntax highlighting
-#[[ -n $HIGHLIGHT ]] && source $HIGHLIGHT
-#[[ -n $COMPL ]] && source $COMPL
+[[ -n $HIGHLIGHT ]] && source $HIGHLIGHT
+[[ -n $COMPL ]] && source $COMPL
