@@ -142,8 +142,9 @@ c() {
 
 
 e() {
-  [[ -n $@  ]] && [[ -e $@ ]] && owner=$(ls -la|grep $@|cut -d' ' -f3)&&
-  [[ $owner != $USER ]] || [[ ! -e $@ && ${PWD/$HOME/} == $PWD ]] &&
+  [[ -n $1  ]] && [[ -e $1 ]] &&
+  owner=$(/usr/bin/ls -la|awk '$9 == "'$1'" {print $3}') &&
+  [[ $owner != $USER ]] || [[ ! -e $1 && ${PWD/$HOME/} == $PWD ]] &&
   echo -n "sudo [Y/n]? "&& read sudo && [[ ${sudo:-y} == y ]] &&
   sudo $EDITOR $@ || $EDITOR $@
 }
