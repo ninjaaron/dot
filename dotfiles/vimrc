@@ -49,9 +49,7 @@ endif
 
 if has("gui_running")
   colorscheme molokai
-elseif $TERM == 'linux'
-  colorscheme default
-elseif $TERM == 'screen'
+elseif $TERM == 'linux' || $TERM == 'screen' || $USER == 'root'
   colorscheme default
 else
   colorscheme cterm
