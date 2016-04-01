@@ -11,10 +11,4 @@ while (<>){
     $blanklines++ if /^\s*$/;
 }
 my $code = $total - $comments - $blanklines;
-
-print << "END";
-total lines: $total
-$code lines of code
-$comments comments
-$blanklines blank lines
-END
+print "total: $total\ncode: $code\ncomments: $comments\nblank: $blanklines\n"
