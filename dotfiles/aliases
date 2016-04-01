@@ -135,16 +135,17 @@ gap() { herbstclient emit_hook "gap $@";}
 psg() { ps aux|grep "$@"|grep -v grep; }
 
 c() {
- { cd "$*" || cd "$HOME/$*" || cd "$HOME/doc/$*" || cd "$HOME/doc/work/$*"
+ { cd "$*" || cd "$HOME/$*" || cd "$HOME/doc/$*" ||
+   cd "$HOME/doc/work/$*"
  } 2> /dev/null
 }
 
 
 e() {
-  [[ -n $@  ]] && [[ -e $@ ]] && owner=$(ls -l $@|cut -d' ' -f3)&&
-    [[ $(ls -l|grep "$@"|awk '{print $3}') != $USER ]] ||
-    [[ ! -e $@ && ${PWD/$HOME/} == $PWD ]]&& echo -n "sudo [Y/n]? "&&
-    read sudo && [[ ${sudo:-y} == y ]]&& sudo $EDITOR $@ || $EDITOR $@
+  [[ -n $@  ]] && [[ -e $@ ]] && owner=$(ls -l|grep $@|cut -d' ' -f3) &&
+  [[ $owner != $USER ]] || [[ ! -e $@ && ${PWD/$HOME/} == $PWD ]] &&
+  echo -n "sudo [Y/n]? "&& read sudo && [[ ${sudo:-y} == y ]] &&
+  sudo $EDITOR $@ || $EDITOR $@
 }
 
 # fun with python
@@ -155,6 +156,8 @@ function = {
     python -c "from math import *; print($*)"
   fi
 }
+
+alias act="source ~/bin/activate-venv"
 
 # resets the size of the framebuffer for the tty
 fbg() {
