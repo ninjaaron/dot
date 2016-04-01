@@ -52,7 +52,7 @@ if has("gui_running")
 elseif $TERM == 'linux' || $TERM == 'screen'
   colorscheme default
 elseif $USER == 'root'
-  colorscheme torte
+  colorscheme slate
 else
   colorscheme cterm
 endif
