@@ -73,10 +73,13 @@ alias -s pdf=zathura
 
 
 # PROMPT
-
 theme=$(cat ~/.theme) 2> /dev/null && source ~/.themes/$theme
-[[ -z $prom ]] && PROMPT="%F{green}%m%f:%F{blue}%~%f> " || PROMPT=$prom
-[[ $USER = 'root' ]] && PROMPT="%F{yellow}%m%f:%F{red}%~%f# "
+precmd() {
+  [[ -z $prom ]] && PROMPT="%F{green}%m%f:%F{blue}%~%f> " || PROMPT=$prom
+  updates=$(cat ~/.updates) 2> /dev/null
+  (( updates != 0 )) && PROMPT="(%F{yellow}$updates%f)$PROMPT"
+  [[ $USER = 'root' ]] && PROMPT="%F{yellow}%m%f:%F{red}%~%f# "
+}
 
 setopt sharehistory autocd extendedglob
 source $HOME/.aliases
