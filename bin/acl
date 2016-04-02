@@ -1,0 +1,11 @@
+#!/usr/bin/awk -f
+BEGIN {comment = 0; blank = 0}
+{
+  total++
+  if (/^\s*#/) comment++
+  else if (/^\s*$/) blank++
+  else code++
+}
+END {
+  print "code: " code "\ncomment: " comment "\nblank: " blank "\ntotal: " total
+}

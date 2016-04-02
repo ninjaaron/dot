@@ -1,0 +1,5 @@
+#!/usr/bin/env python3
+import subprocess as  sp
+import sys
+
+sp.Popen(sys.argv[1:], stderr=sp.DEVNULL)

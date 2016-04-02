@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import os
-import subprocess
+import subprocess as sp
 import yaml
 from time import strftime
 
@@ -20,7 +20,7 @@ def MakeSnap(home, snap_dir='.snapdir'):
 
 
 def btrfssnap(home, target):
-    subprocess.run(['btrfs', 'subvolume', 'snapshot', home, target])
+    sp.run(['btrfs', 'subvolume', 'snapshot', home, target])
 
 
 def Cleanup(home, snap_dir='.snapdir', new_limit=9, hour_limit=9, day_limit=5):
@@ -35,7 +35,7 @@ def DelExtra(folder, limit):
     if overage > 0:
         for extra in range(overage):
             snap = '%s/%s' % (folder, snapshots[extra])
-            subprocess.run(['btrfs', 'subvolume', 'delete', snap])
+            sp.run(['btrfs', 'subvolume', 'delete', snap])
 
 
 if __name__ == '__main__':

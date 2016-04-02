@@ -3,7 +3,7 @@
 # file browsing with dmenu
 
 source $HOME/.dmenurc
-DMENU="${DMENU-dmenu}"
+DMENU="eval ${DMENU-dmenu}"
 
 # this is actually the last function called. Customize behavior by extension
 # here.

@@ -1,0 +1,14 @@
+#!/usr/bin/env perl
+
+use warnings;
+use strict;
+
+my ($total, $comments, $blanklines) = 0, 0, 0;
+
+while (<>){
+    $total++;
+    $comments++ if /^\s*#/;
+    $blanklines++ if /^\s*$/;
+}
+my $code = $total - $comments - $blanklines;
+print "total: $total\ncode: $code\ncomments: $comments\nblank: $blanklines\n"

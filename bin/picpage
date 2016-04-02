@@ -1,7 +1,7 @@
 #!/bin/bash
 # make html documents containing all of the pictures in a folder.
 
-limit=${1:-50}	#sets how many pictures per page
+limit=${1:-50} #sets how many pictures per page
 page=1
 totalPages=$(( $(ls|wc -l) / $limit + 1 ))
 IFS="

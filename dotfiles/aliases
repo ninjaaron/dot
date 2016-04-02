@@ -21,6 +21,8 @@ dt() {
   hg commit -m 'updating configs'
   echo "== pulling changes =="
   hg pull -u
+  hg merge
+  hg commit -m 'merging'
   echo "== pushing changes =="
   hg push
   )
@@ -34,7 +36,7 @@ alias rm='rm -r'
 # vim aliases
 alias zshrc="$EDITOR $HOME/.zshrc; dt"
 alias vimrc="$EDITOR $HOME/.vimrc; dt"
-alias al="$EDITOR /home/ninjaaron/.aliases; dt"
+alias al="$EDITOR $HOME/.aliases; dt"
 alias book="$EDITOR ~/doc/work/heb/book.asciidoc"
 alias heb="cd ~/doc/work/heb/git/"
 alias hla="$EDITOR ~/.config/herbstluftwm/autostart"
@@ -99,21 +101,21 @@ alias tm='tmux new-session'
 alias w3g='w3m -cookie google.com'
 alias w3d='w3m duckduckgo.com'
 alias png="ping google.com"
-alias trans="ssh -nNT -L 9091:localhost:9091 sink& firefox localhost:9091"
+alias trans="ssh -fNT -L 9091:localhost:9091 sink"
 alias td="transmission-daemon"
 ta() {
     torrent="$1"
-    ssh sink "transmission-remote -a '$torrent'"
+    transmission-remote -a "$torrent"
 }
-alias tl="ssh sink transmission-remote -l"
+alias tl="transmission-remote -l"
 alias tcl='transmission-cli'
+alias tdl="$HOME/bin/torrent-dl -s sink"
 trr() {
-    for i in $@; do
-        ssh sink transmission-remote -t $1 --remove-and-delete;
-    done
+  for i in $@; do
+    transmission-remote -t $i --remove-and-delete;
+  done
 }
-
-tf(){ ssh sink transmission-remote -t $@ -f;}
+tf(){ transmission-remote -t $@ -f;}
 alias hc="herbstclient"
 alias di="diatheke"
 alias dk="diatheke -b NET -k"
@@ -133,16 +135,18 @@ gap() { herbstclient emit_hook "gap $@";}
 psg() { ps aux|grep "$@"|grep -v grep; }
 
 c() {
- { cd "$*" || cd "$HOME/$*" || cd "$HOME/doc/$*" || cd "$HOME/doc/work/$*"
+ { cd "$*" || cd "$HOME/$*" || cd "$HOME/doc/$*" ||
+   cd "$HOME/doc/work/$*"
  } 2> /dev/null
 }
 
 
 e() {
-  [[ -n $@  ]] && [[ -e $@ ]] && owner=$(ls -l $@|cut -d' ' -f3) &&
-    [[ $owner != $USER ]] || [[ ! -e $@ && ${PWD/$HOME/} == $PWD ]] &&
-    echo -n "sudo [Y/n]? " && read sudo && [[ ${sudo:-y} == y ]] &&
-    sudo $EDITOR $@ || $EDITOR $@
+  [[ -n $1  ]] && [[ -e $1 ]] &&
+  owner=$(/usr/bin/ls -la|awk '$9 == "'$1'" {print $3}') &&
+  [[ $owner != $USER ]] || [[ ! -e $1 && ${PWD/$HOME/} == $PWD ]] &&
+  echo -n "sudo [Y/n]? "&& read sudo && [[ ${sudo:-y} == y ]] &&
+  sudo $EDITOR $@ || $EDITOR $@
 }
 
 # fun with python
@@ -154,6 +158,8 @@ function = {
   fi
 }
 
+alias act="source ~/bin/activate-venv"
+
 # resets the size of the framebuffer for the tty
 fbg() {
   [ -z "$@" ] && fbset -g 1600 900 1600 900 32 || fbset -g "$@" "$@" 32
@@ -164,7 +170,8 @@ fbg() {
 # unsorted aliasses
 alias voff='xrandr --output VGA1 --off'
 alias von='xrandr --output VGA1 --auto --right-of HDMI2'
-alias pip='pip3'
 alias xr720='xrandr;xrandr --output HDMI1 --mode 1280x720'
 alias xr1080='xrandr --output HDMI1 --mode 1920x1080'
-alias zathura='~/bin/open zathura'
+alias zathura='~/bin/popen zathura'
+
+# vim: syntax=sh
