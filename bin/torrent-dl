@@ -34,7 +34,7 @@ def main(s, r, p, ext, targets):
     for torrent in matches:
         filename = s + ":dls/'" + torrent.name + "'"
         if ext:
-            filename += '/*' + ext
+            filename += "/*" + ext
         ep.run(['sftp', '-r', filename, '.'], check=True)
         if r:
             ep.run(['ssh', s, 'transmission-remote', '-t',
