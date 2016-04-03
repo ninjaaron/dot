@@ -52,7 +52,7 @@ alias pRs="sudo pacman -Rs"
 alias pU="sudo pacman -U"
 alias aSyu="pacaur -Syua"
 alias pQ="pacman -Q"
-alias pSyu="sudo ~/bin/snap; sudo pacmatic -Syu; checkupdates|wc -l > ~/.updatesi&"
+alias pSyu="sudo ~/bin/snap; sudo pacmatic -Syu; checkupdates|wc -l > ~/.updates&"
 
 alias sc="sudo systemctl"
 

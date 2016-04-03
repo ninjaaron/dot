@@ -10,17 +10,15 @@ HOME = os.environ['HOME']
 
 class Prompt:
     def __init__(self):
-        from socket import gethostname
         colors = ('\x1b[%dm' % (30 + i) for i in range(8))
         cnames = ('bk', 'rd', 'gr', 'yl', 'bl', 'mg', 'cy', 'wh')
         self.colors = dict(zip(cnames, colors))
         self.colors['nr'] = '\x1b[0m'
-        self.colors['host'] = gethostname()
 
     def __str__(self):
         self.colors['cwd'] = os.getcwd().replace(HOME, '~')
-        return '{bl}{host}{nr}:{gr}{cwd}{nr}> '.format(**self.colors)
+        return '{bl}{cwd}{gr}>{nr} '.format(**self.colors)
 
 sys.displayhook = displayhook
 py = pype
-#sys.ps1 = Prompt()
+# sys.ps1 = Prompt()
