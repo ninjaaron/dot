@@ -81,9 +81,12 @@ alias la="ls --color=auto -A"
 alias lla="ls --color=auto -lhA"
 lr() {
   for i in *; do
-    [[ -d $i ]] &&
+    if [[ -d $i ]]; then
       printf "\e[1;35m= $i\n\e[m"
-    ls --color=auto -FH $i
+      ls --color=auto -FH $i
+    else
+      printf "\e[1;33m- $i\n\e[m"
+    fi
   done
 }
 
@@ -140,13 +143,14 @@ c() {
  } 2> /dev/null
 }
 
-
 e() {
-  [[ -n $1  ]] && [[ -e $1 ]] &&
-  owner=$(/usr/bin/ls -la|awk '$9 == "'$1'" {print $3}') &&
-  [[ $owner != $USER ]] || [[ ! -e $1 && ${PWD/$HOME/} == $PWD ]] &&
-  echo -n "sudo [Y/n]? "&& read sudo && [[ ${sudo:-y} == y ]] &&
-  sudo $EDITOR $@ || $EDITOR $@
+  if echo -n >> "$1"; then
+    $EDITOR $@
+  else
+    echo -n "sudo [Y/n]? "
+    read sudo
+    [[ ${sudo:-y} == y ]] && sudo $EDITOR $@ || $EDITOR $@
+  fi 2> /dev/null
 }
 
 # fun with python
