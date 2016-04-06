@@ -116,16 +116,20 @@ psg() { ps aux|grep "$@"|grep -v grep; }
 c() {
   local dir="$@"
   local log=~/.dirlog
-  if [[ -n $dir ]]; then
+  if [[ -n $dir ]] && [[ ${dir#..} == $dir ]]; then
     local target=$(awk "
     BEGIN { dir = \"^$dir\""' }
     $1 ~ dir {print $2}' "$log")
   fi
 
-  cd $dir  2> /dev/null ||
-    [[ -n $target ]] && cd "$target" ||
+  if cd $dir  2> /dev/null; then
+     ls
+  elif [[ -n $target ]]; then
+     cd "$target"
+     ls
+  else
       echo "didn't find $dir"
-  ls
+  fi
 
   if [[ -n $dir ]]; then
     sed -i "/^${PWD##*/}\W/d
