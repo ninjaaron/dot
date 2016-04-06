@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+dir="$@"
+log=~/.dirlog
+
+target=$(awk "
+BEGIN { dir = \"^$dir\""' }
+$1 ~ dir {print $2}' "$log")
+
+
+{ cd "${target:-asdf}" 2> /dev/null; } || cd $dir
+
+sed -i "g/^${PWD##*/}\W/d
+1 i\
+${PWD##*/}  $PWD" $log

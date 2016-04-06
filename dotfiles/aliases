@@ -4,30 +4,6 @@ alias ga='git add'
 alias gc='git commit -m'
 alias gd='git diff'
 
-dt() {
-  (
-  cd $DOT
-  echo "================ git ================"
-  echo "== committing =="
-  git commit -am "updating dotfiles"
-  echo "== pulling changes =="
-  git pull --recurse-submodules origin master
-  echo "== pushing changes =="
-  git push origin master
-  echo "================ hg ================"
-  cd ../conf
-  hg addremove
-  echo "== committing =="
-  hg commit -m 'updating configs'
-  echo "== pulling changes =="
-  hg pull -u
-  hg merge
-  hg commit -m 'merging'
-  echo "== pushing changes =="
-  hg push
-  )
-}
-
 alias s='sudo -E'
 alias rs='rsync -av --progress'
 alias cpr='cp --reflink=always -R'
@@ -138,9 +114,24 @@ gap() { herbstclient emit_hook "gap $@";}
 psg() { ps aux|grep "$@"|grep -v grep; }
 
 c() {
- { cd "$*" || cd "$HOME/$*" || cd "$HOME/doc/$*" ||
-   cd "$HOME/doc/work/$*"
- } 2> /dev/null
+  local dir="$@"
+  local log=~/.dirlog
+  if [[ -n $dir ]]; then
+    local target=$(awk "
+    BEGIN { dir = \"^$dir\""' }
+    $1 ~ dir {print $2}' "$log")
+  fi
+
+  cd $dir  2> /dev/null ||
+    [[ -n $target ]] && cd "$target" ||
+      echo "didn't find $dir"
+  ls
+
+  if [[ -n $dir ]]; then
+    sed -i "/^${PWD##*/}\W/d
+1 i\
+${PWD##*/}  $PWD" $log
+  fi
 }
 
 e() {
