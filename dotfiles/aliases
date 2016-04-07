@@ -28,7 +28,7 @@ alias pRs="sudo pacman -Rs"
 alias pU="sudo pacman -U"
 alias aSyu="pacaur -Syua"
 alias pQ="pacman -Q"
-alias pSyu="sudo ~/bin/snap; sudo pacmatic -Syu; checkupdates|wc -l > ~/.updates&"
+alias pSyu="sudo ~/bin/snap; sudo pacmatic -Syu& echo 0> ~/.updates"
 
 alias sc="sudo systemctl"
 
@@ -118,7 +118,7 @@ c() {
   local dir="$@"
   local log=~/.dirlog
   if [[ ! -e $log ]]; then
-    echo > $log
+    echo "### don't delete this line!" > $log
   fi
 
   if [[ -n $dir ]] && [[ ${dir#..} == $dir ]]; then
