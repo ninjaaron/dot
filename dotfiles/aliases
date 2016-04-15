@@ -113,35 +113,9 @@ gap() { herbstclient emit_hook "gap $@";}
 # find processes that match a regex
 psg() { ps aux|grep "$@"|grep -v grep; }
 
-# makes a log of visited directories and helps you get there quick
-c() {
-  local dir="$@"
-  local log=~/.dirlog
-  if [[ ! -e $log ]]; then
-    echo "### don't delete this line!" > $log
-  fi
-
-  if [[ -n $dir ]] && [[ ${dir#..} == $dir ]]; then
-    local target=$(awk -F'  ' "
-    BEGIN { dir = \"^$dir\""' }
-    $1 ~ dir {print $2}' "$log"|head -n 1)
-  fi
-
-  if cd $dir  2> /dev/null; then
-    ls
-  elif [[ -n $target ]]; then
-    cd "$target" 2> /dev/null
-    ls
-  else
-    echo "didn't find $dir"
-  fi
-
-  if [[ -n $dir ]]; then
-    sed -i "/^${PWD##*/}\\W/d
-1 a\
-${PWD##*/}  $PWD" $log
-  fi
-}
+# "c" function makes a log of visited directories and helps you get there quick
+# It got a little long, so I put it in its own script, which I source here:
+source ~/bin/changedir
 
 e() {
   if echo -n >> "$1"; then
