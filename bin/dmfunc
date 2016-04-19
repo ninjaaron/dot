@@ -1,0 +1,151 @@
+#!/bin/bash
+
+# file browsing with dmenu
+
+source $HOME/.dmenurc
+source ~/.zshenv
+DMENU="eval ${DMENU-dmenu}"
+
+# this is actually the last function called. Customize behavior by extension
+# here.
+
+open() {
+  local sel=$1
+  [[ ! -e ~/.filelog ]] && echo "### do not delete this line" > ~/.filelog
+  echo $sel
+  sed -i "/^${sel##*/}  ${PWD//\//\\/}\\/$sel/d
+1 a\
+${sel##*/}  ${PWD//\//\\/}/$sel" ~/.filelog
+  case "$sel" in
+    *.mkv*|*.mov*|*.avi*|*.flv*|*.ogv*|*.mpeg*|*.mp4*|*.m4v*|*.webm*|*.wmv* )
+      mpv "$sel" &
+      ;;
+    *.mp3|*.ogg|*.flac)
+      mocp -l "$sel"
+      urxvtc -e mocp -m "$PWD"
+      ;;
+    *.pdf|*.ps|*.djvu )
+      zathura "$sel" &
+      ;;
+    *.jpg|*.gif|*.png )
+      geeqie "$sel" &
+      ;;
+    *.xfc )
+      gimp "$sel" &
+      ;;
+    *.odt|*.odp|*.odg|*.ods|*.doc )
+      libreoffice "$sel" &
+      ;;
+    *.html|*.htm )
+      firefox "$sel" &
+      ;;
+    *) # with undefined extensions, open vim. If the directory isn't
+       # somewhere in $HOME, ask for sudo.
+      if  [[ ${PWD/*$USER*/$USER} != $USER ]] &&
+      [[ $(echo -e "y\nn"|$DMENU -p "sudo?") = y ]] ; then
+        urxvtc -e sh -c "sudo vim -u $HOME/.vimrc '$PWD/$sel'"
+        exit
+      else
+        urxvtc -e sh -c "vim '$PWD/$sel'"
+      fi
+  esac
+}
+
+dirhist() {
+  local dir=$(
+    {
+      ls ~
+      sed '1d' ~/.dirlog
+    } | $DMENU -l 30)
+  browse "${dir#*  }"
+}
+
+
+browse() {
+  [[ -n $1 ]] && local sel=$1
+  while [[ -d "$sel" ]]; do
+    cd "$sel"
+    if [[ $sel != '/' ]]; then
+      sed -i "/^${PWD##*/}  ${PWD//\//\\/}/d
+1 a\
+${PWD##*/}  $PWD" ~/.dirlog
+    fi
+
+    local sel=$(
+      case $hidden in
+        true)
+          ls -a
+          echo "(hide)"
+          ;;
+        *)
+          ls
+          echo "(hidden)"
+      esac | $DMENU -l 30
+    )
+  done
+
+  case $sel in
+    "(hidden)")
+      local hidden=true
+      browse .
+      ;;
+    "(hide)")
+      local hidden=false
+      browse .
+      ;;
+    "")
+      exit 0
+      ;;
+    *)
+      open "$sel"
+  esac
+}
+
+
+run() {
+  local cmd=$({
+      echo .
+      echo -e "${PATH//:/\\n}" | while read dir; do
+        ls "$dir"
+      done
+    } | $DMENU -p "exec:"
+  )
+
+  # if the user selects a directory, go there and execute brws.
+  echo $cmd
+  case "$cmd" in
+    . )
+      dirhist
+      ;;
+    theme ) # changes the color scheme
+      local theme=$(ls $HOME/.themes|sed '/Ad/d ; /~$/d ; /xres/d'|\
+        $DMENU -p 'themes:')
+      theme $theme&
+      ;;
+    man )
+      entry=$(
+      (IFS=':'
+      find $(manpath))|
+      sed -n 's/.*\/\(.*\).1.gz/\1/p'|sort|
+      $DMENU -p "man:")
+      urxvtc -e $SHELL -c "man $entry"
+      ;;
+    bash*|fish*|ranger*|vim*|vi*|ed*|mocp*|info*|weechat*|htop|\
+    bpython*|ipython*|python*|"man "* )
+      urxvtc -e $SHELL -c "$cmd"
+      ;;
+    *)
+      echo "$cmd"|${SHELL:-"/bin/sh"} &
+  esac
+}
+
+echo $0
+if [[ ${0##*/} == "dm" ]]; then
+  run
+elif [[ ${0##*/} == "fm" ]]; then
+  dirhist
+fi
+
+#filehist() {
+#
+#}

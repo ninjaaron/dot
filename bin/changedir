@@ -23,7 +23,6 @@ c() {
   fi
 
   if [[ -n $dir ]] && [[ $dir != '/' ]]; then
-    escdir=
     sed -i "/^${PWD##*/}  ${PWD//\//\\/}/d
 1 a\
 ${PWD##*/}  $PWD" $log
