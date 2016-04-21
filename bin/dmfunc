@@ -12,7 +12,6 @@ DMENU="eval ${DMENU-dmenu}"
 open() {
   local sel=$1
   [[ ! -e ~/.filelog ]] && echo "### do not delete this line" > ~/.filelog
-  echo $sel
   sed -i "/^${sel##*/}  ${PWD//\//\\/}\\/$sel/d
 1 a\
 ${sel##*/}  ${PWD//\//\\/}/$sel" ~/.filelog
@@ -62,7 +61,8 @@ dirhist() {
 
 
 browse() {
-  [[ -n $1 ]] && local sel=$1
+  local sel=$1
+  [[ ! -e ~/.dirlog ]] && echo "### do not delete this line" > ~/.dirlog
   while [[ -d "$sel" ]]; do
     cd "$sel"
     if [[ $sel != '/' ]]; then
@@ -72,15 +72,18 @@ ${PWD##*/}  $PWD" ~/.dirlog
     fi
 
     local sel=$(
-      case $hidden in
-        true)
-          ls -a
-          echo "(hide)"
-          ;;
-        *)
-          ls
-          echo "(hidden)"
-      esac | $DMENU -l 30
+      {
+        case $hidden in
+          true)
+            ls -a
+            echo "(hide)"
+            ;;
+          *)
+            ls
+            echo "(hidden)"
+        esac
+        echo "(term)"
+      } | $DMENU -l 30
     )
   done
 
@@ -92,6 +95,9 @@ ${PWD##*/}  $PWD" ~/.dirlog
     "(hide)")
       local hidden=false
       browse .
+      ;;
+    "(term)")
+      urxvtc
       ;;
     "")
       exit 0
@@ -105,11 +111,18 @@ ${PWD##*/}  $PWD" ~/.dirlog
 run() {
   local cmd=$({
       echo .
+      sed '1d' ~/.cmdlog
       echo -e "${PATH//:/\\n}" | while read dir; do
         ls "$dir"
       done
     } | $DMENU -p "exec:"
   )
+  [[ ! -e ~/.cmdlog ]] && echo "### do not delete this line" > ~/.cmdlog
+  if [[ $cmd != '.' ]]; then
+    sed -i "/^$cmd$/d
+1 a\
+$cmd" ~/.cmdlog
+    fi
 
   # if the user selects a directory, go there and execute brws.
   echo $cmd
