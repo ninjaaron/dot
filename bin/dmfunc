@@ -50,13 +50,19 @@ ${sel##*/}  ${PWD//\//\\/}/$sel" ~/.filelog
   esac
 }
 
+
 dirhist() {
   local dir=$(
     {
+      echo "recent files"
       ls ~
       sed '1d' ~/.dirlog
     } | $DMENU -l 30)
-  browse "${dir#*  }"
+    if [[ $dir == "recent files" ]]; then
+      open $(sed '1d' ~/.filelog|$DMENU -l 30|awk -F' {2,}' '{print $2}')
+    else
+      browse "${dir#*  }"
+    fi
 }
 
 
@@ -152,13 +158,27 @@ $cmd" ~/.cmdlog
   esac
 }
 
+web() {
+  local sel=$(
+    {
+      echo search
+      sqlite3 -separator ' | ' ~/.mozilla/firefox/*.default/places.sqlite \
+        'SELECT title, url FROM moz_places ORDER BY last_visit_date DESC'
+    }|dmenu -l 30
+  )
+  if [[ $sel == "search" ]];then
+    firefox --search "$(echo|dmenu -p "search:")"
+  elif [[ -n $sel ]]; then
+    url="${sel##* | }"
+    firefox "$url"
+  fi
+}
+
 echo $0
 if [[ ${0##*/} == "dm" ]]; then
   run
 elif [[ ${0##*/} == "fm" ]]; then
   dirhist
+elif [[ ${0##*/} == "web" ]]; then
+  web
 fi
-
-#filehist() {
-#
-#}

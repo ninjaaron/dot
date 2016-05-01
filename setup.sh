@@ -32,7 +32,7 @@ ln -s "$PWD/bin" "$HOME/bin"
 echo "generating shell profiles..."
 
 cat > $HOME/.zshenv << EOF
-export PATH="\$HOME/bin:\$HOME/.gem/ruby/2.3.0/bin:\$PATH"
+export PATH="\$HOME/bin:\$HOME/.local/bin:\$HOME/.gem/ruby/2.3.0/bin:\$PATH"
 export EDITOR="vim"
 export DOT="$PWD"
 export PYTHONSTARTUP="\$DOT/pystart.py"
