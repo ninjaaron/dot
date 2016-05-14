@@ -15,27 +15,28 @@ open() {
   sed -i "/^${sel##*/}  ${PWD//\//\\/}\\/$sel/d
 1 a\
 ${sel##*/}  ${PWD//\//\\/}/$sel" ~/.filelog
-  case "$sel" in
-    *.mkv*|*.mov*|*.avi*|*.flv*|*.ogv*|*.mpeg*|*.mp4*|*.m4v*|*.webm*|*.wmv* )
+  ext="$(echo "${sel##*.}"|tr A-Z a-z)"
+  case "$ext" in
+    mkv|mov|avi|flv|ogv|mpeg|mp4|m4v|webm|wmv)
       mpv "$sel" &
       ;;
-    *.mp3|*.ogg|*.flac)
+    mp3|ogg|flac)
       mocp -l "$sel"
       urxvtc -e mocp -m "$PWD"
       ;;
-    *.pdf|*.ps|*.djvu )
+    pdf|ps|djvu )
       zathura "$sel" &
       ;;
-    *.jpg|*.gif|*.png )
+    jpg|gif|png )
       geeqie "$sel" &
       ;;
-    *.xfc )
+    xfc )
       gimp "$sel" &
       ;;
-    *.odt|*.odp|*.odg|*.ods|*.doc )
+    odt|odp|odg|ods|doc )
       libreoffice "$sel" &
       ;;
-    *.html|*.htm )
+    html|htm )
       firefox "$sel" &
       ;;
     *) # with undefined extensions, open vim. If the directory isn't
@@ -143,8 +144,7 @@ $cmd" ~/.cmdlog
       ;;
     man )
       entry=$(
-      (IFS=':'
-      find $(manpath))|
+      IFS=':' find $(manpath)|
       sed -n 's/.*\/\(.*\).1.gz/\1/p'|sort|
       $DMENU -p "man:")
       urxvtc -e $SHELL -c "man $entry"
