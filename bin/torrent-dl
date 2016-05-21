@@ -19,7 +19,10 @@ Torrent = namedtuple('Torrent',
 def main(s, r, p, ext, targets):
     gap = re.compile(' {2,}')
     command = 'ssh sink transmission-remote -l'
-    torrents = (Torrent(*gap.split(t.strip())) for t in ep.grab(command)[1:-1])
+    torrents = [gap.split(t.strip()) for t in ep.grab(command)[1:-1]]
+    for n, t in enummerate(torrents):
+        torrents[n][8] = '  '.join(t[8:])
+    torrents = (Torrent(*t) for t in torrents)
     try:
         int(targets[0])
     except ValueError:
