@@ -21,8 +21,9 @@ def main(s, r, p, ext, targets):
     command = 'ssh sink transmission-remote -l'
     torrents = [gap.split(t.strip()) for t in ep.grab(command)[1:-1]]
     for n, t in enumerate(torrents):
-        torrents[n][8] = '  '.join(t[8:])
-    torrents = (Torrent(*t) for t in torrents)
+        torrents[n][8:] = ['  '.join(t[8:])]
+    torrents = ((print(t), Torrent(*t)) for t in torrents)
+    torrents = (t[1] for t in torrents)
     try:
         int(targets[0])
     except ValueError:
