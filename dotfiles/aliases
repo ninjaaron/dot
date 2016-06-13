@@ -28,7 +28,7 @@ alias pRs="sudo pacman -Rs"
 alias pU="sudo pacman -U"
 alias aSyu="pacaur -Syua"
 alias pQ="pacman -Q"
-alias pSyu="sudo ~/bin/snap; sudo pacmatic -Syu && echo 0> ~/.updates"
+alias pSyu="sudo ~/bin/snap; sudo pacmatic -Su && echo 0> ~/.updates"
 
 alias sc="sudo systemctl"
 
@@ -146,6 +146,10 @@ alias act="source ~/bin/activate-venv"
 # resets the size of the framebuffer for the tty
 fbg() {
   [ -z "$@" ] && fbset -g 1600 900 1600 900 32 || fbset -g "$@" "$@" 32
+}
+
+se() {
+  ls *"$@"*
 }
 
 # opens a tmux session with an optional command
