@@ -7,5 +7,5 @@ name=`echo "$file"|cut -d'.' -f1`
 IFS="
 "
 
-ffmpeg -i "$file" -ab 52k "$name".mp3
+ffmpeg -i "$file" -ab 192k "$name".mp3
 exit
