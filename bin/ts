@@ -1,5 +1,0 @@
-#!/usr/bin/awk -f
-BEGIN { FS = " {2,}"; IGNORECASE = 1
-    while ("transmission-remote -l" | getline) if ($0 ~ ARGV[1])
-        printf "%-3s  %4s  %-8s  %s  %s\n", $2, $3, $5, $10, $4
-}
