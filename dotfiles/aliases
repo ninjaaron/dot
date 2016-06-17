@@ -149,7 +149,7 @@ fbg() {
 }
 
 se() {
-  ls *"$@"*
+  ls -d *"$@"*
 }
 
 # opens a tmux session with an optional command
