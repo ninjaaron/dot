@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-import subprocess as sp
+import easyproc as ep
 import sys, re
-torrents = sp.check_output(['transmission-remote', '-l']).decode().split('\n')
+torrents = ep.grab('transmission-remote -l')
 for tor in (t for t in torrents if re.search(sys.argv[1], t, re.I)):
     tor = re.split(' {2,}', tor.strip())
-    print('{0:3}  {1:>4}  {3:8}  {8}  {2}  {5}'.format(*tor))
+    print('{0:3}  {1:>4}  {3:8}  {5:5}  {8}'.format(*tor))

@@ -5,6 +5,7 @@ import subprocess as sp
 
 cmd, pat, repl = sys.argv[1:]
 pat = re.compile(pat)
+repl = eval(repl) if repl.startswith('lambda') else repl
 
 filenames = (f for f in os.listdir() if pat.search(f))
 
