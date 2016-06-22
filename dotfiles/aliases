@@ -1,9 +1,3 @@
-# git aliases
-alias g='git'
-alias ga='git add'
-alias gc='git commit -m'
-alias gd='git diff'
-
 alias s='sudo -E'
 alias rs='rsync -av --progress'
 alias cpr='cp --reflink=always -R'
@@ -120,7 +114,7 @@ psg() { ps aux|grep "$@"|grep -v grep; }
 
 # "c" function makes a log of visited directories and helps you get there quick
 # It got a little long, so I put it in its own script, which I source here:
-source ~/bin/changedir
+source ~/bin/dirlog.sh
 
 e() {
   if echo -n >> "$1"; then
