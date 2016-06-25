@@ -119,8 +119,7 @@ psg() { ps aux|grep "$@"|grep -v grep; }
 c() {
   dir=$(python2 $DIRLOG "$@")
   if [ "$dir" != "" ]; then
-    cd "$dir"
-    ls
+    cd "$dir"&& ls
   fi
 }
 
