@@ -1,9 +1,8 @@
 import sys, os
 import re
-from importlib import reload as rl
 import subprocess as sp
 import easyproc as ep
-from pyedpiper import pype, sh,  f, s, m
+from pyedpiper import pype, sh, f, s, m
 from collist import displayhook
 
 HOME = os.environ['HOME']
@@ -22,3 +21,4 @@ class Prompt:
 sys.displayhook = displayhook
 py = pype
 # sys.ps1 = Prompt()
+from importlib import reload as rl
