@@ -117,7 +117,7 @@ psg() { ps aux|grep "$@"|grep -v grep; }
 #source ~/bin/dirlog.sh
 #source ~/bin/ypm.sh
 c() {
-  dir=$($DIRLOG "$@")
+  dir=$(python2 $DIRLOG "$@")
   if [ "$dir" != "" ]; then
     cd "$dir"
     ls
