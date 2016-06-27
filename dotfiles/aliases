@@ -22,7 +22,7 @@ alias pRs="sudo pacman -Rs"
 alias pU="sudo pacman -U"
 alias aSyu="pacaur -Syua"
 alias pQ="pacman -Q"
-alias pSyu="sudo ~/bin/snap; sudo pacmatic -Su && echo 0> ~/.updates"
+alias pSyu="sudo ~/bin/rsnap; sudo pacmatic -Su && echo 0> ~/.updates"
 
 alias sc="sudo systemctl"
 
