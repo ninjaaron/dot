@@ -2,7 +2,7 @@ import sys, os
 import re
 import subprocess as sp
 import easyproc as ep
-from pyedpiper import pype, sh, f, s, m
+# from pyedpiper import pype, sh, f, s, m
 from collist import displayhook
 
 HOME = os.environ['HOME']
@@ -19,6 +19,6 @@ class Prompt:
         return '{bl}{cwd}{gr}>{nr} '.format(**self.colors)
 
 sys.displayhook = displayhook
-py = pype
+# py = pype
 # sys.ps1 = Prompt()
 from importlib import reload as rl

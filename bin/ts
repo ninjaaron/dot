@@ -4,4 +4,4 @@ import sys, re
 torrents = ep.grab('transmission-remote -l')
 for tor in (t for t in torrents if re.search(sys.argv[1], t, re.I)):
     tor = re.split(' {2,}', tor.strip())
-    print('{0:3}  {1:>4}  {3:8}  {5:5}  {8}'.format(*tor))
+    print('{0:3}{1:>4} {3:7} {5:5}{8}'.format(*tor))
