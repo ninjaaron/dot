@@ -62,7 +62,7 @@ lr() {
 
 alias df="df -h"
 alias du="du -h"
-alias exe='chmod +x'
+alias x='chmod +x'
 alias grep='grep --color=auto'
 alias f='find -name'
 alias ast="~/bin/autosus toggle"
