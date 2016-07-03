@@ -75,11 +75,11 @@ alias -s pdf=zathura
 # PROMPT
 theme=$(cat ~/.theme) 2> /dev/null && source ~/.themes/$theme
 [[ -n $SSH_TTY ]] && host="%F{green}%m%f:"
-PROMPT="$host%F{blue}%~%f> "
- [[ $USER = 'root' ]] && PROMPT="%F{yellow}%m%f:%F{red}%~%f# "
 precmd() {
   updates=$(cat ~/.updates) 2> /dev/null
+  PROMPT="$host%F{blue}%~%f> "
   (( updates != 0 )) && PROMPT="(%F{yellow}$updates%f)$PROMPT"
+  [[ $USER = 'root' ]] && PROMPT="%F{yellow}%m%f:%F{red}%~%f# "
 }
 
 setopt sharehistory autocd extendedglob
