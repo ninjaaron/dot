@@ -163,3 +163,4 @@ alias xr1080='xrandr --output HDMI1 --mode 1920x1080'
 alias zathura='~/bin/popen zathura'
 
 # vim: syntax=sh
+alias geeqie='popen geeqie'
