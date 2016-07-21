@@ -73,7 +73,6 @@ alias -s pdf=zathura
 
 
 # PROMPT
-theme=$(cat ~/.theme) 2> /dev/null && source ~/.themes/$theme
 [[ -n $SSH_TTY ]] && host="%F{green}%m%f:"
 precmd() {
   updates=$(cat ~/.updates) 2> /dev/null

@@ -107,6 +107,16 @@ ali() {
   source ~/.aliases
 }
 
+ern() {
+  for file in "$@"; do
+    local temp="/tmp/$(echo "$file"|md5sum)"
+    echo "$file" > "$temp"
+    "$EDITOR" "$temp"
+    [[ $file != $(cat "$temp") ]] && mv "$file" "$(cat "$temp")"
+    rm "$temp"
+  done
+}
+
 gap() { herbstclient emit_hook "gap $@";}
 
 # find processes that match a regex
@@ -162,5 +172,9 @@ alias xr720='xrandr;xrandr --output HDMI1 --mode 1280x720'
 alias xr1080='xrandr --output HDMI1 --mode 1920x1080'
 alias zathura='~/bin/popen zathura'
 
+
 # vim: syntax=sh
 alias geeqie='popen geeqie'
+alias y='yank'
+alias m='move'
+alias p='put'
