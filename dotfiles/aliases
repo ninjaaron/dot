@@ -117,6 +117,19 @@ ern() {
   done
 }
 
+m() {
+  pattern="${@#/}"
+  pattern="${pattern%/*}"
+  flags="${@#/$pattern/}"
+  if [[ -n $flags ]]; then
+    grep -"$flags" "$pattern"
+  else
+    grep "$pattern"
+  fi
+}
+
+alias pbxc='xclip -o|pb'
+
 gap() { herbstclient emit_hook "gap $@";}
 
 # find processes that match a regex
@@ -133,16 +146,7 @@ c() {
   fi
 }
 
-e() {
-  if echo -n >> "$1"; then
-    $EDITOR $@
-  else
-    echo -n "sudo [Y/n]? "
-    read sudo
-    [[ ${sudo:-y} == y ]] && sudo $EDITOR $@ || $EDITOR $@
-  fi 2> /dev/null
-}
-
+alias e="permedit"
 # fun with python
 function = {
   if [ "$#" -eq "0" ]; then
@@ -173,8 +177,8 @@ alias xr1080='xrandr --output HDMI1 --mode 1920x1080'
 alias zathura='~/bin/popen zathura'
 
 
-# vim: syntax=sh
+# vim: ft=sh
 alias geeqie='popen geeqie'
 alias y='yank'
-alias m='move'
+alias d='move'
 alias p='put'

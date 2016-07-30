@@ -71,6 +71,10 @@ xnoremap <leader>sh dmvo<Esc>p:.!sh<CR>0d$`vPjdd`v
 nnoremap <leader>py :.!python<CR>
 xnoremap <leader>py :!python<CR>
 
+" integration with my pastbin
+command Pb exe "!pb" &ft "%"
+xnoremap <leader>b :<C-U>exe "'<,'>w !pb" &ft <CR>
+
 function! BibleGen(mod, key)
     exe 'command -nargs=+' a:mod "let @h=system('diatheke -b" a:mod
                 \"-o acv -k <args> | grep -v" a:mod "')"

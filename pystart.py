@@ -2,8 +2,9 @@ import sys, os
 import re
 import subprocess as sp
 import easyproc as ep
-# from pyedpiper import pype, sh, f, s, m
+from pyedpiper import pype, sh, f, s, m
 from collist import displayhook
+from timeit import timeit
 
 HOME = os.environ['HOME']
 
