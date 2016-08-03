@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+c() {
+  local dir="$@"
+  local log=~/.dirlog
+  if [[ ! -e $log ]]; then
+    echo "### don't delete this line!" > $log
+  fi
+
+  if [[ -n $dir ]] && [[ ${dir#..} == $dir ]]; then
+    local target=$(awk -F'  ' "
+    BEGIN { dir = \"^$dir\""' }
+    $1 ~ dir {print $2}' "$log"|head -n 1)
+  fi
+
+  if cd $dir  2> /dev/null; then
+    ls
+  elif [[ -n $target ]]; then
+    cd "$target" 2> /dev/null
+    ls
+  else
+    echo "didn't find $dir"
+  fi
+
+  if [[ -n $dir ]] && [[ $dir != '/' ]]; then
+    sed -i "/^${PWD##*/}  ${PWD//\//\\/}/d
+1 a\
+${PWD##*/}  $PWD" $log
+  fi
+}

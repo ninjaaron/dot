@@ -1,0 +1,157 @@
+#!/usr/bin/env bash
+
+# bash functions for extending the usability of diatheke
+di() { diatheke $@ ;}
+
+# preforms a search with diatheke. Places output of search into a more usable
+# form
+search() {
+  key=$@
+  output="$(di -b $work $options -k $key)"
+  results=${output#*-- };results=${results% --*};results=${results// ; /,}
+}
+
+# gets horrible BDBGlosses_Strongs XML into a semi-readable format
+format_bdb() {
+  sed -s 's/\(.*\)/<xml>\1<\/xml>/
+  s/<sense n="\([A-Za-z0-9]*\)">/<sense>\n\t\1/g
+  s/^(.*)$//
+  s/(BDBGlosses_Strongs)/\n/g'|
+  xmlstarlet "select" -t -v /
+}
+
+# displays a menu from search results
+menu() {
+  local count=0
+  for hit in $@ ; do
+    echo -n "$count. "
+    search $hit; (( count++ ))
+    echo -e "$output"|${format:-sed -s "s/($work)/\\n/g"}
+  done
+  format=
+}
+
+get_verses() {
+  local IFS="
+"
+  m[$mod]="$(di -b $mod -o cv -k $results )"
+  local count=1
+  for verse in ${m[$mod]};do
+    verse=${verse#*:*: }; verse=${verse# }
+    m[$mod,$count]=$verse
+    (( count++ ))
+  done
+}
+
+# make a table of search results with parallels an commentaries
+make_table() {
+  local IFS=" "
+  # get user options for parallels
+  echo -en "\nWhich bible modules would you like to use? Separate choices by"\
+    "spaces (default = NET OSMHB ESV LXX): "
+  read bibles
+  bibles=( ${bibles:-NET OSMHB ESV LXX} )
+  echo -en "\nWhich commentaries would you like to use? (default = NETnotes): "
+  read commentaries
+  commentaries=( ${commentaries:-NETnotes} )
+
+  # use an insane 3d associative array $m to get each version of each
+  # verse into its own var. Shit's so insane it has to be quarantined in
+  # a function.
+  declare -Ag m
+  for mod in ${bibles[@]} ${commentaries[@]} ; do
+    get_verses
+  done
+
+  # echo aforementioned insane array into asciidoc tables.
+  for index in ${!result[@]}; do
+    cat >> $key.asciidoc << EOF
+== ${result[$index]}
+[cols=",>,,"]
+|===
+EOF
+    for version in ${bibles[@]}; do
+      [ "$version" = "OSMHB" ] &&
+      echo "|[big]#${m[$version,$index]}#" >> $key.asciidoc ||
+      echo "|${m[$version,$index]}" >> $key.asciidoc
+    done
+    for comment in ${commentaries[@]}; do
+      echo "${#bibles[@]}+<|${m[$comment,$index]}" >> $key.asciidoc
+    done
+    echo -e "|===\n\n\n" >> $key.asciidoc
+  done
+  asciidoc -a toc "$key.asciidoc"
+  firefox "$PWD/$key.html"&
+}
+
+# Searches OT for strongs numbers (actually any word or phrase).
+str_heb() {
+  key="$@"
+  work="OSMHB"
+  options="-o n -s phrase"
+  [ -n "$user_range" ] && options="$options -r $user_range"
+  echo
+  search $key
+  echo "$output"
+  #
+  local IFS=","
+  for entry in $results;do
+    result[++i]=$entry
+  done
+  #
+  echo -en "\nWould you like to create paralle tables of the results (y/N)? "
+  read input
+  [ "${input:-n}" = "y" ] && make_table
+}
+
+# Searches bdb for English glosses in bdb and provides matching entries. Then,
+# it offers to search the OT by strong's numbers.
+bdbs() {
+  # search BDB glosses.
+  clear
+  work="BDBGlosses_Strongs"; options="-s phrase"
+  search $@
+  local IFS=" , "
+  snumbers=( $results )
+
+  # make a menu of search results
+  options="-o b"; format=format_bdb
+  menu ${snumbers[@]}
+
+  # offer to search for the hebrew term. Strong's search takes over.
+  echo -en " \nFor which entry would you like to search? (empty to quit): "
+  read entry
+  [ -n "$entry" ] && str_heb ${snumbers[$entry]}
+}
+
+# displays a verse in Hebrew and English, then offers to get defs for all the
+# hebrew words.
+otv() {
+  verse=$@
+  clear
+  di -b NET -k $verse|sed 's/.*: \(.*\)/\1/'
+  echo
+  di -b OSMHB -o cvb -k $verse|sed 's/.*: \(.*\)/\1/;/^(.*)$/d'
+  echo -en " \nDefine a word? (Y/n): "
+  read define
+
+  if [ "${define:-y}" = "y" ] ; then
+    local IFS="
+"
+    local count=0
+    all=$(di -b OSMHB -o nb -k $verse|
+    sed 's/.*: \(.*\)׃/\1/;s/> */>\n/g;s/־//g;s/ </\t</g;/^(.*)$/d')
+    numbs=( $(echo "$all"|sed 's/.*<\([HG0-9]*\)>.*/\1/g') )
+    for word in $all ; do
+      echo -e "$count.\t$word"
+      (( count++ ))
+    done
+    echo -en " \nselect one: "
+    read entry
+    di -b BDBGlosses_Strongs -o b -k ${numbs[$entry]}|format_bdb
+  fi
+}
+
+$@
+
+exit

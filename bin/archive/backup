@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# make backups
+
+target="ninjaaron@cq61:/home/ninjaaron/bak/$(hostname)/"
+sudo rsync -aAXv --delete /* "$target" \
+  --exclude=/{dev,data,proc,sys,tmp,run,mnt,media,lost+found,var/log/journal}/* \
+  --exclude=/home/ninjaaron/{vid,mus,mnt,.cache,.mozilla,.TelegramDesktop} \
+  --exclude=/home/ninjaaron/doc/{books,HB,images,reading,passwords,work} \
+  --exclude=/home/.snapshots
