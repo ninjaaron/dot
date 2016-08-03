@@ -70,6 +70,9 @@ nnoremap <leader>sh :.!sh<CR>
 xnoremap <leader>sh dmvo<Esc>p:.!sh<CR>0d$`vPjdd`v
 nnoremap <leader>py :.!python<CR>
 xnoremap <leader>py :!python<CR>
+inoremap <leader>p <C-R>"
+nnoremap <space> <C-D>
+nnoremap <backspace> <C-u>
 
 " integration with my pastbin
 command Pb exe "!pb" &ft "%"

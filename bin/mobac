@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-  rsync  -aPl \
-  --delete ~/* /mnt/nfs/alien/home/ninjaaron/data/backup/folio/home/ninjaaron \
-  --exclude={.*,vid/,mus/,mnt/,.cache,doc/allbooks,.mozilla,"VirtualBox VMs/"}
