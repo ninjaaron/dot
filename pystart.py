@@ -3,7 +3,8 @@ import re
 import subprocess as sp
 from pprint import pprint
 from timeit import timeit
-from inspect import stack
+import inspect
+import json
 
 local_mods = ('from collist import displayhook;sys.displayhook = displayhook',
               'import easyproc as ep', 'import requests', 'import dirlog')
@@ -36,7 +37,7 @@ class _Pipe:
         return self.func(name)
 
 
-f = _Pipe(lambda s: s.format(**stack()[2][0].f_locals))
+f = _Pipe(lambda s: s.format(**inspect.stack()[2][0].f_locals))
 c = _Pipe(lambda hint: os.chdir(dirlog.get_and_update(hint)))
 sh = _Pipe(lambda c: ep.grab(c))
 
@@ -46,10 +47,10 @@ if 'ep' in globals():
 
 class LazyDict(dict):
     "dict for people who are too lazy to type brackets and quotation marks"
-    self.__getattr__ = dict.__getitem__
-    self.__setattr__ = dict.__setitem__
-    self.__delattr__ = dict.__getitem__
-    def __dir__: return list(self)
+    __getattr__ = dict.__getitem__
+    __setattr__ = dict.__setitem__
+    __delattr__ = dict.__getitem__
+    def __dir__(self): return list(self)
 
 env = LazyDict(os.environ)
 
