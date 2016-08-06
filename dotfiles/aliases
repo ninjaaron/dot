@@ -149,10 +149,30 @@ c() {
 alias e="permedit"
 # fun with python
 function = {
-  if [ "$#" -eq "0" ]; then
-    python -i -c "from math import *;"
+  if [[ $1 == -l ]]; then
+    shift
+    python << END
+import sys, os, re, requests, site, math
+import fileinput
+for i in fileinput.input():
+  i = $*
+  print(i)
+END
   else
-    python -c "from math import *; print($*)"
+    python << END
+from math import *
+from collections import Iterable
+import sys, os, re, site
+try:
+  from collist import collist
+except ImportError:
+  collist = lambda x: x
+x = $*
+if not isinstance(x, str) and isinstance(x, Iterable):
+  print(collist(x))
+else:
+  print(x)
+END
   fi
 }
 
