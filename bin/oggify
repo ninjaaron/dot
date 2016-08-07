@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 
 # create an ogg audio file from another media file. possible to specify bitrate.
 
