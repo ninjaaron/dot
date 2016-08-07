@@ -1,3 +1,4 @@
+# vim: ft=sh
 alias s='sudo -E'
 alias rs='rsync -av --progress'
 alias cpr='cp --reflink=always -R'
@@ -195,13 +196,18 @@ alias von='xrandr --output VGA1 --auto --right-of HDMI2'
 alias xr720='xrandr;xrandr --output HDMI1 --mode 1280x720'
 alias xr1080='xrandr --output HDMI1 --mode 1920x1080'
 alias zathura='~/bin/popen zathura'
-
-
-# vim: ft=sh
 alias geeqie='popen geeqie'
 alias y='yank'
 alias d='move'
 alias p='put'
 vs() {
-  $EDITOR -R `which "$1"` || which "$1"|$EDITOR -
+  what=`which "$1"`
+
+  if (( $(echo "$what"|wc -l ) > 1 )); then
+    echo "$what"|$PAGER -c 'set ft=sh'
+  else
+    $PAGER "$what"
+  fi
 }
+
+alias pyint='pip wheel .; pip install --user --upgrade *py3*whl'

@@ -1,10 +1,7 @@
-import sys, os
-import re
+import sys, os, re, shlex, inspect, json
 import subprocess as sp
 from pprint import pprint
 from timeit import timeit
-import inspect
-import json
 
 local_mods = ('from collist import displayhook;sys.displayhook = displayhook',
               'import easyproc as ep', 'import requests', 'import dirlog')
@@ -20,26 +17,81 @@ except ImportError:
     rl = reload
 
 
-class _Pipe:
+class Trigger:
     def __init__(self, func):
         self.func = func
 
-    def __or__(self, other):
-        return self.func(other)
+    def __repr__(self):
+        self.func()
+        return ''
 
-    def __ror__(self, other):
-        return self.func(other)
-
-    def __mul__(self, other):
+    def __truediv__(self, other):
         return self.func(other)
 
     def __getattr__(self, name):
         return self.func(name)
 
+    def __getitem__(self, name):
+        return self.func(name)
 
-f = _Pipe(lambda s: s.format(**inspect.stack()[2][0].f_locals))
-c = _Pipe(lambda hint: os.chdir(dirlog.get_and_update(hint)))
-sh = _Pipe(lambda c: ep.grab(c))
+
+class Cmd:
+    def __init__(self, cmd, mode=None):
+        self.cmd = shlex.split(cmd) if isinstance(cmd, str) else cmd
+        self.mode = mode
+
+    def __pos__(self):
+        return ep.grab(self.cmd)
+
+    def __neg__(self):
+        ep.run(self.cmd)
+
+    def __repr__(self):
+        -self
+        return ''
+
+    def __getitem__(self, value):
+        if isinstance(value, (int, slice)):
+            return (+self)[value]
+        return Cmd(self.cmd+[value])
+
+    def __getattr__(self, name):
+        if self.mode == 'flag':
+            return self['-'+name]
+        else:
+            return self[name]
+
+    def __call__(self, *args, **kwargs):
+        return ep.grab(self.cmd, *args, **kwargs)
+
+    def __iter__(self):
+        return iter(+self)
+
+    def __truediv__(self, value):
+        return self[value]
+
+    def __or__(self, func):
+        return tuple(map(func, +self))
+
+    def __dir__(self):
+        return ep.grab('ls').tuple
+
+    @property
+    def f(self):
+        return Cmd(self.cmd, 'flag')
+
+
+@Trigger
+def c(hint=None):
+    os.chdir(dirlog.get_and_update(hint))
+    -(sh/'ls --color=auto')
+
+
+f = Trigger(lambda s: s.format(**inspect.stack()[2][0].f_locals))
+h = Trigger(lambda func=None: help() if func is None else help(func))
+sh = Trigger(lambda c: Cmd(c))
+ls, e, clear = sh/'ls --color=auto', sh.permedit, sh.clear,
+ll, la, lla = ls.f.l, ls.f.a, ls.f.la
 
 if 'ep' in globals():
     ep.ProcStream.__repr__ = lambda self: self.str
@@ -50,9 +102,21 @@ class LazyDict(dict):
     __getattr__ = dict.__getitem__
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__getitem__
-    def __dir__(self): return list(self)
+    def __dir__(self): return list(self.items())
 
 env = LazyDict(os.environ)
+
+
+@Trigger
+def vs(cmd):
+    if inspect.ismodule(cmd):
+        -(sh/env.PAGER/cmd.__file__)
+        return
+    what = +sh.which[cmd]
+    if what.len > 1:
+        ep.run([env.PAGER, '-c', 'set ft=sh'], stdin=what)
+    else:
+        sh/env.PAGER/what
 
 
 class Prompt:
@@ -71,5 +135,6 @@ class Prompt2(Prompt):
     def __str__(self):
         return '.' * (len(str(sys.ps1))-15) + ' '
 
-sys.ps1 = Prompt()
-sys.ps2 = Prompt2()
+if not sys.argv[0].endswith('bpython'):
+    sys.ps1 = Prompt()
+    sys.ps2 = Prompt2()
