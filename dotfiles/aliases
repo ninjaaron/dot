@@ -209,5 +209,9 @@ vs() {
     $PAGER "$what"
   fi
 }
+<<<<<<< HEAD
 
 alias pyint='pip wheel .; pip install --user --upgrade *py3*whl'
+=======
+alias pyclean='rm dist *egg-info __pycache__ *.pyc *whl'
+>>>>>>> 7904f6e7bfdd9f8f85c9368b1c668269df5c0ae8
