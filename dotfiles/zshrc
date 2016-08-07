@@ -1,3 +1,4 @@
+# vim: ft=sh
 # The following lines were added by compinstall
 zstyle ':completion:*' completer _complete _ignored _correct _approximate
 zstyle ':completion:*' completions 'NUMERIC == 2'
@@ -76,8 +77,10 @@ alias -s pdf=zathura
 [[ -n $SSH_TTY ]] && host="%F{green}%m%f:"
 precmd() {
   updates=$(cat ~/.updates) 2> /dev/null
+  branch=$(git branch | grep '*') 2> /dev/null
   PROMPT="$host%F{blue}%~%f> "
-  (( updates != 0 )) && PROMPT="(%F{yellow}$updates%f)$PROMPT"
+  [[ -n $branch ]] && PROMPT="%F{yellow}${branch#* }%f|$PROMPT"
+  (( updates != 0 )) && PROMPT="%F{cyan}$updates%f|$PROMPT"
   [[ $USER = 'root' ]] && PROMPT="%F{yellow}%m%f:%F{red}%~%f# "
 }
 
@@ -87,9 +90,3 @@ source $HOME/.aliases
 # syntax highlighting
 [[ -n $HIGHLIGHT ]] && source $HIGHLIGHT
 [[ -n $COMPL ]] && source $COMPL
-
-PATH="/home/ninjaaron/perl5/bin${PATH:+:${PATH}}"; export PATH;
-PERL5LIB="/home/ninjaaron/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
-PERL_LOCAL_LIB_ROOT="/home/ninjaaron/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
-PERL_MB_OPT="--install_base \"/home/ninjaaron/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/home/ninjaaron/perl5"; export PERL_MM_OPT;

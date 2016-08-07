@@ -210,4 +210,4 @@ vs() {
   fi
 }
 alias pyint='pip wheel .; pip install --user --upgrade *py3*whl'
-alias pyclean='rm dist *egg-info __pycache__ *.pyc *whl'
+alias pyclean='rm dist; rm *egg-info; rm __pycache__; rm *.pyc; rm *whl'
