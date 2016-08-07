@@ -205,3 +205,4 @@ alias p='put'
 vs() {
   $EDITOR -R `which "$1"` || which "$1"|$EDITOR -
 }
+alias pyclean='rm dist *egg-info __pycache__ *.pyc *whl'
