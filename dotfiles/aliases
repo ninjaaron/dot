@@ -220,3 +220,5 @@ gitme() {
   ghclone ninjaaro/"$1"
 }
 alias view='vimpager'
+
+# silly
