@@ -80,43 +80,43 @@ class Cmd:
         return ep.grab('ls').tuple
 
 
-@Trigger
-def c(hint=None):
-    os.chdir(dirlog.get_and_update(hint))
-    -(sh/'ls --color=auto')
+def funky_junk():
+
+    @Trigger
+    def c(hint=None):
+        os.chdir(dirlog.get_and_update(hint))
+        -(sh/'ls --color=auto')
+
+    @Trigger
+    def vs(cmd):
+        if inspect.ismodule(cmd):
+            -(sh/env.PAGER/cmd.__file__)
+            return
+        what = +sh.which[cmd]
+        if what.len > 1:
+            ep.run([env.PAGER, '-c', 'set ft=sh'], stdin=what)
+        else:
+            sh/env.PAGER/what
+
+    f = Trigger(lambda s: s.format(**inspect.stack()[2][0].f_locals))
+    h = Trigger(lambda func=None: help() if func is None else help(func))
+    sh = Trigger(lambda c: Cmd(c))
+    ls, e, clear, view = sh/'ls --color=auto', sh.permedit, sh.clear, sh.vimpager
+    ll, la, lla = ls._l, ls._a, ls._la
+    rm = sh.rm._r
+    globals().update(locals())
 
 
-f = Trigger(lambda s: s.format(**inspect.stack()[2][0].f_locals))
-h = Trigger(lambda func=None: help() if func is None else help(func))
-sh = Trigger(lambda c: Cmd(c))
-ls, e, clear, view = sh/'ls --color=auto', sh.permedit, sh.clear, sh.vimpager
-ll, la, lla = ls._l, ls._a, ls._la
-rm = sh.rm._r
 
-if 'ep' in globals():
-    ep.ProcStream.__repr__ = lambda self: self.str
-
-
-class LazyDict(dict):
+class DotDict(dict):
     "dict for people who are too lazy to type brackets and quotation marks"
     __getattr__ = dict.__getitem__
     __setattr__ = dict.__setitem__
-    __delattr__ = dict.__getitem__
-    def __dir__(self): return list(self.items())
-
-env = LazyDict(os.environ)
+    __delattr__ = dict.__delitem__
+    def __dir__(self): return list(self)
 
 
-@Trigger
-def vs(cmd):
-    if inspect.ismodule(cmd):
-        -(sh/env.PAGER/cmd.__file__)
-        return
-    what = +sh.which[cmd]
-    if what.len > 1:
-        ep.run([env.PAGER, '-c', 'set ft=sh'], stdin=what)
-    else:
-        sh/env.PAGER/what
+env = DotDict(os.environ)
 
 
 class Prompt:

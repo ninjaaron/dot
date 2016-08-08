@@ -214,3 +214,4 @@ alias pyclean='rm dist; rm *egg-info; rm __pycache__; rm *.pyc; rm *whl'
 ghclone() {
   git clone "https://github.com/$1"
 }
+alias view='vimpager'
