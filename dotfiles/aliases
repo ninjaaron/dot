@@ -155,8 +155,8 @@ emaster() {
   git checkout master
   popd
   vim "$1"
-  git commit -am 'edited master...'
   pushd $DOT
+  git commit -am 'edited master...'
   git checkout termux
   popd
 }
