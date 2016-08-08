@@ -148,13 +148,15 @@ c() {
 }
 
 alias e="permedit"
+
 emaster() {
-  pushd $dot
+  pushd $DOT
+  git commit -am 'about to edit master...'
   git checkout master
   popd
   vim "$1"
   git commit -am 'edited master...'
-  pushd $dot
+  pushd $DOT
   git checkout termux
   popd
 }
