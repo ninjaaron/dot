@@ -4,9 +4,14 @@ cd $DOT
 echo "================ git ================"
 echo "== committing =="
 git commit -am "updating dotfiles"
+git checkout master
+git commit -am "update dotfiles"
 echo "== pulling changes =="
 git pull --recurse-submodules origin master
 echo "== pushing changes =="
+git push origin master
+git checkout termux
+git merge master
 git push origin termux
 echo "================ hg ================"
 cd ../conf
