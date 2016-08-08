@@ -42,7 +42,8 @@ export PYTHONDONTWRITEBYTECODE=1
 #export COMPL="\$DOT/sub/zsh-autosuggestions/zsh-autosuggestions.zsh"
 EOF
 
-echo 'export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.3.0/bin:$PATH"' > .zprofile
+echo 'export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.3.0/bin:$PATH"' \
+  >> ~/.zprofile
 
 cp $HOME/.zshenv $HOME/.profile
 echo "source ~/.aliases" >> $HOME/.bashrc
