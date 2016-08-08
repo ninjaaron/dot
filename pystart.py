@@ -135,6 +135,6 @@ class Prompt2(Prompt):
     def __str__(self):
         return '.' * (len(str(sys.ps1))-15) + ' '
 
-if not sys.argv[0].endswith('bpython'):
+if not 'bpython' in sys.argv[0]:
     sys.ps1 = Prompt()
     sys.ps2 = Prompt2()
