@@ -161,7 +161,6 @@ emaster() {
   popd
 }
 
-
 # fun with python
 function = {
   if [[ $1 == -l ]]; then
