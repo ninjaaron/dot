@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/awk -f
+#!/usr/bin/awk -f
 BEGIN {comment = 0; blank = 0}
 {
   total++

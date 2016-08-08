@@ -1,2 +1,2 @@
-#!/data/data/com.termux/files/usr/bin/sh
+#!/usr/bin/sh
 kill $(ps aux|dmenu -l 30|awk '{print $2}')

@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/usr/bin/bash
 
 torrent="$1"
 ssh sink "transmission-remote -a '$torrent'"

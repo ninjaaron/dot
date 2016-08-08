@@ -1,1 +1,184 @@
-dmfunc
+#!/usr/bin/bash
+
+# file browsing with dmenu
+
+source $HOME/.dmenurc
+source ~/.zshenv
+DMENU="eval ${DMENU-dmenu}"
+
+# this is actually the last function called. Customize behavior by extension
+# here.
+
+open() {
+  local sel=$1
+  [[ ! -e ~/.filelog ]] && echo "### do not delete this line" > ~/.filelog
+  sed -i "/^${sel##*/}  ${PWD//\//\\/}\\/$sel/d
+1 a\
+${sel##*/}  ${PWD//\//\\/}/$sel" ~/.filelog
+  ext="$(echo "${sel##*.}"|tr A-Z a-z)"
+  case "$ext" in
+    mkv|mov|avi|flv|ogv|mpeg|mp4|m4v|webm|wmv)
+      mpv "$sel" &
+      ;;
+    mp3|ogg|flac)
+      mocp -l "$sel"
+      urxvtc -e mocp -m "$PWD"
+      ;;
+    pdf|ps|djvu )
+      zathura "$sel" &
+      ;;
+    jpg|gif|png )
+      geeqie "$sel" &
+      ;;
+    xfc )
+      gimp "$sel" &
+      ;;
+    odt|odp|odg|ods|doc )
+      libreoffice "$sel" &
+      ;;
+    html|htm )
+      firefox "$sel" &
+      ;;
+    *) # with undefined extensions, open vim. If the directory isn't
+       # somewhere in $HOME, ask for sudo.
+      if  [[ ${PWD/*$USER*/$USER} != $USER ]] &&
+      [[ $(echo -e "y\nn"|$DMENU -p "sudo?") = y ]] ; then
+        urxvtc -e sh -c "sudo vim -u $HOME/.vimrc '$PWD/$sel'"
+        exit
+      else
+        urxvtc -e sh -c "vim '$PWD/$sel'"
+      fi
+  esac
+}
+
+
+dirhist() {
+  local dir=$(
+    {
+      echo "recent files"
+      ls ~
+      sed '1d' ~/.dirlog
+    } | $DMENU -l 30)
+    if [[ $dir == "recent files" ]]; then
+      open $(sed '1d' ~/.filelog|$DMENU -l 30|awk -F' {2,}' '{print $2}')
+    else
+      browse "${dir#*  }"
+    fi
+}
+
+
+browse() {
+  local sel=$1
+  [[ ! -e ~/.dirlog ]] && echo "### do not delete this line" > ~/.dirlog
+  while [[ -d "$sel" ]]; do
+    cd "$sel"
+    if [[ $sel != '/' ]]; then
+      sed -i "/^${PWD##*/}  ${PWD//\//\\/}/d
+1 a\
+${PWD##*/}  $PWD" ~/.dirlog
+    fi
+
+    local sel=$(
+      {
+        case $hidden in
+          true)
+            ls -a
+            echo "(hide)"
+            ;;
+          *)
+            ls
+            echo "(hidden)"
+        esac
+        echo "(term)"
+      } | $DMENU -l 30
+    )
+  done
+
+  case $sel in
+    "(hidden)")
+      local hidden=true
+      browse .
+      ;;
+    "(hide)")
+      local hidden=false
+      browse .
+      ;;
+    "(term)")
+      urxvtc
+      ;;
+    "")
+      exit 0
+      ;;
+    *)
+      open "$sel"
+  esac
+}
+
+
+run() {
+  local cmd=$({
+      echo .
+      sed '1d' ~/.cmdlog
+      echo -e "${PATH//:/\\n}" | while read dir; do
+        ls "$dir"
+      done
+    } | $DMENU -p "exec:"
+  )
+  [[ ! -e ~/.cmdlog ]] && echo "### do not delete this line" > ~/.cmdlog
+  if [[ $cmd != '.' ]]; then
+    sed -i "/^$cmd$/d
+1 a\
+$cmd" ~/.cmdlog
+    fi
+
+  # if the user selects a directory, go there and execute brws.
+  echo $cmd
+  case "$cmd" in
+    . )
+      dirhist
+      ;;
+    theme ) # changes the color scheme
+      local theme=$(ls $HOME/.themes|sed '/Ad/d ; /~$/d ; /xres/d'|\
+        $DMENU -p 'themes:')
+      theme $theme&
+      ;;
+    man )
+      entry=$(
+      IFS=':' find $(manpath)|
+      sed -n 's/.*\/\(.*\).1.gz/\1/p'|sort|
+      $DMENU -p "man:")
+      urxvtc -e $SHELL -c "man $entry"
+      ;;
+    bash*|fish*|ranger*|vim*|vi*|ed*|mocp*|info*|weechat*|htop|\
+    bpython*|ipython*|python*|"man "* )
+      urxvtc -e $SHELL -c "$cmd"
+      ;;
+    *)
+      echo "$cmd"|${SHELL:-"/bin/sh"} &
+  esac
+}
+
+web() {
+  local sel=$(
+    {
+      echo search
+      sqlite3 -separator ' | ' ~/.mozilla/firefox/*.default/places.sqlite \
+        'SELECT title, url FROM moz_places ORDER BY last_visit_date DESC'
+    }|dmenu -l 30
+  )
+  if [[ $sel == "search" ]];then
+    firefox --search "$(echo|dmenu -p "search:")"
+  elif [[ -n $sel ]]; then
+    url="${sel##* | }"
+    firefox "$url"
+  fi
+}
+
+echo $0
+if [[ ${0##*/} == "dm" ]]; then
+  run
+elif [[ ${0##*/} == "fm" ]]; then
+  dirhist
+elif [[ ${0##*/} == "web" ]]; then
+  web
+fi

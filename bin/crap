@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/env zsh
+#!/usr/bin/env zsh
 
 # pretty color dumps
 
