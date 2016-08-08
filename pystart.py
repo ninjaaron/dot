@@ -2,6 +2,7 @@ import sys, os, re, shlex, inspect, json
 import subprocess as sp
 from pprint import pprint
 from timeit import timeit
+from glob import glob
 
 local_mods = ('from collist import displayhook;sys.displayhook = displayhook',
               'import easyproc as ep', 'import requests', 'import dirlog')
@@ -53,19 +54,21 @@ class Cmd:
     def __getitem__(self, value):
         if isinstance(value, (int, slice)):
             return (+self)[value]
-        return Cmd(self.cmd+[value])
+        return Cmd(self.cmd+glob(os.path.expanduser(value)))
 
     def __getattr__(self, name):
-        if self.mode == 'flag':
-            return self['-'+name]
-        else:
-            return self[name]
+        if name.startswith('_'):
+            return Cmd(self.cmd+['-'+name[1:]])
+        return self[name]
 
     def __call__(self, *args, **kwargs):
         return ep.grab(self.cmd, *args, **kwargs)
 
     def __iter__(self):
         return iter(+self)
+
+    def __sub__(self, flag):
+        return self.F/flag
 
     def __truediv__(self, value):
         return self[value]
@@ -75,10 +78,6 @@ class Cmd:
 
     def __dir__(self):
         return ep.grab('ls').tuple
-
-    @property
-    def f(self):
-        return Cmd(self.cmd, 'flag')
 
 
 @Trigger
@@ -90,8 +89,9 @@ def c(hint=None):
 f = Trigger(lambda s: s.format(**inspect.stack()[2][0].f_locals))
 h = Trigger(lambda func=None: help() if func is None else help(func))
 sh = Trigger(lambda c: Cmd(c))
-ls, e, clear = sh/'ls --color=auto', sh.permedit, sh.clear,
-ll, la, lla = ls.f.l, ls.f.a, ls.f.la
+ls, e, clear, view = sh/'ls --color=auto', sh.permedit, sh.clear, sh.vimpager
+ll, la, lla = ls._l, ls._a, ls._la
+rm = sh.rm._r
 
 if 'ep' in globals():
     ep.ProcStream.__repr__ = lambda self: self.str
