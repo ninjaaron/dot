@@ -148,6 +148,18 @@ c() {
 }
 
 alias e="permedit"
+emaster() {
+  pushd $dot
+  git checkout master
+  popd
+  vim "$1"
+  git commit -am 'edited master...'
+  pushd $dot
+  git checkout termux
+  popd
+}
+
+
 # fun with python
 function = {
   if [[ $1 == -l ]]; then
