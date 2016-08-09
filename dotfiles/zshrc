@@ -78,9 +78,10 @@ alias -s pdf=zathura
 precmd() {
   updates=$(cat ~/.updates) 2> /dev/null
   branch=$(git branch | fgrep '*') 2> /dev/null
+  [[ -n $(git status -s) ]] 2> /dev/null && colo='red' || colo='green'
   PROMPT="$host%F{blue}%~%f> "
-  [[ -n $branch ]] && PROMPT="%F{yellow}${branch#* }%f|$PROMPT"
-  (( updates != 0 )) && PROMPT="%F{cyan}$updates%f|$PROMPT"
+  [[ -n $branch ]] && PROMPT="%F{$colo}${branch#* }%f|$PROMPT"
+  (( updates != 0 )) && PROMPT="%F{yellow}$updates%f|$PROMPT"
   [[ $USER = 'root' ]] && PROMPT="%F{yellow}%m%f:%F{red}%~%f# "
 }
 
