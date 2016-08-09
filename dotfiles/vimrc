@@ -39,6 +39,7 @@ let g:SuperTabLongestEnhanced = 1
 let g:SuperTabLongestHighlight = 1
 let g:jedi#force_py_version = 3
 
+set rtp+=/usr/lib/python2.7/site-packages/powerline/bindings/vim/
 
 set gfn=Ubuntu\ Mono\ 11 go=
 "python import vim, re
