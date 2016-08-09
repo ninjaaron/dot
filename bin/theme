@@ -7,6 +7,7 @@ echo "$theme" > ~/.theme
 source ~/.themes/$theme
 [[ -n $vimExtra ]] && echo "$vimExtra" > ~/.vim/extra.vim || rm ~/.vim/extra.vim
 
-~/bin/termux.theme
+bash ~/bin/termux.theme
 
-exit
+bash ~/.themes/xresources-gen
+
