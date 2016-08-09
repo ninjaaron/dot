@@ -138,4 +138,3 @@ class Prompt2(Prompt):
 if not 'bpython' in sys.argv[0]:
     sys.ps1 = Prompt()
     sys.ps2 = Prompt2()
-
