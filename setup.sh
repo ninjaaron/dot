@@ -5,7 +5,7 @@
 #################
 
 mkdir dotfiles/vim/{autoload,backups}
-ln -s sub/vim-pathogen/autoload/pathogen.vim dotfiles/vim/autoload/
+cp sub/vim-pathogen/autoload/pathogen.vim dotfiles/vim/autoload/
 
 ###############################
 # link config files and ~/bin #
