@@ -1,0 +1,44 @@
+#!/data/data/com.termux/files/usr/bin/bash
+# generates and loads a new ~/.Xresources file based on settings from another file.
+
+# get the settings
+theme=$(cat ~/.theme)
+source ~/.themes/"$theme"
+
+# write the comments and colors
+cat > ~/.termux/colors.properties << EOF
+! -----------------------------------------------
+! $theme_name theme
+! file:     ~/.Xresources
+! author:   Aaron "ninjaaron" Christianson
+! modified: $date_modified
+! -----------------------------------------------
+
+background : $bg_color
+foreground : $fg_color
+
+! Black + DarkGrey
+color0 :  $black
+color8 :  $dark_grey
+! Red
+color1 :  $red
+color9 :  $light_red
+! Green
+color2  :  $green
+color10 : $light_green
+! Yellow
+color3  :  $yellow
+color11 : $light_yellow
+! Blue
+color4 :  $blue
+color12 : $light_blue
+! Magenta
+color5 :  $magenta
+color13 : $light_magenta
+! Cyan
+color6 :  $cyan
+color14 : $light_cyan
+! LightGrey + White
+color7 : $light_grey
+color15 : $white
+EOF

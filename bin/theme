@@ -6,14 +6,7 @@
 echo "$theme" > ~/.theme
 source ~/.themes/$theme
 [[ -n $vimExtra ]] && echo "$vimExtra" > ~/.vim/extra.vim || rm ~/.vim/extra.vim
-#pkill conky
-#~/bin/conksel
-chmod +x ~/.themes/xresources-gen
 
-~/.themes/xresources-gen
-~/.i3/i3-colorgen.sh
-
-#herbstclient reload
-#~/.config/herbstluftwm/restartpanels.sh
+~/bin/termux.theme
 
 exit
