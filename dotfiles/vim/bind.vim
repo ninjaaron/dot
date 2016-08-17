@@ -38,7 +38,7 @@ noremap <leader>r mvgq}`v
 noremap <leader>c g
 noremap <leader>C :set ic!<CR>
 
-xnoremap # :s/^/#/<CR>:noh<cr>
+xnoremap # :s/^\(\s*\)/\1# /<CR>:noh<cr>
 
 " saving and quitting
 for key in ['w', 'q', 'x']
