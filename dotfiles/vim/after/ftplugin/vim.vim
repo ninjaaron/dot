@@ -17,3 +17,6 @@ endfunction
 
 let g:SnipOn = 0
 noremap <Leader>sn :call Snippits()<CR>
+
+xnoremap # :call Comment('"')<CR>
+nnoremap # ^i" <ESC>

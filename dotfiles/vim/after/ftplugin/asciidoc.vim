@@ -6,3 +6,6 @@ inoremap {{{ // {{{<CR>// }}}O
 nnoremap <leader>a :w<cr>:!asciidoctor %<cr><cr>
 xnoremap <leader>h di[heb]#"#
 xnoremap <leader>r di[rtl]#"#
+
+xnoremap # :call Comment('//')<CR>
+nnoremap # ^i// <ESC>

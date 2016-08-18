@@ -31,6 +31,20 @@ function! ToggleHebrew()
 endfunction
 noremap <leader>i :call ToggleHebrew()<cr>
 
+" comment out blocks.
+function! Comment(char) range
+  exe ":norm" a:firstline."G^"
+  let col = getcurpos()[4]
+  for line in range(a:firstline, a:lastline)
+    if getline(line) != ''
+      exec ":norm" line."G".col."\|i".a:char." "
+    endif
+  endfor
+endfunction
+
+xnoremap # :call Comment('#')<CR>
+nnoremap # ^i# <ESC>
+
 " reformat
 noremap <leader>r mvgq}`v
 
@@ -38,7 +52,6 @@ noremap <leader>r mvgq}`v
 noremap <leader>c g
 noremap <leader>C :set ic!<CR>
 
-xnoremap # :s/^\(\s*\)/\1# /<CR>:noh<cr>
 
 " saving and quitting
 for key in ['w', 'q', 'x']
