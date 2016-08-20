@@ -101,6 +101,7 @@ alias ymus="youtube-dl -x --audio-format mp3"
 np() {
   echo "#!/usr/bin/env python3" > "$1"
   chmod +x "$1"
+  e "$1"
 }
 
 ali() {
