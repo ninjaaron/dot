@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 # set some themage
 
 [[ -n $1 ]]&&[[ ! -e ~/.themes/$1 ]]  && echo "No Such Theme" && exit
@@ -6,14 +6,8 @@
 echo "$theme" > ~/.theme
 source ~/.themes/$theme
 [[ -n $vimExtra ]] && echo "$vimExtra" > ~/.vim/extra.vim || rm ~/.vim/extra.vim
-#pkill conky
-#~/bin/conksel
-chmod +x ~/.themes/xresources-gen
 
-~/.themes/xresources-gen
-~/.i3/i3-colorgen.sh
+bash ~/bin/termux.theme
 
-#herbstclient reload
-#~/.config/herbstluftwm/restartpanels.sh
+bash ~/.themes/xresources-gen
 
-exit

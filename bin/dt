@@ -1,13 +1,23 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 
 cd $DOT
 echo "================ git ================"
 echo "== committing =="
+echo ...commit termux...
 git commit -am "updating dotfiles"
+git checkout master
+echo ...commit master...
+git commit -am "update dotfiles"
 echo "== pulling changes =="
 git pull --recurse-submodules origin master
 echo "== pushing changes =="
+echo ...push master...
 git push origin master
+git checkout termux
+echo ...merge master...
+git merge master -m 'auto merging master'
+echo ...push termux...
+git push origin termux
 echo "================ hg ================"
 cd ../conf
 hg addremove
