@@ -192,6 +192,6 @@ ghclone() {
 }
 
 gitme() {
-  ghclone ninjaaro/"$1"
+  ghclone ninjaaron/"$1"
 }
 alias view='vimpager'
