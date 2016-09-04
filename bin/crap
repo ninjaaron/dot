@@ -431,7 +431,7 @@ rain() {
   for i in black red magenta blue cyan green yellow white
   do
     urxvt -e sh -c "cmatrix -b -u 9 -C $i"  &
-    sleep .3
+    sleep .5
   done
 }
 

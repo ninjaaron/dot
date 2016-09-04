@@ -34,7 +34,7 @@ data = requests.request \
     ('GET', 'https://pypi.python.org/pypi/%s/json/'%package).json()
 
 info = data['info']
-info['license'] = info['license'] if info['license'] else 'unknown'
+info['license'] = info['license'] or 'unknown'
 
 for url in data['urls']:
     if 'source' in url['python_version']:
