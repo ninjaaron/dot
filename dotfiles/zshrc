@@ -87,6 +87,7 @@ precmd() {
 
 setopt sharehistory autocd extendedglob
 source $HOME/.aliases
+source /usr/bin/virtualenvwrapper_lazy.sh
 
 # syntax highlighting
 [[ -n $HIGHLIGHT ]] && source $HIGHLIGHT
