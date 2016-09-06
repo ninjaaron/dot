@@ -1,0 +1,13 @@
+#!/bin/sh
+branch="$(git branch -q|grep '^\*'|cut -d' ' -f2)"
+if [[ $branch != 'master' ]]; then
+  echo "error: must be on branch master" >&2
+  exit 1
+fi
+pyclean
+git commit -a
+git push
+pip wheel .
+python setup.py sdist
+twine upload *.whl dist/*
+pyclean

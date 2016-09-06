@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+rm -r dist
+rm -r __pycache__
+rm *.pyc
+rm *whl
