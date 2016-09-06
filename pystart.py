@@ -80,6 +80,14 @@ class Cmd:
         return ep.grab('ls').tuple
 
 
+class Exit:
+    def __repr__(self):
+        __builtins__.exit()
+
+
+exit = Exit()
+
+
 def funky_junk():
 
     @Trigger

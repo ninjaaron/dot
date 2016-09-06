@@ -185,7 +185,6 @@ vs() {
   fi
 }
 alias pyint='pip wheel .; pip install --user --upgrade *py3*whl'
-alias pyclean='rm dist; rm *egg-info; rm __pycache__; rm *.pyc; rm *whl'
 
 ghclone() {
   git clone "https://github.com/$1"
