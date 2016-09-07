@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+import sys
+
+nums = sys.argv[1:] or map(str.strip, sys.stdin)
+ints = (int(n).to_bytes(1, 'little') for n in nums)
+
+with open(1, 'wb') as stdout:
+    for n in ints:
+        stdout.write(n)
