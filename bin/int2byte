@@ -1,8 +1,18 @@
 #!/usr/bin/env python3
 import sys
 
+
+def int2bytes(integer):
+    size = 1
+    while True:
+        try:
+            return integer.to_bytes(size, sys.byteorder)
+        except OverflowError:
+            size += 1
+
 nums = sys.argv[1:] or map(str.strip, sys.stdin)
-ints = (int(n).to_bytes(1, 'little') for n in nums)
+ints = (int2bytes(int(n)) for n in nums)
+
 
 with open(1, 'wb') as stdout:
     for n in ints:
