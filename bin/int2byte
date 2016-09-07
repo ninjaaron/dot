@@ -10,10 +10,13 @@ def int2bytes(integer):
         except OverflowError:
             size += 1
 
-nums = sys.argv[1:] or map(str.strip, sys.stdin)
-ints = (int2bytes(int(n)) for n in nums)
+def main():
+    nums = sys.argv[1:] or map(str.strip, sys.stdin)
+    ints = (int2bytes(int(n)) for n in nums)
 
+    with open(1, 'wb') as stdout:
+        for n in ints:
+            stdout.write(n)
 
-with open(1, 'wb') as stdout:
-    for n in ints:
-        stdout.write(n)
+if __name__ == '__main__':
+    main()
