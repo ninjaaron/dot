@@ -76,7 +76,7 @@ alias -s pdf=zathura
 # PROMPT
 [[ -n $SSH_TTY ]] && host="%F{green}%m%f:"
 precmd() {
-  updates="$(xxd -ps $HOME/.updates)" 2> /dev/null
+  updates="$(rep -l "str(bin(ord(i)))[2:]" < $HOME/.updates)" 2> /dev/null
   branch=$(git branch | fgrep '*') 2> /dev/null
   [[ -n $(git status -s) ]] 2> /dev/null && colo='red' || colo='green'
   PROMPT="$host%F{blue}%~%f> "

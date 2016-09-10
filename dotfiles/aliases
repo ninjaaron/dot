@@ -15,7 +15,7 @@ alias hlf="$EDITOR ~/.config/herbstluftwm/func"
 alias hls="$EDITOR ~/.config/herbstluftwm/swap"
 
 alias dot="cd $DOT"
-# packagmanagment 
+# packagmanagment
 alias pS="sudo pacmatic -S"
 alias aS="pacaur -aS"
 alias pSs="pacaur -Ss"
@@ -50,17 +50,9 @@ alias ls="ls --color=auto -F"
 alias ll="ls --color=auto -lh"
 alias la="ls --color=auto -A"
 alias lla="ls --color=auto -lhA"
-lr() {
-  for i in *; do
-    if [[ -d $i ]]; then
-      printf "\e[1;35m= $i\n\e[m"
-      ls --color=auto -FH $i
-    else
-      printf "\e[1;33m- $i\n\e[m"
-    fi
-  done
-}
 
+alias pe='perl -pe'
+alias ne='perl -ne'
 alias df="df -h"
 alias du="du -h"
 alias x='chmod +x'
@@ -104,43 +96,11 @@ np() {
   $EDITOR "$1"
 }
 
-ali() {
-  echo "alias $1='$2'" >> ~/.aliases
-  source ~/.aliases
-}
-
-ern() {
-  for file in "$@"; do
-    local temp="/tmp/$(echo "$file"|md5sum)"
-    echo "$file" > "$temp"
-    "$EDITOR" "$temp"
-    [[ $file != $(cat "$temp") ]] && mv "$file" "$(cat "$temp")"
-    rm "$temp"
-  done
-}
-
-m() {
-  pattern="${@#/}"
-  pattern="${pattern%/*}"
-  flags="${@#/$pattern/}"
-  if [[ -n $flags ]]; then
-    grep -"$flags" "$pattern"
-  else
-    grep "$pattern"
-  fi
-}
-
 alias pbxc='xclip -o|pb'
-
-gap() { herbstclient emit_hook "gap $@";}
 
 # find processes that match a regex
 psg() { ps aux|grep "$@"|grep -v grep; }
 
-# "c" function makes a log of visited directories and helps you get there quick
-# It got a little long, so I put it in its own script, which I source here:
-#source ~/bin/dirlog.sh
-#source ~/bin/ypm.sh
 c() {
   dir=$(dirlog-cd "$@")
   if [ "$dir" != "" ]; then
@@ -149,9 +109,6 @@ c() {
 }
 
 alias e="permedit"
-function = {
-  rep "$@"
-}
 alias act="source ~/bin/activate-venv"
 
 # resets the size of the framebuffer for the tty
@@ -163,7 +120,6 @@ se() {
   ls -d *"$@"*
 }
 
-# opens a tmux session with an optional command
 
 # unsorted aliasses
 alias voff='xrandr --output VGA1 --off'
@@ -173,7 +129,8 @@ alias xr1080='xrandr --output HDMI1 --mode 1920x1080'
 alias zathura='~/bin/popen zathura'
 alias geeqie='popen geeqie'
 alias y='yank'
-alias d='move'
+alias m='move'
+alias d='dlog'
 alias p='put'
 vs() {
   what=`which "$1"`
