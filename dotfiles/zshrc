@@ -76,13 +76,16 @@ alias -s pdf=zathura
 # PROMPT
 [[ -n $SSH_TTY ]] && host="%F{green}%m%f:"
 precmd() {
-  updates="$(rep -l "str(bin(ord(i)))[2:]" < $HOME/.updates)" 2> /dev/null
-  branch=$(git branch | fgrep '*') 2> /dev/null
-  [[ -n $(git status -s) ]] 2> /dev/null && colo='red' || colo='green'
   PROMPT="$host%F{blue}%~%f> "
-  [[ -n $branch ]] && PROMPT="%F{$colo}${branch#* }%f|$PROMPT"
-  [[ $updates != 0 && -n $updates ]] && PROMPT="%F{yellow}$updates%f|$PROMPT"
+  updates="$(xxd -ps $HOME/.updates)" 2> /dev/null
+  branch=$(git branch | fgrep '*') 2> /dev/null
+  if [[ -n $branch ]]; then
+    [[ -n $(git status -s) ]] 2> /dev/null && colo='red' || colo='green'
+    PROMPT="%F{$colo}${branch#* }%f|$PROMPT"
+  fi
+  [[ $updates != 00 && -n $updates ]] && PROMPT="%F{yellow}$updates%f|$PROMPT"
   [[ $USER = 'root' ]] && PROMPT="%F{yellow}%m%f:%F{red}%~%f# "
+  PROMPT2=$(print -P $PROMPT|sed 's/././g')
 }
 
 setopt sharehistory autocd extendedglob
