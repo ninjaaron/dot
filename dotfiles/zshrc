@@ -86,6 +86,10 @@ precmd() {
   [[ $updates != 00 && -n $updates ]] && PROMPT="%F{yellow}$updates%f|$PROMPT"
   [[ $USER = 'root' ]] && PROMPT="%F{yellow}%m%f:%F{red}%~%f# "
   PROMPT2=$(print -P $PROMPT|sed 's/././g')
+  # PROMPT=$(~/prompt.py)
+  PROMPT2="$(print -P $PROMPT|sed 's:\[[0-9]*m::g;
+                                   s/[^-A-Za-z0-9/\\,._:?|~>'"'"'"]//g;
+                                   s/././g') "
 }
 
 setopt sharehistory autocd extendedglob
