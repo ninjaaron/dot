@@ -10,29 +10,33 @@ case "$board" in
     setxkbmap -layout "$layout" -variant "$variant" \
       -option "grp:shifts_toggle"
      xmodmap -e 'keycode 135 = Menu'
+     alt_ralt='backspace'
     ;;
   te*)
     setxkbmap -layout "$layout" -variant "$variant" \
       -option "grp:shifts_toggle,lv3:menu_switch"
     xmodmap -e 'keycode 64 = Alt_L'
+    exit 0
     ;;
   *)
     setxkbmap -layout "$layout" -variant "$variant" \
       -option "grp:shifts_toggle,ctrl:swapcaps"
-     xmodmap -e 'keycode 135 = Menu'
+     #xmodmap -e 'keycode 135 = Menu'
+     alt_ralt='backslash'
     ;;
 esac
 
 
-spare_modifier="Hyper_L"
-xmodmap -e "keycode 36 = $spare_modifier"  # keycode 36 is Return
-xmodmap -e "remove mod4 = $spare_modifier" # hyper_l is mod4 by default
-xmodmap -e "add Control = $spare_modifier"
+if xcape; then
+  spare_modifier="Hyper_L"
+  xmodmap -e "keycode 36 = $spare_modifier"  # keycode 36 is Return
+  xmodmap -e "remove mod4 = $spare_modifier" # hyper_l is mod4 by default
+  xmodmap -e "add Control = $spare_modifier"
 
-# Map space to an unused keycode (to keep it around for xcape to
-# use).
-xmodmap -e "keycode any = Return"
+  # Map space to an unused keycode (to keep it around for xcape to
+  # use).
+  xmodmap -e "keycode any = Return"
 
-# Finally use xcape to cause the space bar to generate a space when tapped.
-xcape -e "$spare_modifier=Return;Super_L=Super_L|d"
-xcape
+  # Finally use xcape to cause the space bar to generate a space when tapped.
+  xcape -e "$spare_modifier=Return;Super_L=Super_L|d"
+fi

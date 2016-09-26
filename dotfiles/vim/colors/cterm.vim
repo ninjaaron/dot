@@ -16,9 +16,8 @@ hi Comment ctermfg=8
 
 " Red
 hi Error ctermfg=1 ctermbg=None cterm=underline
-hi Type ctermfg=1
-hi Function ctermfg=1
 "alt
+hi Type ctermfg=1
 
 " Green
 hi Constant ctermfg=2
@@ -33,6 +32,7 @@ hi Statement ctermfg=3
 hi Delimiter ctermfg=4
 hi Repeat ctermfg=4
 "alt
+hi pythonQuotes ctermfg=12
 hi Conditional ctermfg=12
 
 
@@ -45,6 +45,7 @@ hi Include ctermfg=13
 hi Identifier ctermfg=6 cterm=none
 hi pythonFunction ctermfg=6
 hi Title ctermfg=6
+hi Function ctermfg=6
 "alt
 hi Special ctermfg=14
 
