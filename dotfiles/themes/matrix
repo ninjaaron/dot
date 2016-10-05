@@ -1,0 +1,35 @@
+theme_name="Matrix"
+date_modified="Wed Sep  5 16:41:53 CDT 2012"
+
+
+# settings for ~/.Xresources
+bg_color="#000000"
+fg_color="#88ff88"
+black="#151515"
+dark_grey="#446644"
+red="#b87457"
+light_red="#ffaf85 "
+green="#44ff44"
+light_green="#aaffaa"
+blue="#6688bb"
+light_blue="#88aaff"
+magenta="#9988dd"
+light_magenta="#aa99ee"
+yellow="#aaff66"
+light_yellow="#ccFFA9"
+cyan="#66cccc"
+light_cyan="#AAcccc"
+light_grey="#CBFECB"
+white="#ffffff"
+
+transparent=false
+tr_settings="URxvt.transparent: true
+URxvt.shading: 100
+URxvt.tintColor: #151a15"
+
+# settings for herbstluftwm
+frame_border_active_color="$black"
+window_border_active_color="$light_green"
+
+# settings for dmenu
+dm_sb="$light_green"

@@ -1,0 +1,57 @@
+theme_name="vintage"
+date_modified="Thu Jun 20 16:46:39 CDT 2013"
+
+# settings for ~/.Xresources
+bg_color="#0A0502"
+fg_color="#FAe6c4"
+black="#443322"
+dark_grey="#887766"
+red="#dd5544"
+light_red="#ee6655"
+green="#99CC99"
+light_green="#AADDAA"
+yellow="#f6b677"
+light_yellow="#ffbb88"
+blue="#77aacc"
+light_blue="#88bbdd"
+magenta="#bb88aa"
+light_magenta="#cc99bb"
+cyan="#5BA793"
+light_cyan="#6FD0AF"
+light_grey="#ccb4aa"
+white="#FFeecc"
+
+transparent=true
+tr_settings="URxvt.shading:100
+URxvt.tintColor: #332d20"
+
+# settings for herbstluftwm
+window_border_width=1
+window_border_active_color="$fg_color"
+frame_border_active_color=$black
+frame_border_width=0
+window_gap=0
+
+# settings for panel
+panel_date=$magenta
+panel_time=
+panel_active=$cyan
+panel_busy=$green
+panel_title=$fg_color
+panel_inact=$black
+panel_alt=$red
+panel_alert=$red
+
+dm_sb="$red"
+
+# vimExtra="
+# hi Function ctermfg=9
+# hi PreProc ctermfg=7
+# hi Identifier ctermfg=5
+# hi Delimiter ctermfg=13
+# hi Special ctermfg=7
+# hi Conditional ctermfg=1
+# "
+
+prom="%F{8}%m%f:%F{8}%~%f> "
+# vim: filetype=sh

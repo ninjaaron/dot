@@ -1,0 +1,9 @@
+theme_name="Light"
+date_modified="June 2012"
+
+source ~/.themes/light
+
+font="Ubuntu Mono:pixelsize=18"
+font2="Ubuntu Mono 14"
+
+# vim: ft=sh

@@ -1,0 +1,49 @@
+theme_name="Matrix"
+date_modified="Wed Sep  5 16:41:53 CDT 2012"
+
+
+# settings for ~/.Xresources
+bg_color="#000000"
+fg_color="#77ff77"
+black="#003300"
+dark_grey="#114411"
+red="#22cc22"
+light_red="#66ee66 "
+green="#44ff44"
+light_green="#99ff99"
+blue="#446644"
+light_blue="#88aa88"
+magenta="#558855"
+light_magenta="#99cc99"
+yellow="#66dd66"
+light_yellow="#aaffaa"
+cyan="#88cc88"
+light_cyan="#aaddaa"
+light_grey="#779977"
+white="#ccffcc"
+
+transparent=false
+tr_settings="URxvt.transparent: true
+URxvt.shading: 100
+URxvt.tintColor: #151a15"
+
+# settings for herbstluftwm
+frame_border_active_color="$black"
+window_border_active_color="$light_green"
+
+# settings for panel
+panel_date=$magenta
+panel_time=
+panel_active=$green
+panel_busy=$magenta
+panel_title=$fg_color
+panel_inact=$dark_grey
+panel_alt=$cyan
+panel_alert=$red
+
+# settings for dmenu
+dm_sb="$light_green"
+
+prom="%~> "
+
+# vim: ft=sh

@@ -1,0 +1,39 @@
+theme_name="Dark Mono"
+date_modified="Fri Feb  8 01:30:24 CST 2013"
+
+# settings for ~/.Xresources
+bg_color="#000000"
+fg_color="#bbbbbb"
+black="#333333"
+dark_grey="#444444"
+blue="#555555"
+light_blue="#5f5d5d"
+red="#666666"
+light_red="#6e6e6e"
+magenta="#777777"
+light_magenta="#7f7f7f"
+green="#888888"
+light_green="#909090"
+cyan="#999999"
+light_cyan="#a1a1a1"
+yellow="#aaaaaa"
+light_yellow="#b2b2b2"
+light_grey="#dddddd"
+white="#ffffff"
+
+# settings for herbstluftwm
+frame_border_active_color="$fg_color"
+window_border_normal_color="#080808"
+window_border_active_color="$black"
+
+# settings for panel
+panel_date="$green"
+panel_time="$white"
+panel_active="$white"
+panel_busy="$yellow"
+panel_title="$fg_color"
+panel_inact="$blue"
+panel_alt="$white"
+
+prom="%~> "
+# vim: ft=sh

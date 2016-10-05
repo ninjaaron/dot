@@ -1,0 +1,54 @@
+theme_name="clear"
+date_modified="Tue Dec 18 12:35:56 CST 2012"
+
+# settings for ~/.Xresources
+bg_color="#101010"
+fg_color="#aaaaaa"
+black="#1b1b1b"
+dark_grey="#555555"
+red="#cc4444"
+light_red="#cc335f"
+green="#55aa55"
+light_green="#77aa22"
+yellow="#ee9966"
+light_yellow="#ffdd88"
+blue="#7777ff"
+light_blue="#3388bb"
+magenta="#bb33bb"
+light_magenta="#9966ff"
+cyan="#22aaaa"
+light_cyan="#33aa77"
+light_grey="#808080"
+white="#ffffff"
+
+transparent=true
+tr_settings="URxvt.shading:100
+URxvt.fading:30"
+
+# settings for herbstluftwm
+window_border_width=0
+frame_border_active_color=$dark_grey
+frame_border_width=0
+window_gap=0
+pad="11 1 1 1"
+
+# settings for panel
+panel_date=$magenta
+panel_time=
+panel_active=$light_blue
+panel_busy=$green
+panel_title=$light_yellow
+panel_inact=$dark_grey
+panel_alt=$light_red
+panel_alert=$red
+
+dm_sb="$green"
+
+vimExtra="
+hi Type ctermfg=9
+hi Function ctermfg=9
+hi PreProc ctermfg=13
+hi Include ctermfg=5
+"
+
+# vim: filetype=sh

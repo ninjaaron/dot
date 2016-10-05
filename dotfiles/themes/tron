@@ -1,0 +1,45 @@
+theme_name="Tron"
+date_modified="November 2011"
+
+# settings for ~/.Xresources
+bg_color="#101010"
+fg_color="#88ddff"
+black="#334444"
+dark_grey="#496666"
+red="#FF8855"
+light_red="#FF956F"
+green="#5EFFaf"
+light_green="#aaffcc"
+blue="#5eAAFF"
+light_blue="#99ccFF"
+magenta="#ff8888"
+light_magenta="#ff99bb"
+yellow="#FFFF77"
+light_yellow="#FFFFA9"
+cyan="#55ffff"
+light_cyan="#AAFFFF"
+light_grey="#FFFFee"
+white="#ffffff"
+
+font="Ubuntu Mono:pixelsize=11:style=bold"
+font2="Ubuntu Mono Bold 8"
+
+transparent="true"
+tr_settings="URxvt.shading: 103
+URxvt.tintColor: #1e1e1e"
+
+# settings for herbstluftwm
+frame_border_active_color="$bg_color"
+window_border_active_color="$light_cyan"
+window_title=$light_cyan
+
+# settings for dmenu
+dm_sb="$light_cyan"
+dm_fn="-*-bitbuntu-*"
+
+# settings for conky
+con_default_color="$light_cyan"
+con_mpd_title="$yellow"
+con_mpd_artist="$red"
+con_mpd_elapsed="$green"
+con_hlwm_pad=12

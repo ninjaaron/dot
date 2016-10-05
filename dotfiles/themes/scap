@@ -1,0 +1,43 @@
+theme_name="La Scapigliata"
+date_modified="Tue Nov 13 13:47:14 CST 2012"
+
+source ~/.themes/sepia
+
+bg_color="#332115"
+fg_color="#FAD6B4"
+dark_grey="#774c32"
+
+# settings for panel
+panel_date=$magenta
+panel_time=
+panel_active=$light_grey
+panel_busy=$light_red
+panel_title=$fg_color
+panel_inact=$dark_grey
+panel_alt=$yellow
+panel_alert=$red
+
+panel_bg=$black
+panel_fbx=$dark_grey
+
+# settings for herbstluftwm
+window_border_width=1
+window_border_active_color=$yellow
+frame_border_active_color=$bg_color
+frame_border_width=0
+window_gap=0
+
+window_border_i=$black
+window_title_i=$light_grey
+
+# settings for ~/.Xresources
+transparent=true
+tr_settings="URxvt.shading: 105
+URxvt.tintColor: #553311
+URxvt.blurRadius: 4x4"
+
+font="UbuntuMono:pixelsize=14"
+font2="Ubuntu Mono Bold 10"
+
+prom="%F{3}%m%f:%F{4}%~%f> "
+# vim: filetype=sh

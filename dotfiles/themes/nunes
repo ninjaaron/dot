@@ -1,0 +1,62 @@
+theme_name="shomshing"
+date_modified="Tue Dec 18 12:35:56 CST 2012"
+
+# settings for ~/.Xresources
+bg_color="#111111"
+fg_color="#777777"
+black="#444444"
+dark_grey="#555555"
+red="#dd3366"
+light_red="#dd5555"
+green="#77aa44"
+light_green="#44bb44"
+yellow="#eeaa77"
+light_yellow="#ffdd88"
+blue="#5588ff"
+light_blue="#3388bb"
+magenta="#bb33bb"
+light_magenta="#9966ff"
+cyan="#22aaaa"
+light_cyan="#33aa77"
+light_grey="#808080"
+white="#ffffff"
+
+transparent=false
+tr_settings="URxvt.shading:15
+URxvt.fading:30"
+# fading=true
+
+# settings for window managers
+window_border_width=0
+window_border_active_color=$yellow
+window_border_normal_color=$black
+frame_border_active_color=$black
+frame_border_width=0
+window_gap=0
+pad="11 1 1 1"
+expand="herbstclient set window_border_width 2"
+contract="herbstclient set window_border_width 0"
+window_title=$yellow
+
+# settings for panel
+panel_date=$magenta
+panel_time=
+panel_active=$light_blue
+panel_busy=$green
+panel_title=$light_yellow
+panel_inact=$dark_grey
+panel_alt=$light_red
+panel_alert=$blue
+panel_pwr="#88bbff"
+panel_fg=$dark_grey
+panel_fbx=$black
+
+dm_sb="$green"
+
+vimExtra="hi Type ctermfg=9
+hi Function ctermfg=9
+hi PreProc ctermfg=13
+hi Include ctermfg=5"
+
+
+# vim: filetype=sh

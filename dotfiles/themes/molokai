@@ -1,0 +1,49 @@
+theme_name="Molokai"
+date_modified="Fri Feb  1 01:34:19 CST 2013"
+
+# settings for ~/.Xresources
+bg_color="#1B1D1E"
+fg_color="#f8f8f2"
+black="#080808"
+dark_grey="#232526"
+red="#F92672"
+light_red="#F9367a"
+green="#a6e22e"
+light_green="#aee23e"
+blue="#55aaff"
+light_blue="#65b2ff"
+magenta="#ae81ff"
+light_magenta="#b691ff"
+yellow="#fd971f"
+light_yellow="#fd9f2f"
+cyan="#66d9ef"
+light_cyan="#76e1ef"
+light_grey="#465457"
+white="#e9db74"
+Xextra="URxvt.fading:30
+URxvt.fadeColor:$bg_color"
+
+font="Ubuntu Mono:pixelsize=14"
+font2="Ubuntu Mono Bold 10"
+
+# settings for herbstluftwm
+window_border_width=0
+frame_border_active_color=$dark_grey
+frame_border_width=0
+window_gap=0
+pad="11 1 1 1"
+
+panel_date=$cyan
+panel_time=$red
+panel_active=$magenta
+panel_busy=$green
+panel_title=$white
+panel_inact="#808080"
+panel_alt="$yellow"
+
+
+# settings for dmenu
+dm_sb="$green"
+
+vimExtra="source $HOME/.vim/colors/mymo.vim"
+# vim: filetype=sh

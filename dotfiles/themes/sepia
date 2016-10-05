@@ -1,0 +1,57 @@
+theme_name="Sepia"
+date_modified="Mon Feb 18 14:36:15 CST 2013"
+
+# settings for ~/.Xresources
+bg_color="#0F0804"
+fg_color="#FAD6B4"
+black="#1b120e"
+dark_grey="#503828"
+red="#bb6650"
+light_red="#B06655"
+green="#8b967f"
+light_green="#959E8a"
+yellow="#e7aa66"
+light_yellow="#E2AB79"
+blue="#9f9c97"
+light_blue="#b5b3ac"
+magenta="#A28585"
+light_magenta="#a28b8b"
+cyan="#a0afaa"
+light_cyan="#b4bfbb"
+light_grey="#C09776"
+white="#FFE9C6"
+
+transparent=true
+tr_settings="URxvt.shading:100
+URxvt.fading:30"
+
+# settings for herbstluftwm
+window_border_width=0
+frame_border_active_color=$dark_grey
+frame_border_width=0
+window_gap=0
+pad="11 1 1 1"
+
+# settings for panel
+panel_date=$magenta
+panel_time=
+panel_active=$light_grey
+panel_busy=$light_red
+panel_title=$fg_color
+panel_inact=$dark_grey
+panel_alt=$yellow
+panel_alert=$red
+
+dm_sb="$red"
+
+vimExtra="
+hi Function ctermfg=9
+hi PreProc ctermfg=7
+hi Identifier ctermfg=5
+hi Delimiter ctermfg=13
+hi Special ctermfg=7
+hi Conditional ctermfg=1
+"
+
+prom="%F{7}%~%f> "
+# vim: filetype=sh

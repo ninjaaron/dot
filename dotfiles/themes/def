@@ -1,0 +1,31 @@
+theme_name="The New Default"
+date_modified="Sun Nov 11 21:42:03 CST 2012"
+
+# settings for ~/.Xresources
+bg_color="#1e1e1e"
+fg_color="#888888"
+black="#444444"
+dark_grey="#666666"
+red="#ee5252"
+light_red="#ff8787"
+green="#5eee5e"
+light_green="#aaffaa"
+blue="#3377ff"
+light_blue="#55aaff"
+magenta="#e744ff"
+light_magenta="#ee88ff"
+yellow="#ff9955"
+light_yellow="#ffeea9"
+cyan="#44eeee"
+light_cyan="#99ffff"
+light_grey="#cccccc"
+white="#ffffff"
+
+transparent="true"
+#tr_settings="URxvt.shading: 10
+#URxvt.tintColor: #333333"
+
+# settings for dmenu
+dm_sb="$yellow"
+
+# vim: syntax=sh

@@ -1,0 +1,34 @@
+theme_name="Neon"
+date_modified="15.08.2012"
+
+# settings for ~/.Xresources
+bg_color="#101010"
+fg_color="#aaaaaa"
+black="#444444"
+dark_grey="#666666"
+red="#ff1155"
+light_red="#ff4488"
+green="#11ff55"
+light_green="#44ff88"
+blue="#1155ff"
+light_blue="#4488ff"
+magenta="#bb33ff"
+light_magenta="#dd66ff"
+yellow="#FF9933"
+light_yellow="#FFdd66"
+cyan="#00ffbb"
+light_cyan="#66ffdd"
+light_grey="#cccccc"
+white="#ffffff"
+
+#transparent="true"
+
+# settings for herbstluftwm
+frame_border_active_color="$black"
+window_border_normal_color="#080808"
+window_border_active_color="$yellow"
+window_title=$light_magenta 
+
+# settings for dmenu
+dm_sb="$green"
+# vim: syntax=sh

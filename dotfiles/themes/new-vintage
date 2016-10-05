@@ -1,0 +1,12 @@
+source ~/.themes/vintage
+
+# settings for ~/.Xresources
+transparent=true
+tr_settings="URxvt.shading: 105
+URxvt.tintColor: #553311
+URxvt.blurRadius: 4x4"
+
+font="UbuntuMono:pixelsize=14"
+font2="Ubuntu Mono Bold 9"
+
+# vim: filetype=sh

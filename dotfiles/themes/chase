@@ -1,0 +1,71 @@
+theme_name='chase'
+date_modified='Tue Feb 12 15:38:10 CST 2013'
+
+# settings for ~/.Xresources
+bg_color='#111111'
+fg_color='#aaaaaa'
+black='#2e2e2e'
+dark_grey='#404040'
+red='#e62e2e'
+light_red='#cc297b'
+green='#30bf30'
+light_green='#7acc29'
+blue='#5555ff'
+light_blue='#177ee6'
+magenta='#bf30bf'
+light_magenta='#8e51cc'
+yellow='#ffff33'
+light_yellow='#ff9933'
+cyan='#30bfbf'
+light_cyan='#29cc7a'
+light_grey='#777777'
+white='#ffffff'
+
+transparent=
+tr_settings=
+Xextra="URxvt.fading: 30
+URxvt.fadeColor:$bg_color"
+
+# settings for herbstluftwm
+frame_border_active_color=
+frame_bg_active_color=
+frame_bg_normal_color=
+frame_bg_transparent=
+frame_border_width=
+window_gap=
+window_border_normal_color=
+window_border_active_color=
+window_border_width=
+pad=
+
+# settings for panel
+panel_date=
+panel_time=
+panel_active=
+panel_busy=
+panel_title=
+panel_inact=
+panel_alt=
+panel_alert=
+
+# settings for dmenu
+dm_nb=
+dm_nf=
+dm_sb=
+dm_sf=
+dm_fn=
+
+# settings for conky
+con_default_color=
+con_xftfont=
+con_own_window_colour=
+con_mpd_title=
+con_mpd_artist=
+con_mpd_elapsed=
+con_hlwm_pad=
+
+vimExtra="
+hi String ctermfg=3
+hi Statement ctermfg=11"
+
+# vim: ft=sh

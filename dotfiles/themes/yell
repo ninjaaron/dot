@@ -1,0 +1,35 @@
+theme_name="tras"
+date_modified="Tue Dec 18 12:35:56 CST 2012"
+
+# settings for ~/.Xresources
+bg_color="#101010"
+fg_color="#ffcc99"
+black="#444444"
+dark_grey="#777777"
+red="#dd6666"
+light_red="#dd7777"
+green="#55aa66"
+light_green="#66aa70"
+yellow="#eeaa66"
+light_yellow="#eeaa77"
+blue="#5577dd"
+light_blue="#6688dd"
+magenta="#9955cc"
+light_magenta="#9966cc"
+cyan="#77bbbb"
+light_cyan="#88bbbb"
+light_grey="#aaaaaa"
+white="#cccccc"
+
+transparent=true
+tr_settings="URxvt.shading:20
+URxvt.fading:30"
+
+# settings for herbstluftwm
+window_border_width=0
+frame_border_active_color=$dark_grey
+frame_border_width=0
+window_gap=0
+pad="11 1 1 1"
+
+dm_sb="$green"

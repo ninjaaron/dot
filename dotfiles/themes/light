@@ -1,0 +1,46 @@
+theme_name="Light"
+date_modified="June 2012"
+
+# settings for ~/.Xresources
+bg_color="#ffffff"
+fg_color="#000055"
+black="#000000"
+dark_grey="#444444"
+red="#aa2222"
+light_red="#cc4444"
+green="#118811"
+light_green="#55bb55"
+yellow="#ee6600"
+light_yellow="#ff9955"
+blue="#3333bb"
+light_blue="#5555dd"
+magenta="#883388"
+light_magenta="#aa55aa"
+cyan="#338888"
+light_cyan="#55aaaa"
+light_grey="#999999"
+white="#dddddd"
+
+font="Ubuntu Mono:pixelsize=12:style=bold"
+font2="Ubuntu Mono Bold 10"
+transparent="false"
+tr_settings=light
+
+# settings for herbstluftwm
+frame_border_active_color=$blue
+window_border_normal_color="#dddddd"
+window_border_active_color="$white"
+window_title=$bg_color
+window_title_i=$blue
+
+panel_fbx=$blue
+
+#other
+con_hlwm_pad=12
+
+vimExtra="hi String ctermfg=8
+hi Comment ctermfg=7
+hi ColorColumn ctermbg=15
+hi Pmenu ctermfg=None ctermbg=None
+hi PmenuSel ctermfg=4 ctermbg=None cterm=reverse"
+# vim: ft=sh
