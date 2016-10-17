@@ -53,8 +53,7 @@ panel_fbx=$black
 
 dm_sb="$green"
 
-vimExtra="hi Type ctermfg=9
-hi Function ctermfg=9
+vimExtra="hi Type ctermfg=11
 hi PreProc ctermfg=13
 hi Include ctermfg=5"
 

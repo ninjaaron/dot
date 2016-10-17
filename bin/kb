@@ -2,8 +2,8 @@
 
 board=$1
 
-layout="us, de, tnk, usvi, gr"
-variant=" , , , intl, polytonic"
+layout="us, tnk, usvi, gr"
+variant=" , , intl, polytonic"
 
 case "$board" in
   hh*)
@@ -27,6 +27,7 @@ case "$board" in
 esac
 
 # xcape
+killall xcape
 if xcape; then
   spare_modifier="Hyper_L"
   xmodmap -e "keycode 36 = $spare_modifier"  # keycode 36 is Return
