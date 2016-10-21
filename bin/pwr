@@ -7,6 +7,7 @@ reboot
 suspend
 hibernate
 suspend-hybrid
+lock
 logout"
 
 
@@ -35,6 +36,9 @@ case $entry in
     ;;
   logout )
     pkill X
+    ;;
+  lock )
+    i3lock
     ;;
   *)
 esac

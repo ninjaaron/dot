@@ -36,8 +36,8 @@ tr_settings="URxvt.shading: 105
 URxvt.tintColor: #553311
 URxvt.blurRadius: 4x4"
 
-font="UbuntuMono:pixelsize=14"
-font2="Ubuntu Mono Bold 10"
+# font="UbuntuMono:pixelsize=14"
+# font2="Ubuntu Mono Bold 10"
 
 prom="%F{3}%m%f:%F{4}%~%f> "
 # vim: filetype=sh
