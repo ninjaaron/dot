@@ -102,11 +102,17 @@ alias pbxc='xclip -o|pb'
 psg() { ps aux|grep "$@"|grep -v grep; }
 
 c() {
-  dir=$(dirlog-cd "$@")
+  local dir=$(dirlog-cd "$@")
   if [ "$dir" != "" ]; then
+    LAST="$PWD"
     cd "$dir"&& ls
   fi
 }
+
+b() {
+  c "$LAST"
+}
+
 
 alias e="permedit"
 alias act="source ~/bin/activate-venv"
