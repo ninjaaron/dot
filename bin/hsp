@@ -1,3 +1,1 @@
-#!/usr/bin/env sh
-
 iconv -t ISO-8859-8 | hspell "$@" | iconv -f ISO-8859-8

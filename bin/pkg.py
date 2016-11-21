@@ -4,8 +4,8 @@ import sys
 import inspect
 
 TEMPLATE='''\
-pkgbase=('python-{name}')
-pkgname=('python-{name}')
+pkgbase=('{py_prefix}{name}')
+pkgname=('{py_prefix}{name}')
 _module='{name}'
 pkgver='{version}'
 pkgrel=1
@@ -29,7 +29,13 @@ package() {{
     pip3 install --ignore-installed --root="${{pkgdir}}" "{name}"*.whl
 }}'''
 
-package = sys.argv[1]
+if sys.argv[1] == '-np':
+    py_prefix = ''
+    package = sys.argv[2]
+else:
+    package = sys.argv[1]
+    py_prefix = 'python-'
+
 data = requests.request \
     ('GET', 'https://pypi.python.org/pypi/%s/json/'%package).json()
 
@@ -39,5 +45,6 @@ info['license'] = info['license'] or 'unknown'
 for url in data['urls']:
     if 'source' in url['python_version']:
         info.update(url)
-from pprint import pprint
+
+info['py_prefix'] = py_prefix
 print(TEMPLATE.format(**info), file=open('PKGBUILD', 'w'))
