@@ -16,8 +16,10 @@ hi Comment ctermfg=8
 
 " Red
 hi Error ctermfg=1 ctermbg=None cterm=underline
+hi pythonException ctermfg=1 ctermbg=None
 "alt
-hi Type ctermfg=1
+hi Type ctermfg=9
+hi pythonAttribute ctermfg=9
 
 " Green
 hi Constant ctermfg=2
@@ -27,19 +29,20 @@ hi Constant ctermfg=2
 hi String ctermfg=11
 "alt
 hi Statement ctermfg=3
+hi pythonQuotes ctermfg=3
 
 " Blue
 hi Delimiter ctermfg=4
 hi Repeat ctermfg=4
 "alt
-hi pythonQuotes ctermfg=12
 hi Conditional ctermfg=12
 
 
 " Magenta
-hi PreProc ctermfg=5
+hi Include ctermfg=5
 "alt
-hi Include ctermfg=13
+hi PreProc ctermfg=13
+hi pythonOperator ctermfg=13
 
 " Cyan
 hi Identifier ctermfg=6 cterm=none
@@ -48,7 +51,7 @@ hi Title ctermfg=6
 hi Function ctermfg=6
 "alt
 hi Special ctermfg=14
-
+hi pythonBuiltin ctermfg=14
 
 " Light Grey
 hi Ignore ctermfg=7 cterm=bold
