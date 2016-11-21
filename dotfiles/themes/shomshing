@@ -53,9 +53,5 @@ panel_fbx=$black
 
 dm_sb="$green"
 
-vimExtra="hi Type ctermfg=11
-hi PreProc ctermfg=13
-hi Include ctermfg=5"
-
 
 # vim: filetype=sh

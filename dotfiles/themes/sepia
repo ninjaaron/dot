@@ -44,14 +44,14 @@ panel_alert=$red
 
 dm_sb="$red"
 
-vimExtra="
-hi Function ctermfg=9
-hi PreProc ctermfg=7
-hi Identifier ctermfg=5
-hi Delimiter ctermfg=13
-hi Special ctermfg=7
-hi Conditional ctermfg=1
-"
+# vimExtra="
+# hi Function ctermfg=9
+# hi PreProc ctermfg=7
+# hi Identifier ctermfg=5
+# hi Delimiter ctermfg=13
+# hi Special ctermfg=7
+# hi Conditional ctermfg=1
+# "
 
 prom="%F{7}%~%f> "
 # vim: filetype=sh
