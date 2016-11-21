@@ -16,9 +16,9 @@ hi Comment ctermfg=8
 
 " Red
 hi Error ctermfg=1 ctermbg=None cterm=underline
-hi pythonException ctermfg=1 ctermbg=None
+hi Type ctermfg=1
 "alt
-hi Type ctermfg=9
+hi pythonException ctermfg=9 ctermbg=None
 hi pythonAttribute ctermfg=9
 
 " Green
