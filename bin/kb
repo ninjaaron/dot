@@ -2,8 +2,10 @@
 
 board=$1
 
-layout="us, tnk, usvi, gr"
-variant=" , , intl, polytonic"
+# layout="us, tnk, usvi, gr"
+# variant=" , , intl, polytonic"
+layout="usvi, tnk, de"
+variant=" intl-alt, , "
 
 case "$board" in
   hh*)
@@ -39,5 +41,5 @@ if xcape; then
   xmodmap -e "keycode any = Return"
 
   # Finally use xcape to cause the space bar to generate a space when tapped.
-  xcape -e "$spare_modifier=Return;Super_L=Super_L|d"
+  xcape -e "$spare_modifier=Return;Super_L=BackSpace;Super_R=Return"
 fi
