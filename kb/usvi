@@ -35,7 +35,7 @@ xkb_symbols "intl" {
     key <AE01> { [ NoSymbol, NoSymbol,      exclamdown                  ] }; // 1
     key <AE02> { [ NoSymbol, NoSymbol,       copyright,       trademark ] }; // 2
     key <AE03> { [ NoSymbol, NoSymbol                                   ] }; // 3
-    key <AE04> { [ NoSymbol, NoSymbol,   dead_currency                  ] }; // 4
+    key <AE04> { [ NoSymbol, NoSymbol,   dead_currency,        EuroSign ] }; // 4
     key <AE05> { [ NoSymbol, NoSymbol                                   ] }; // 5
     key <AE06> { [ NoSymbol, NoSymbol, dead_circumflex                  ] }; // 6
     key <AE07> { [ NoSymbol, NoSymbol                                   ] }; // 7
@@ -89,69 +89,83 @@ xkb_symbols "intl" {
 //  key <RALT> { [ ISO_Level3_Latch, ISO_Level3_Latch ] };
 };
 
-// same thing but with unicode combining -- giving it a shot
+partial alphanumeric_keys
 xkb_symbols "intl-alt" {
 
     name[group1]="USA - International with vi navigation";
+    include "usvi(basic)"
+
     key.type[Group1]="EIGHT_LEVEL";
-    include "usvi(custom)"
+    key <TLDE> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,      grave, asciitilde,      dead_grave,      dead_tilde ] }; // ` ~
+    key <AE01> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          1,     exclam,      exclamdown                  ] }; // 1
+    key <AE02> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          2,         at,       copyright,       trademark ] }; // 2
+    key <AE03> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          3, numbersign                                   ] }; // 3
+    key <AE04> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          4,     dollar,   dead_currency                  ] }; // 4
+    key <AE05> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          5,    percent                                   ] }; // 5
+    key <AE06> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          6,asciicircum, dead_circumflex                  ] }; // 6
+    key <AE07> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          7,  ampersand                                   ] }; // 7
+    key <AE08> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          8,   asterisk                                   ] }; // 8
+    key <AE09> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          9,  parenleft,           U0357                  ] }; // 9; combining half-ring
+    key <AE10> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          0, parenright                                   ] }; // 0
+    key <AE11> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,      minus, underscore,     dead_macron,dead_belowmacron ] }; // - =
+    key <AE12> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,      equal,       plus,        notequal,       plusminus ] }; // = +
 
-    key <LSGT> { [ dead_acute, dead_diaeresis ] };
-    key <TLDE> { [ NoSymbol, NoSymbol,           U0300,           U0303 ] }; // ` ~
-    key <AE01> { [ NoSymbol, NoSymbol,      exclamdown                  ] }; // 1
-    key <AE02> { [ NoSymbol, NoSymbol,       copyright,       trademark ] }; // 2
-    key <AE03> { [ NoSymbol, NoSymbol                                   ] }; // 3
-    key <AE04> { [ NoSymbol, NoSymbol,   dead_currency                  ] }; // 4
-    key <AE05> { [ NoSymbol, NoSymbol                                   ] }; // 5
-    key <AE06> { [ NoSymbol, NoSymbol,           U0302                  ] }; // 6
-    key <AE07> { [ NoSymbol, NoSymbol                                   ] }; // 7
-    key <AE08> { [ NoSymbol, NoSymbol                                   ] }; // 8
-    key <AE09> { [ NoSymbol, NoSymbol,           U0357                  ] }; // 9; combining half-ring
-    key <AE10> { [ NoSymbol, NoSymbol                                   ] }; // 0
-    key <AE11> { [ NoSymbol, NoSymbol,           U0304,           U0331 ] }; // - =
-    key <AE12> { [ NoSymbol, NoSymbol,        notequal,       plusminus ] }; // = +
+    key.type[Group1]="EIGHT_LEVEL_ALPHABETIC";
+    key <AD01> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          q,          Q,          oslash,        Ooblique ] }; // q
+    key <AD02> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          w,          W                                   ] }; // w
+    key <AD03> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          e,          E,           schwa                  ] }; // e
+    key <AD04> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          r,          R,      registered                  ] }; // r
+    key <AD05> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          t,          T,           thorn,           THORN ] }; // t
+    key <AD06> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          y,          Y                                   ] }; // y
+    key <AD07> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          u,          U,      dead_breve, dead_belowbreve ] }; // u
+    key <AD08> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          i,          I,           U2E2E                  ] }; // i
+    key <AD09> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          o,          O,  dead_abovering                  ] }; // o
+    key <AD10> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,          p,          P,              oe,              OE ] }; // p
+    key.type[Group1]="EIGHT_LEVEL";
+    key <AD11> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol, bracketleft,  braceleft,          U02BF,   guillemotleft ] }; // [ {; left half-ring
+    key <AD12> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol, bracketright, braceright,         U02BE,  guillemotright ] }; // ] }; right half-ring
 
-    key <AD01> { [ NoSymbol, NoSymbol,          oslash,        Ooblique ] }; // q
-    key <AD02> { [ NoSymbol, NoSymbol                                   ] }; // w
-    key <AD03> { [ NoSymbol, NoSymbol,           schwa                  ] }; // e
-    key <AD04> { [ NoSymbol, NoSymbol,      registered                  ] }; // r
-    key <AD05> { [ NoSymbol, NoSymbol,           thorn,           THORN ] }; // t
-    key <AD06> { [ NoSymbol, NoSymbol                                   ] }; // y
-    key <AD07> { [ NoSymbol, NoSymbol,           U0306,           U032E ] }; // u
-    key <AD08> { [ NoSymbol, NoSymbol,           U2E2E                  ] }; // i
-    key <AD09> { [ NoSymbol, NoSymbol,           U030A                  ] }; // o
-    key <AD10> { [ NoSymbol, NoSymbol,              oe,              OE ] }; // p
-    key <AD11> { [ NoSymbol, NoSymbol,           U0351,   guillemotleft ] }; // [ {; left half-ring
-    key <AD12> { [ NoSymbol, NoSymbol,           U0357,  guillemotright ] }; // ] }; right half-ring
+    key.type[Group1]="EIGHT_LEVEL_ALPHABETIC";
+    key <AC01> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         a,          A,             ae,              AE ] }; // a
+    key <AC02> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         s,          S,         ssharp                  ] }; // s
+    key <AC03> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         d,          D,            eth,             ETH ] }; // d
+    key <AC04> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         f,          F                                  ] }; // f
+    key <AC05> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         g,          G,          U0121                  ] }; // g
+    key <AC06> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         h,          H,           Left,           U1E2B ] }; // h
+    key <AC07> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         j,          J,           Down                  ] }; // j
+    key <AC08> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         k,          K,             Up                  ] }; // k
+    key <AC09> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         l,          L,          Right                  ] }; // l
+    key.type[Group1]="EIGHT_LEVEL";
+    key <AC10> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,  semicolon,      colon, dead_diaeresis,     dead_ogonek ] }; // ; :
+    key <AC11> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol, apostrophe,   quotedbl,     dead_acute,dead_doubleacute ] }; // ' "
 
-    key <AC01> { [ NoSymbol, NoSymbol,              ae,              AE ] }; // a
-    key <AC02> { [ NoSymbol, NoSymbol,          ssharp                  ] }; // s
-    key <AC03> { [ NoSymbol, NoSymbol,             eth,             ETH ] }; // d
-    key <AC04> { [ NoSymbol, NoSymbol                                   ] }; // f
-    key <AC05> { [ NoSymbol, NoSymbol,           U0121                  ] }; // g
-    key <AC06> { [ NoSymbol, NoSymbol,            Left,           U1E2B ] }; // h
-    key <AC07> { [ NoSymbol, NoSymbol,            Down                  ] }; // j
-    key <AC08> { [ NoSymbol, NoSymbol,              Up                  ] }; // k
-    key <AC09> { [ NoSymbol, NoSymbol,           Right                  ] }; // l
+    key.type[Group1]="EIGHT_LEVEL_ALPHABETIC";
+    key <AB01> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         z,          Z                                   ] }; // z
+    key <AB02> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         x,          X                                   ] }; // x
+    key <AB03> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         c,          C,        ccedilla,        Ccedilla ] }; // c
+    key <AB04> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         v,          V,      dead_caron                  ] }; // v
+    key <AB05> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         b,          B                                   ] }; // b
+    key <AB06> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         n,          N,          ntilde                  ] }; // n
+    key <AB07> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,         m,          M                                   ] }; // m
+    key.type[Group1]="EIGHT_LEVEL";
+    key <AB08> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,     comma,       less,      dead_grave,    dead_cedilla ] }; // , <
+    key <AB09> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,    period,    greater,   dead_belowdot,   dead_abovedot ] }; // . >
+    key <AB10> { [ NoSymbol, NoSymbol, NoSymbol,  NoSymbol,     slash,   question,     dead_stroke,    questiondown ] }; // / ?
 
-    key <AC10> { [ NoSymbol, NoSymbol,           U0308,           U0328 ] }; // ; :
-    key <AC11> { [ NoSymbol, NoSymbol,           U0301,           U0313 ] }; // ' "
+    key.type[Group1]="ONE_LEVEL";
+    key <PRSC> { [ ISO_Level5_Lock ] };
+    key.type[Group1]="EIGHT_LEVEL";
+    key <LALT> { [ Alt_L, Alt_L, NoSymbol, NoSymbol, ISO_Level3_Latch, ISO_Level3_Latch, ISO_Level5_Lock ] };
+    key <RALT> { [ Alt_R, Alt_R, NoSymbol, NoSymbol, ISO_Level3_Latch, ISO_Level3_Latch, ISO_Level5_Lock ] };
 
-    key <AB01> { [ NoSymbol, NoSymbol                                   ] }; // z
-    key <AB02> { [ NoSymbol, NoSymbol                                   ] }; // x
-    key <AB03> { [ NoSymbol, NoSymbol,        ccedilla,        Ccedilla ] }; // c
+    include "level5(modifier_mapping)"
+    include "level3(modifier_mapping)"
+};
 
-    key <AB04> { [ NoSymbol, NoSymbol,      dead_caron                  ] }; // v
-    key <AB05> { [ NoSymbol, NoSymbol                                   ] }; // b
-    key <AB06> { [ NoSymbol, NoSymbol,          ntilde                  ] }; // n
-    key <AB07> { [ NoSymbol, NoSymbol                                   ] }; // m
-    key <AB08> { [ NoSymbol, NoSymbol,      dead_grave,    dead_cedilla ] }; // , <
-    key <AB09> { [ NoSymbol, NoSymbol,   dead_belowdot,   dead_abovedot ] }; // . >
-    key <AB10> { [ NoSymbol, NoSymbol,     dead_stroke,    questiondown ] }; // / ?
-
-    key <BKSL> { [ NoSymbol, NoSymbol                                   ] };
-//  key <LALT> { [ ISO_Level3_Latch, ISO_Level3_Latch ] };
-//  key <RALT> { [ ISO_Level3_Latch, ISO_Level3_Latch ] };
+xkb_symbols "basic" {
+    name[group1] ="USA layout with a bunch of dead keys and no higher levels";
+    include "us(basic)"
+    key <SPCE> { [        space,        space,           space,     nobreakspace ] };
 };
 
 // vim: tw=0
