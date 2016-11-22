@@ -4,15 +4,15 @@ board=$1
 
 # layout="us, tnk, usvi, gr"
 # variant=" , , intl, polytonic"
-layout="usvi, tnk, de"
-variant=" intl-alt, , "
+layout="usvi, tnk, "
+variant="intl-alt, "
 
 case "$board" in
   hh*)
     setxkbmap -layout "$layout" -variant "$variant" \
       -option "grp:shifts_toggle"
      xmodmap -e 'keycode 135 = Menu'
-     alt_ralt='backspace'
+     magic='Super'
     ;;
   te*)
     setxkbmap -layout "$layout" -variant "$variant" \
@@ -23,8 +23,8 @@ case "$board" in
   *)
     setxkbmap -layout "$layout" -variant "$variant" \
       -option "grp:shifts_toggle,ctrl:swapcaps"
-     #xmodmap -e 'keycode 135 = Menu'
-     alt_ralt='backslash'
+     xmodmap -e 'keycode 135 = Super_R'
+     magic='Alt'
     ;;
 esac
 
@@ -41,5 +41,5 @@ if xcape; then
   xmodmap -e "keycode any = Return"
 
   # Finally use xcape to cause the space bar to generate a space when tapped.
-  xcape -e "$spare_modifier=Return;Super_L=BackSpace;Super_R=Return"
+  xcape -e "$spare_modifier=Return;${magic}_L=BackSpace;${magic}_R=Return"
 fi

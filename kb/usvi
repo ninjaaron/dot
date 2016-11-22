@@ -15,20 +15,14 @@
 // ┃       ┃       ┃  lv3  ┃  Space            Unbreakable spc ┃  lv3  ┃       ┃       ┃
 // ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹───────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┛
 
-xkb_symbols "custom" {
-
-    name[group1]="USA - International with vi navigation";
-    include "us(basic)"
-    include "level3(alt_switch)"
-};
-
 default
 partial alphanumeric_keys
 xkb_symbols "intl" {
 
     name[group1]="USA - International with vi navigation";
     key.type[Group1]="FOUR_LEVEL";
-    include "usvi(custom)"
+    include "usvi(basic)"
+    include "level3(lalt_switch)"
 
     key <LSGT> { [ dead_acute, dead_diaeresis ] };
     key <TLDE> { [ NoSymbol, NoSymbol,      dead_grave,      dead_tilde ] }; // ` ~
@@ -82,11 +76,6 @@ xkb_symbols "intl" {
     key <AB09> { [ NoSymbol, NoSymbol,   dead_belowdot,   dead_abovedot ] }; // . >
     key <AB10> { [ NoSymbol, NoSymbol,     dead_stroke,    questiondown ] }; // / ?
 
-    key <BKSL> { [ NoSymbol, NoSymbol                                   ] };
-    key <SPCE> { [        space,        space,           space,     nobreakspace ] };
-    key <MENU> { [        Alt_R,        Alt_R,           Alt_R,           Alt_R  ] };
-//  key <LALT> { [ ISO_Level3_Latch, ISO_Level3_Latch ] };
-//  key <RALT> { [ ISO_Level3_Latch, ISO_Level3_Latch ] };
 };
 
 partial alphanumeric_keys
@@ -154,6 +143,8 @@ xkb_symbols "intl-alt" {
 
     key.type[Group1]="ONE_LEVEL";
     key <PRSC> { [ ISO_Level5_Lock ] };
+    key.type[Group1]="TWO_LEVEL";
+    key <BKSP> { [ BackSpace, ISO_Level5_Lock ] };
     key.type[Group1]="EIGHT_LEVEL";
     key <LALT> { [ Alt_L, Alt_L, NoSymbol, NoSymbol, ISO_Level3_Latch, ISO_Level3_Latch, ISO_Level5_Lock ] };
     key <RALT> { [ Alt_R, Alt_R, NoSymbol, NoSymbol, ISO_Level3_Latch, ISO_Level3_Latch, ISO_Level5_Lock ] };
@@ -163,9 +154,9 @@ xkb_symbols "intl-alt" {
 };
 
 xkb_symbols "basic" {
-    name[group1] ="USA layout with a bunch of dead keys and no higher levels";
+    name[group1] ="USA is #1";
     include "us(basic)"
-    key <SPCE> { [        space,        space,           space,     nobreakspace ] };
+    key <SPCE> { [        space,        space,        nobreakspace,     nobreakspace ] };
 };
 
 // vim: tw=0
