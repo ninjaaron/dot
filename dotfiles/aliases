@@ -59,6 +59,8 @@ alias x='chmod +x'
 alias grep='grep --color=auto'
 alias f='find -name'
 alias ast="~/bin/autosus toggle"
+alias l="dlog ls --color=auto"
+alias de="setxkbmap -layout de"
 
 mnt() { sudo mount -o uid=ninjaaron "$@" $HOME/mnt ;}
 

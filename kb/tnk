@@ -6,7 +6,7 @@ xkb_symbols "tnk" {
   // Hebrew vowels and accents so as to be useful for typing modern and Biblical
   // Hebrew for those used to a standard israeli layout.
 
-  name[Group1]= "Hebrew (Biblical+Modern)";
+  name[Group1] = "Hebrew (Biblical+Modern)";
   key.type = "FOUR_LEVEL_SEMIALPHABETIC";
   include "level3(alt_switch)"
 
@@ -62,4 +62,69 @@ xkb_symbols "tnk" {
   key <AB10> { [ period,         question, U05C3        ] };
 
   key <SPCE> { [ space, space, thinspace, nobreakspace  ] };
+};
+
+xkb_symbols "grk" {
+  include "tnk(tnk)"
+  name[Group1] = "Hebrew and Greek";
+
+    key.type[Group1]="EIGHT_LEVEL";
+    key <AD01> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,             semicolon,          colon ] }; // ; :
+    key <AD02> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol, Greek_finalsmallsigma,    Greek_SIGMA ] }; // ς Σ
+    key <AD03> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,         Greek_epsilon,  Greek_EPSILON ] }; // ε Ε
+    key <AD04> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,             Greek_rho,      Greek_RHO ] }; // ρ Ρ
+    key <AD05> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,             Greek_tau,      Greek_TAU ] }; // τ Τ
+    key <AD06> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,         Greek_upsilon,  Greek_UPSILON ] }; // υ Υ
+    key <AD07> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,           Greek_theta,    Greek_THETA ] }; // θ Θ
+    key <AD08> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,            Greek_iota,     Greek_IOTA ] }; // ι Ι
+    key <AD09> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,         Greek_omicron,  Greek_OMICRON ] }; // ο Ο
+    key <AD10> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,              Greek_pi,       Greek_PI ] }; // π Π
+    key <AD11> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol, dead_tilde, dead_diaeresis, dead_macron ] }; // [ {
+    key <AD12> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,  dead_iota,     VoidSymbol,  dead_breve ] }; // ] }
+
+    key <AC01> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,           Greek_alpha,    Greek_ALPHA ] }; // α Α
+    key <AC02> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,           Greek_sigma,    Greek_SIGMA ] }; // σ Σ
+    key <AC03> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,           Greek_delta,    Greek_DELTA ] }; // δ Δ
+    key <AC04> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,             Greek_phi,      Greek_PHI ] }; // φ Φ
+    key <AC05> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,           Greek_gamma,    Greek_GAMMA ] }; // γ Γ
+    key <AC06> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,             Greek_eta,      Greek_ETA ] }; // η Η
+    key <AC07> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,              Greek_xi,       Greek_XI ] }; // ξ Ξ
+    key <AC08> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,           Greek_kappa,    Greek_KAPPA ] }; // κ Κ
+    key <AC09> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,           Greek_lamda,    Greek_LAMDA ] }; // λ Λ
+    key <AC10> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,            dead_acute,     dead_psili ] }; // ´ ¨
+    key <AC11> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol, dead_grave, dead_dasia, apostrophe, quotedbl ] }; // ' "
+
+    key <AB01> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,           Greek_zeta,     Greek_ZETA ] }; // ζ Ζ
+    key <AB02> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,            Greek_chi,      Greek_CHI ] }; // χ Χ
+    key <AB03> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,            Greek_psi,      Greek_PSI ] }; // ψ Ψ
+    key <AB04> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,          Greek_omega,    Greek_OMEGA ] }; // ω Ω
+    key <AB05> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,           Greek_beta,     Greek_BETA ] }; // β Β
+    key <AB06> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,             Greek_nu,       Greek_NU ] }; // ν Ν
+    key <AB07> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,             Greek_mu,       Greek_MU ] }; // μ Μ
+    key <AB08> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,        comma,        less ] }; // , <
+    key <AB09> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,       period,     greater ] }; // . >
+    key <AB10> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,        slash,    question ] }; // / ?
+
+    key <TLDE> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,        grave,  asciitilde ] }; // ` ~
+    key <AE01> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,            1,      exclam ] }; // 1 !
+    key <AE02> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,            2,          at ] }; // 2 @
+    key <AE03> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,            3,  numbersign ] }; // 3 #
+    key <AE04> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,            4,      dollar ] }; // 4 $
+    key <AE05> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,            5,     percent ] }; // 5 %
+    key <AE06> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,            6, asciicircum ] }; // 6 ^
+    key <AE07> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,            7,   ampersand ] }; // 7 &
+    key <AE08> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,            8,    asterisk ] }; // 8 *
+    key <AE09> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,            9,   parenleft ] }; // 9 (
+    key <AE10> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,            0,  parenright ] }; // 0 )
+    key <AE11> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,        minus,  underscore ] }; // - _
+    key <AE12> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,        equal,        plus ] }; // = +
+
+    key <BKSL> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,    backslash,         bar ] }; // \ |
+
+    key <RALT> { [ NoSymbol, NoSymbol, ISO_Level5_Lock, NoSymbol, ISO_Level3_Latch, ISO_Level3_Latch, ISO_Level5_Lock ] };
+    key.type[Group1]="TWO_LEVEL";
+    key <BKSP> { [ BackSpace, ISO_Level5_Lock ] };
+
+    include "level5(modifier_mapping)"
+    include "level3(modifier_mapping)"
 };
