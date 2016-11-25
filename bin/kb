@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-board=$1
+board="$1"
+variant="${2:-extended}"
 
 # layout="us, tnk, usvi, gr"
 # variant=" , , intl, polytonic"
 layout="usvi, tnk"
-variant="extended, grk"
+variant="$variant, grk"
 
 case "$board" in
   hh*)
