@@ -24,9 +24,10 @@ xkb_symbols "basic" {
 xkb_symbols "noalt" {
     name[group1]="no alt keys!";
 
-    key.type[Group1]="EIGHT_LEVEL";
-    key <LALT> { [ ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level5_Lock, NoSymbol, ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level5_Lock ] };
-    key <RALT> { [ ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level5_Lock, NoSymbol, ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level5_Lock ] };
+    key.type[Group1]="THREE_LEVEL";
+    key <LALT> { [ ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level5_Lock ] };
+    key <RALT> { [ ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level5_Lock ] };
+    key <ESC>  { [ Escape,           Escape,           ISO_Level5_Lock ] };
 };
 
 default
@@ -36,7 +37,8 @@ xkb_symbols "intl" {
     name[group1]="USA - International with vi navigation";
     key.type[Group1]="FOUR_LEVEL";
     include "usvi(basic)"
-    include "level3(lalt_switch)"
+    // include "level3(lalt_switch)"
+    include "usvi(noalt)"
 
     key <LSGT> { [ dead_acute, dead_diaeresis ] };
     key <TLDE> { [ NoSymbol,NoSymbol,      dead_grave,      dead_tilde ] }; // ` ~
@@ -184,7 +186,7 @@ xkb_symbols "extended" {
     name[group1] ="USA is #1";
     include "usvi(intl)"
     include "usvi(intl-alt-dead)"
-    include "level3(noalt)"
+    include "level3(lalt_switch)"
 };
 
 xkb_symbols "trans" {

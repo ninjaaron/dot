@@ -23,23 +23,19 @@ esac
 
 killall xcape
 if xcape; then
-  xmodmap -e "keycode 36 = Control_R"  # keycode 36 is Return
-  xmodmap -e "keycode 200 = Return"
+  xmodmap -e "keycode 36 = Hyper_L" -e "remove Mod4 = Hyper_L" \
+          -e "add Control = Hyper_L" -e "keycode 200 = Return"\
+          \
+          -e "keycode 23 = Meta_L" -e "keycode 201 = Tab" \
+          \
+          -e "keycode 22 = Meta_R" -e "keycode 202 = BackSpace" \
+          # -e "keycode 23 = Meta_L" -e "remove Mod4 = Meta_L"\
+          # -e "add Mod1 = Meta_L" -e "keycode 201 = Tab" \
+          # \
+          # -e "keycode 22 = Meta_R" -e "remove Mod4 = Meta_R"\
+          # -e "add Mod1 = Meta_R" -e "keycode 202 = BackSpace" \
 
-  xmodmap -e "keycode 23 = Alt_L"
-  xmodmap -e "keycode 201 = Tab"
-
-  xmodmap -e "keycode 22 = Alt_R"
-  xmodmap -e "keycode 203 = BackSpace ISO_Level5_Lock"
-
-  xmodmap -e "keycode 65 = Shift_L"
-  xmodmap -e "keycode 204 = space"
 
   # Finally use xcape to cause the space bar to generate a space when tapped.
-  xcape -e \
-"Control_R=Return;\
-ISO_Level3_Shift=BackSpace;\
-Alt_L=Tab;\
-Alt_R=BackSpace;\
-Shift_L=space"
+  xcape -e "#36=Return;#108=BackSpace;#64=Return;#23=Tab;#22=BackSpace"
 fi
