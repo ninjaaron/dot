@@ -57,6 +57,7 @@ alias df="df -h"
 alias du="du -h"
 alias x='chmod +x'
 alias grep='grep --color=auto'
+ggrep() { egrep --color=auto "$@" 2> /dev/null }
 alias f='find -name'
 alias ast="~/bin/autosus toggle"
 alias l="dlog ls --color=auto"

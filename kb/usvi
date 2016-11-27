@@ -15,6 +15,20 @@
 // ┃       ┃       ┃  lv3  ┃  Space            Unbreakable spc ┃  lv3  ┃       ┃       ┃
 // ┗━━━━━━━┻━━━━━━━┻━━━━━━━┹───────────────────────────────────┺━━━━━━━┻━━━━━━━┻━━━━━━━┛
 
+xkb_symbols "basic" {
+    name[group1] ="USA is #1";
+    include "us(basic)"
+    key <SPCE> { [        space,        space,        nobreakspace,     nobreakspace ] };
+};
+
+xkb_symbols "noalt" {
+    name[group1]="no alt keys!";
+
+    key.type[Group1]="EIGHT_LEVEL";
+    key <LALT> { [ ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level5_Lock, NoSymbol, ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level5_Lock ] };
+    key <RALT> { [ ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level5_Lock, NoSymbol, ISO_Level3_Shift, ISO_Level3_Shift, ISO_Level5_Lock ] };
+};
+
 default
 partial alphanumeric_keys
 xkb_symbols "intl" {
@@ -149,18 +163,8 @@ xkb_symbols "intl-alt" {
     key.type[Group1]="TWO_LEVEL";
     key <BKSP> { [ BackSpace, ISO_Level5_Lock ] };
 
-    key.type[Group1]="EIGHT_LEVEL";
-    key <LALT> { [ Alt_L, Alt_L, NoSymbol, NoSymbol, ISO_Level3_Latch, ISO_Level3_Latch, ISO_Level5_Lock ] };
-    key <RALT> { [ Alt_R, Alt_R, NoSymbol, NoSymbol, ISO_Level3_Latch, ISO_Level3_Latch, ISO_Level5_Lock ] };
-
     include "level5(modifier_mapping)"
     include "level3(modifier_mapping)"
-};
-
-xkb_symbols "basic" {
-    name[group1] ="USA is #1";
-    include "us(basic)"
-    key <SPCE> { [        space,        space,        nobreakspace,     nobreakspace ] };
 };
 
 xkb_symbols "intl-alt-dead" {
@@ -180,8 +184,7 @@ xkb_symbols "extended" {
     name[group1] ="USA is #1";
     include "usvi(intl)"
     include "usvi(intl-alt-dead)"
-    include "level3(lalt_switch)"
-    key <RALT> { [ Alt_R, Alt_R, ISO_Level5_Lock, NoSymbol, ISO_Level3_Latch, ISO_Level3_Latch, ISO_Level5_Lock ] };
+    include "level3(noalt)"
 };
 
 xkb_symbols "trans" {
@@ -203,34 +206,31 @@ xkb_symbols "trans" {
     key <AC02> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,  s,  S,  U0161,  U0162 ] }; // s š
     key <AD02> { [ NoSymbol,NoSymbol,NoSymbol,NoSymbol,  w,  W,  schwa         ] }; // w
 };
-
 xkb_symbols "tranie" {
     name[group1] ="USA is #1";
     include "usvi(intl)"
     include "usvi(trans)"
-    include "level3(lalt_switch)"
-    key <RALT> { [ Alt_R, Alt_R, ISO_Level5_Lock, NoSymbol, ISO_Level3_Latch, ISO_Level3_Latch, ISO_Level5_Lock ] };
+    include "usvi(noalt)"
+};
+
+xkb_symbols "diaeresis" {
+    name[group1] ="USA is #1, also Germany";
+    key.type[Group1]="FOUR_LEVEL";
+    key <AC10> { [ dead_diaeresis, colon, semicolon, dead_ogonek ] }; // ; :
 };
 
 xkb_symbols "de" {
     name[group1] ="USA is #1, also Germany";
     include "usvi(intl)"
-    key <AC10> { [ dead_diaeresis, colon, semicolon, dead_ogonek ] }; // ; :
+    include "usvi(diaeresis)"
 };
 
 xkb_symbols "german-tranie" {
     name[group1] ="USA is #1";
+    include "usvi(intl)"
     include "usvi(trans)"
-    include "usvi(de)"
-    key <RALT> { [ Alt_R, Alt_R, ISO_Level5_Lock, NoSymbol, ISO_Level3_Latch, ISO_Level3_Latch, ISO_Level5_Lock ] };
+    include "usvi(diaeresis)"
+    include "usvi(noalt)"
 };
-
-
-xkb_symbols "multi" {
-    name[group1] ="USA is #1";
-    include "usvi(basic)"
-    key <LALT>	{ type[Group1]="TWO_LEVEL", [ Multi_key, Multi_key ] };
-};
-
 
 // vim: tw=0
