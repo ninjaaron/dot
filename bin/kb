@@ -1,45 +1,37 @@
 #!/usr/bin/env bash
 
-board=$1
+board="$1"
+variant="${2:-extended}"
 
-# layout="us, tnk, usvi, gr"
-# variant=" , , intl, polytonic"
 layout="usvi, tnk"
-variant="extended, grk"
+variant="$variant, grk"
 
 case "$board" in
   hh*)
     setxkbmap -layout "$layout" -variant "$variant" \
       -option "grp:shifts_toggle"
      xmodmap -e 'keycode 135 = Menu'
-     magic='Super'
-    ;;
-  te*)
-    setxkbmap -layout "$layout" -variant "$variant" \
-      -option "grp:shifts_toggle,lv3:menu_switch"
-    xmodmap -e 'keycode 64 = Alt_L'
-    exit 0
+     magic='BackSpace'
     ;;
   *)
     setxkbmap -layout "$layout" -variant "$variant" \
       -option "grp:shifts_toggle,ctrl:swapcaps"
      xmodmap -e 'keycode 135 = Super_R'
-     magic='Alt'
+     magic='backslash'
     ;;
 esac
 
-# xcape
 killall xcape
 if xcape; then
-  spare_modifier="Hyper_L"
-  xmodmap -e "keycode 36 = $spare_modifier"  # keycode 36 is Return
-  xmodmap -e "remove mod4 = $spare_modifier" # hyper_l is mod4 by default
-  xmodmap -e "add Control = $spare_modifier"
-
-  # Map space to an unused keycode (to keep it around for xcape to
-  # use).
-  xmodmap -e "keycode any = Return"
+  xmodmap -e "keycode 36 = Hyper_L" -e "remove Mod4 = Hyper_L" \
+          -e "add Control = Hyper_L" -e "keycode 200 = Return"\
+          \
+          -e "keycode 23 = Meta_L" -e "add Mod1 = Meta_L"\
+          -e "keycode 201 = Tab" \
+          \
+          -e "keycode 22 = Meta_R" -e "add Mod1 = Meta_R" \
+          -e "keycode 202 = BackSpace" \
 
   # Finally use xcape to cause the space bar to generate a space when tapped.
-  xcape -e "$spare_modifier=Return;${magic}_L=Return;${magic}_R=BackSpace"
+  xcape -e "#36=Return;#108=BackSpace;#64=Return;#23=Tab;#22=BackSpace"
 fi

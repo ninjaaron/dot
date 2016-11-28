@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+source ~/.dmenurc
+
+variant="$(fgrep 'xkb_symbols' "$DOT/kb/usvi" |
+           sed 's/[^"]*"\([^"]*\)".*/\1/' |
+           eval "$DMENU")"
+
+
+~/bin/kb "$(cat ~/.kb)" "$variant"
