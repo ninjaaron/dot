@@ -28,6 +28,7 @@ hi Constant ctermfg=2
 " Yellow
 hi String ctermfg=11
 "alt
+hi Special ctermfg=3
 hi Statement ctermfg=3
 hi pythonQuotes ctermfg=3
 
@@ -50,7 +51,6 @@ hi pythonFunction ctermfg=6
 hi Title ctermfg=6
 hi Function ctermfg=6
 "alt
-hi Special ctermfg=14
 hi pythonBuiltin ctermfg=14
 
 " Light Grey

@@ -168,3 +168,6 @@ gitme() {
   ghclone ninjaaron/"$1"
 }
 alias view='vimpager'
+sp() {
+  echo "$@" | aspell -l en -a
+}
