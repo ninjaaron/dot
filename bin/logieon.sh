@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-wget "http://logeion.uchicago.edu#$1"
+firefox "http://logeion.uchicago.edu#$1"
