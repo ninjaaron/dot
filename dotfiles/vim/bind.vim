@@ -11,8 +11,8 @@ for [ key, setting ] in [
       \['W', 'wrap!'], ['n', 'nu!'], ['sp', 'spell!'], ['1', 'list!']]
   exe "noremap <leader>".key ":set" setting."<cr>"
 endfor
-noremap <leader>tw :set tw=0
-noremap <leader>/ :noh<cr>
+nnoremap <leader>tw :set tw=0
+nnoremap <leader>/ :noh<cr>
 
 " syntax toggling
 function! ToggleSyntax()
@@ -42,6 +42,8 @@ function! Comment(char) range
   endfor
 endfunction
 
+xnoremap + "+y
+nnoremap + "+p
 xnoremap # :call Comment('#')<CR>
 nnoremap # ^i# <ESC>
 
