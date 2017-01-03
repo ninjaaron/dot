@@ -96,8 +96,8 @@ alias mpp="mpv -playlist"
 alias nh="sudo nethogs eth1"
 alias ymus="youtube-dl -x --audio-format mp3"
 
-np() {
-  echo "#!/usr/bin/env python3" > "$1"
+ns() {
+  echo "#!/usr/bin/env $2" > "$1"
   chmod +x "$1"
   $EDITOR "$1"
 }
