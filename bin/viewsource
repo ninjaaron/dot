@@ -1,0 +1,9 @@
+#!/bin/sh
+what=`which "$1"`
+
+if (( $(echo "$what"|wc -l ) > 1 )); then
+  echo "$what"|"$PAGER" -c 'set ft=sh'
+else
+  "$PAGER" "$what"
+fi
+

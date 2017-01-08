@@ -1,0 +1,11 @@
+#!/bin/sh
+
+clone() {
+  git clone "https://github.com/$1"
+}
+
+gitme() {
+  ghclone ninjaaron/"$1"
+}
+
+"$@"

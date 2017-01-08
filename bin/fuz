@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-cmd=$1
-
-cat > "$HOME/.config/fish/functions/${cmd}.fish" << EOF
-function $cmd
-    zsh -c "source ~/.aliases; $cmd \$argv"
-end
-EOF

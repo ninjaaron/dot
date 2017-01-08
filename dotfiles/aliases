@@ -5,9 +5,6 @@ alias cpr='cp --reflink=always -R'
 alias rm='rm -r'
 
 # vim aliases
-alias zshrc="$EDITOR $HOME/.zshrc; dt"
-alias vimrc="$EDITOR $HOME/.vimrc; dt"
-alias al="$EDITOR $HOME/.aliases; dt"
 alias book="$EDITOR ~/doc/work/heb/book.asciidoc"
 alias heb="cd ~/doc/work/heb/git/"
 alias hla="$EDITOR ~/.config/herbstluftwm/autostart"
@@ -23,7 +20,7 @@ alias pRs="sudo pacman -Rs"
 alias pU="sudo pacman -U"
 alias aSyu="pacaur -Syua"
 alias pQ="pacman -Q"
-alias pSyu="sudo ~/bin/rsnap; sudo pacmatic -Su && int2byte 0 > ~/.updates"
+alias pSyu="sudo ~/bin/rsnap; sudo pacmatic -Syu && int2byte 0 > ~/.updates"
 
 alias sc="sudo systemctl"
 
@@ -50,9 +47,7 @@ alias ls="ls --color=auto"
 alias ll="ls --color=auto -lh"
 alias la="ls --color=auto -A"
 alias lla="ls --color=auto -lhA"
-lsg() {
-  ls | grep "$@"
-}
+alias lsg="ls|grep"
 
 alias pe='perl -pe'
 alias ne='perl -ne'
@@ -60,13 +55,13 @@ alias df="df -h"
 alias du="du -h"
 alias x='chmod +x'
 alias grep='grep --color=auto'
-ggrep() { egrep --color=auto "$@" 2> /dev/null }
 alias f='find -name'
 alias ast="~/bin/autosus toggle"
 alias l="dlog ls --color=auto"
 alias de="setxkbmap -layout de"
-
-mnt() { sudo mount -o uid=ninjaaron "$@" $HOME/mnt ;}
+alias dt="update-dotfiles"
+alias mnt="home-mount"
+alias wt="while-true"
 
 alias tma='tmux attach -d'  #opens a window with the last tmux session
 alias tm='tmux new-session'
@@ -75,37 +70,24 @@ alias w3d='w3m duckduckgo.com'
 alias png="ping google.com"
 alias trans="ssh -fNT -L 9091:localhost:9091 sink"
 alias td="transmission-daemon"
-ta() {
-    torrent="$1"
-    transmission-remote -a "$torrent"
-}
+alias ta="torrent add"
 alias tl="transmission-remote -l"
 alias tcl='transmission-cli'
 alias tdl="$HOME/bin/torrent-dl -s sink"
-trr() {
-  for i in $@; do
-    transmission-remote -t $i --remove-and-delete;
-  done
-}
-tf(){ transmission-remote -t $@ -f;}
+alias trr="torrent remove"
+alias tf="torrent files"
 alias hc="herbstclient"
 alias di="diatheke"
 alias dk="diatheke -b NET -k"
 alias dh="diatheke -b OSMHB -k"
 alias mpp="mpv -playlist"
-alias nh="sudo nethogs eth1"
 alias ymus="youtube-dl -x --audio-format mp3"
-
-ns() {
-  echo "#!/usr/bin/env $2" > "$1"
-  chmod +x "$1"
-  $EDITOR "$1"
-}
+alias ns="newscript"
 
 alias pbxc='xclip -o|pb'
 
 # find processes that match a regex
-psg() { ps aux|grep "$@"|grep -v grep; }
+alias psg="ps-grep"
 
 c() {
   local dir=$(dirlog-cd "$@")
@@ -119,19 +101,10 @@ b() {
   c "$LAST"
 }
 
-
+alias nt="urxvtc -e"
 alias e="permedit"
+alias ne="urxvtc -e permedit"
 alias act="source ~/bin/activate-venv"
-
-# resets the size of the framebuffer for the tty
-fbg() {
-  [ -z "$@" ] && fbset -g 1600 900 1600 900 32 || fbset -g "$@" "$@" 32
-}
-
-se() {
-  ls -d *"$@"*
-}
-
 
 # unsorted aliasses
 alias voff='xrandr --output VGA1 --off'
@@ -145,32 +118,9 @@ alias y='yank'
 alias m='move'
 alias d='dlog'
 alias p='put'
-vs() {
-  what=`which "$1"`
+alias py-install='pip wheel .; pip install --user --upgrade *py3*whl'
 
-  if (( $(echo "$what"|wc -l ) > 1 )); then
-    echo "$what"|$PAGER -c 'set ft=sh'
-  else
-    $PAGER "$what"
-  fi
-}
-g() {
-  if [[ -z $3 ]]; then
-    "$1" *"$2"*
-  else
-    "$1" "$2"/*"$3"*
-  fi
-}
-alias pyins='pip wheel .; pip install --user --upgrade *py3*whl'
+alias vs="viewsource"
 
-ghclone() {
-  git clone "https://github.com/$1"
-}
-
-gitme() {
-  ghclone ninjaaron/"$1"
-}
+alias gitme="github gitme"
 alias view='vimpager'
-sp() {
-  echo "$@" | aspell -l en -a
-}

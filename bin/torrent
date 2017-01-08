@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+add() {
+  ssh sink "transmission-remote -a '$1'"
+}
+
+files() {
+  transmission-remote -t "$@" -f
+}
+
+remove() {
+  for i in "$@"; do
+    transmission-remote -t "$i" --remove-and-delete;
+  done
+}
+
+"$@"

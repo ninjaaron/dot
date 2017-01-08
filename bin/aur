@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-cower -dd $@
-(
-cd $@
-makepkg -sAi --skipinteg
-)
-
-rm -r $@

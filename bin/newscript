@@ -1,0 +1,4 @@
+#!/bin/sh
+echo "#!/usr/bin/env $2" > "$1"
+chmod +x "$1"
+"$EDITOR" "$1"
