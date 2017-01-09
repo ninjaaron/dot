@@ -61,7 +61,7 @@ alias l="dlog ls --color=auto"
 alias de="setxkbmap -layout de"
 alias dt="update-dotfiles"
 alias mnt="home-mount"
-alias wt="while-true"
+alias wt="whiletrue"
 
 alias tma='tmux attach -d'  #opens a window with the last tmux session
 alias tm='tmux new-session'
