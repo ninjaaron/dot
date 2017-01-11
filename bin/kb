@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 board="$1"
-variant="${2:-extended}"
+variant="${2:-trans}"
 
-layout="usvi, usvi, tnk"
-variant="basic, $variant, grk"
+layout="usvi, tnk"
+variant="$variant, grk"
 
 case "$board" in
   hh*)
