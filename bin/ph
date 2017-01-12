@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+PYDOCDIR="$HOME/doc/py-docs/python-3.6.0-docs-html"
+source ~/.dmenurc 2> /dev/null
+
+mapfile -t result < <(find "$PYDOCDIR" -type f -name "*$1*.html")
+if (( ${#result[@]} > 1 )); then
+  urxvtc -e w3m "$(for i in "${result[@]}"; do
+    echo "$i"
+  done | eval "${DMENU:-dmenu} -l 10")"
+elif (( ${#result[@]} == 0 )); then
+  echo "no match"
+else
+  urxvtc -e w3m "${result[0]}"
+fi
