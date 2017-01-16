@@ -1,9 +1,9 @@
-#!/usr/bin/bash
+#!/bin/sh
 
 # create an ogg audio file from another media file. possible to specify bitrate.
 
-file=$1
-[ -z $2 ] && qual="5" || qual="$2"
+file="$1"
+qual="${2:-5}"
 
 name=`echo "$file"|cut -d'.' -f1`
 

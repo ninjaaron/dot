@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/sh
 # manages some events based on power levels.
 
 discharge() { acpi|grep Discharging ;}
@@ -8,7 +8,7 @@ psg() { ps aux|grep "$@"|grep -v grep; }
 sleepless="$HOME/sleepless"
 
 toggle() {
-  [ -a $sleepless ]  && rm $sleepless || touch $sleepless
+  [ -e "$sleepless" ]  && rm "$sleepless" || touch "$sleepless"
 }
 
 idle() {
@@ -16,4 +16,4 @@ idle() {
     systemctl hybrid-sleep
 }
 
-$@
+"$@"

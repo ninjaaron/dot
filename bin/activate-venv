@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
-env=$1
-
-source $env/bin/activate
+#!/bin/sh
+env="$1"
+source "$env/bin/activate"

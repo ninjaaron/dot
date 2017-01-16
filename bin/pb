@@ -1,17 +1,17 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-lexer=$1
+lexer="$1"
 name="$2"
-style=${3:-paraiso-dark}
+style="${3:-paraiso-dark}"
 
-if [[ -n $name ]]; then
-    code="$(pygmentize -f html -l $lexer -O linenos=1 "$name")"
+if [ -n "$name" ]; then
+    code="$(pygmentize -f html -l "$lexer" -O linenos=1 "$name")"
 else
-    code="$(pygmentize -f html -l $lexer -O linenos=1 <&0 )"
+    code="$(pygmentize -f html -l "$lexer" -O linenos=1 <&0 )"
     name="$(date +%F_%H.%M.%S)"
 fi
 
-name=${name##*/}
+name="${name##*/}"
 cat > "${name}.html" << EOF
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +19,7 @@ cat > "${name}.html" << EOF
     <meta charset="UTF-8">
     <title>$name</title>
     <STYLE type="text/css">
-$(pygmentize -S $style -f html -a .highlighttable)
+$(pygmentize -S "$style" -f html -a .highlighttable)
 .title { font-style: italic; font-size: 20px }
 .highlight { padding-left: 10px; padding-right: 10px }
     </STYLE>

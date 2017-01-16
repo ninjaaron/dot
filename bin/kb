@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 board="$1"
 variant="${2:-trans}"
@@ -11,13 +11,11 @@ case "$board" in
     setxkbmap -layout "$layout" -variant "$variant" \
       -option "grp:shifts_toggle"
      xmodmap -e 'keycode 135 = Menu'
-     magic='BackSpace'
     ;;
   *)
     setxkbmap -layout "$layout" -variant "$variant" \
       -option "grp:shifts_toggle,ctrl:swapcaps"
      xmodmap -e 'keycode 135 = Super_R'
-     magic='backslash'
     ;;
 esac
 

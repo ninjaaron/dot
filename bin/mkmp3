@@ -1,11 +1,7 @@
-#!/usr/bin/bash
+#!/bin/sh
 
 # take any kind of media file and turn it into an mp3
-
-file=$1
+file="$1"
 name=`echo "$file"|cut -d'.' -f1`
-IFS="
-"
 
 ffmpeg -i "$file" -ab 192k "$name".mp3
-exit

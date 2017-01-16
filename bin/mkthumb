@@ -1,10 +1,7 @@
-#!/usr/bin/bash
+#!/bin/sh
 # make a thumbnail for an image
-
 pic="$1"
-[ -n "$2" ] && scale="$2" || scale=250
-name=`echo "$1"|cut -d'.' -f1`
+scale="${2:-250}"
+name=`echo "$pic"|cut -d'.' -f1`
 
-convert -scale $scale "$pic" "$name"-thumb.png
-
-exit
+convert -scale "$scale" "$pic" "$name"-thumb.png

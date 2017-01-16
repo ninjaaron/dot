@@ -1,4 +1,34 @@
 #!/bin/sh
-echo "#!/usr/bin/env $2" > "$1"
+lang="${2:-sh}"
+
+case "$lang" in
+  perl)
+    tmpl="\
+#!/usr/bin/env perl
+
+use 5.022;
+use warnings;
+use autodie;"
+    ;;
+  py|python)
+    tmpl="\
+#!/usr/bin/env python3
+
+
+def main():
+    print('hello, world.')
+
+
+if __name__ == '__main__':
+    main()"
+    ;;
+  sh)
+    tmpl="#!/bin/sh"
+    ;;
+  *)
+    tmpl="#!/usr/bin/env $lang"
+esac
+
+printf "$tmpl\n" >> "$1"
 chmod +x "$1"
 "$EDITOR" "$1"

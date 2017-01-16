@@ -1,3 +1,3 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 pip list --user -o|cut -d' ' -f1|xargs pip install --user -U
