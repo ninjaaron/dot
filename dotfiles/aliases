@@ -118,7 +118,7 @@ alias y='yank'
 alias m='move'
 alias d='dlog'
 alias p='put'
-alias py-install='pip wheel .; pip install --user --upgrade *py3*whl'
+alias py-install='pip wheel .; pip install --user --upgrade *py3*whl; rm *whl'
 
 alias vs="viewsource"
 

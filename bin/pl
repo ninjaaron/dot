@@ -23,7 +23,13 @@ while True:
         os.remove('.playlist')
         break
 
-    subprocess.run(shlex.split(cmd) + [lines[0].rstrip()])
+    out = subprocess.run(
+            shlex.split(cmd) + [lines[0].rstrip()],
+            universal_newlines=True,
+            stdout=subprocess.PIPE
+            ).stdout.splitlines()
+    if cmd.startswith('mpv') and 'Quit' in out[-1]:
+        break
 
     with open('.playlist', 'w') as playlist:
         playlist.write(cmd)
