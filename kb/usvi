@@ -48,8 +48,8 @@ xkb_symbols "intl" {
     name[group1]="USA - International with vi navigation";
     key.type[Group1]="FOUR_LEVEL";
     include "usvi(basic)"
-    // include "level3(lalt_switch)"
-    include "usvi(noalt)"
+    include "level3(lalt_switch)"
+    // include "usvi(noalt)"
 
     key <LSGT> { [ dead_acute, dead_diaeresis ] };
     key <TLDE> { [ NoSymbol,NoSymbol,      dead_grave,      dead_tilde ] }; // ` ~
@@ -224,7 +224,7 @@ xkb_symbols "tranie" {
     name[group1] ="USA is #1";
     include "usvi(intl)"
     include "usvi(trans)"
-    include "usvi(noalt)"
+    include "level3(lalt_switch)"
 };
 
 xkb_symbols "diaeresis" {
@@ -237,6 +237,7 @@ xkb_symbols "de" {
     name[group1] ="USA is #1, also Germany";
     include "usvi(intl)"
     include "usvi(diaeresis)"
+    include "level3(lalt_switch)"
 };
 
 xkb_symbols "german-tranie" {
@@ -244,7 +245,6 @@ xkb_symbols "german-tranie" {
     include "usvi(intl)"
     include "usvi(trans)"
     include "usvi(diaeresis)"
-    include "usvi(noalt)"
 };
 
 // vim: tw=0

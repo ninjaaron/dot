@@ -1,10 +1,10 @@
 #!/bin/sh
 
 board="$1"
-variant="${2:-trans}"
+variant="${2:-tranie}"
 
-layout="usvi, tnk"
-variant="$variant, grk"
+layout="usvi, usvi, tnk"
+variant="$variant, de, grk"
 
 case "$board" in
   hh*)
