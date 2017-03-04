@@ -8,4 +8,5 @@ dotfiles/vim/.netrwhist
 dotfiles/vim/extra.vim
 dotfiles/vim/doc
 dotfiles/vim/init.vim
+dotfiles/vim/spell/en.utf-8.add.spl
 *.pyc

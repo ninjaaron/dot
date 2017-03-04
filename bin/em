@@ -1,0 +1,4 @@
+#!/bin/sh
+
+emacsclient -nc "$@" ||
+  { emacs --daemon && emacsclient -nc "$@"; }
