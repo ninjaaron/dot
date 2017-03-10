@@ -1,11 +1,15 @@
 " keymaps and commands
 mapclear | mapclear!
-let mapleader=","
+let mapleader=" "
 command Va VoomToggle asciidoc
 noremap <C-N> :NERDTreeToggle<CR>
 command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
       \ | wincmd p | diffthis
 
+function! DvorakSwap()
+  nnoremap t l
+  nnoremap l t
+endfunction
 " settings
 for [ key, setting ] in [
       \['W', 'wrap!'], ['n', 'nu!'], ['sp', 'spell!'], ['1', 'list!']]
@@ -85,8 +89,7 @@ nnoremap <leader>sh :.!sh<CR>
 xnoremap <leader>sh dmvo<Esc>p:.!sh<CR>0d$`vPjdd`v
 nnoremap <leader>py :.!python<CR>
 xnoremap <leader>py :!python<CR>
-inoremap <leader>p <C-R>"
-nnoremap <space> <C-D>
+inoremap ,p <C-R>"
 nnoremap <backspace> <C-u>
 
 " integration with my pastbin
@@ -96,7 +99,7 @@ xnoremap <leader>b :<C-U>exe "'<,'>w !pb" &ft <CR>
 function! BibleGen(mod, key)
     exe 'command -nargs=+' a:mod "let @h=system('diatheke -b" a:mod
                 \"-o acv -k <args> | grep -v" a:mod "')"
-    exe "inoremap <leader>".a:key '<space><Esc>"hd2B:'.a:mod '<C-R>h<CR>i<C-r>h'
+    exe "inoremap ,".a:key '<space><Esc>"hd2B:'.a:mod '<C-R>h<CR>i<C-r>h'
     exe "xnoremap <leader>".a:key '"hd:'.a:mod '<C-R>h<CR>i<C-R>h<Esc>'
 endfunction
 
