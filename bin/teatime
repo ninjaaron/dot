@@ -1,0 +1,6 @@
+#!/bin/sh
+{
+  sleep 4
+  # sleep 180
+  zenity --info --text='teatime!' 2> /dev/null
+}&

@@ -2,7 +2,7 @@
 
 time="${1:-25}"
 shift
-command=( mpv --quiet "$HOME/dls/foghorn-daniel_simon.mp3" )
+command=( zenity --info --text='take a break!' )
 
 for i in $(seq "$time");do
   sleep 60

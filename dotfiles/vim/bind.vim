@@ -57,6 +57,7 @@ noremap <leader>r mvgq}`v
 " word count
 noremap <leader>c g
 noremap <leader>C :set ic!<CR>
+noremap <leader><leader> :
 
 
 " saving and quitting
@@ -100,7 +101,7 @@ function! BibleGen(mod, key)
     exe 'command -nargs=+' a:mod "let @h=system('diatheke -b" a:mod
                 \"-o acv -k <args> | grep -v" a:mod "')"
     exe "inoremap ,".a:key '<space><Esc>"hd2B:'.a:mod '<C-R>h<CR>i<C-r>h'
-    exe "xnoremap <leader>".a:key '"hd:'.a:mod '<C-R>h<CR>i<C-R>h<Esc>'
+    exe "xnoremap ,".a:key '"hd:'.a:mod '<C-R>h<CR>i<C-R>h<Esc>'
 endfunction
 
 call BibleGen('MorphGNT', 'gb')
