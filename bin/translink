@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+kill "$(<~/.cache/translink)"
+ssh -nNT -L 9091:localhost:9091 sink & PID="$!"
+echo "$PID" | tee ~/.cache/translink
+disown "$PID"
