@@ -6,6 +6,10 @@ noremap <C-N> :NERDTreeToggle<CR>
 command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
       \ | wincmd p | diffthis
 
+function! DvorakSwap()
+  nnoremap t l
+  nnoremap l t
+endfunction
 " settings
 for [ key, setting ] in [
       \['W', 'wrap!'], ['n', 'nu!'], ['sp', 'spell!'], ['1', 'list!']]

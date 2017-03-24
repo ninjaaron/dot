@@ -3,8 +3,8 @@
 board="$1"
 variant="${2:-trans}"
 
-layout="usvi, usvi, tnk"
-variant="$variant, de, grk"
+layout="usvi, usvi, tnk, us"
+variant="$variant, de, grk, carpalx-full"
 
 case "$board" in
   hh*)
