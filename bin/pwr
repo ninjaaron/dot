@@ -23,7 +23,7 @@ case $entry in
   reboot )
     sudo umount -fl /data
     umount /media/public/
-    sudo systemctl reboot
+    systemctl reboot
     ;;
   suspend )
     systemctl suspend

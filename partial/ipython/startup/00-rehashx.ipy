@@ -1,0 +1,6 @@
+%rehashx
+
+%unalias import
+%unalias split
+
+%alias e vim
