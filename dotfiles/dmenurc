@@ -1,0 +1,15 @@
+theme=$(cat ~/.theme)
+source ~/.themes/$theme
+
+if [[ -z $font ]]; then
+    fn="bitocrafull:pixelsize=11"
+else
+    fn="$font"
+fi
+
+nb="${dm_nb:-$bg_color}"
+nf="${dm_nf:-$fg_color}"
+sb="${dm_sb:-$fg_color}"
+sf="${dm_sf:-$bg_color}"
+
+DMENU="dmenu -i -fn '$fn' -nb '$nb' -nf '$nf' -sb '$sb' -sf '$sf'"

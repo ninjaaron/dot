@@ -1,0 +1,107 @@
+;; Added by Package.el.  This must come before configurations of
+
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#1b1b1b" "#cc4444" "#55aa55" "#ee9966" "#4477ff" "#bb33bb" "#22aaaa" "#808080"])
+ '(custom-enabled-themes (quote (shomshing)))
+ '(custom-safe-themes
+   (quote
+    ("abffe1169d8f63953e6c9ed9c77db7cbc6fc9ac0c010d83b183c32c9825beff5")))
+ '(elpy-modules
+   (quote
+    (elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-django elpy-module-sane-defaults)))
+ '(inhibit-startup-screen t)
+ '(menu-bar-mode nil)
+ '(minimap-hide-fringes t)
+ '(minimap-highlight-line nil)
+ '(package-selected-packages
+   (quote
+    (evil-leader use-package minimap yaml-mode company elpy evil)))
+ '(scroll-bar-mode nil)
+ '(tool-bar-mode nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "bitocrafull" :foundry "aaron" :slant normal :weight normal :height 83 :width normal))))
+ '(minimap-active-region-background ((t (:background "#1b1b1b"))))
+ '(minimap-font-face ((t (:height 30 :family "Ubuntu Mono"))))
+ '(minimap-semantic-function-face ((t (:inherit (font-lock-function-name-face Ubuntu\ Mono) :background "#202414" :box (:line-width 1 :color "white") :height 2.75)))))
+
+
+;; added melpa
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives 
+             '("melpa" . "http://melpa.org/packages/"))
+(package-initialize)
+
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(eval-when-compile
+  (require 'use-package))
+
+(use-package evil
+  :ensure t)
+(use-package minimap
+  :ensure t)
+(use-package elpy
+  :ensure t)
+(use-package evil-leader
+  :ensure t)
+
+;; company
+(add-hook 'after-init-hook 'global-company-mode)
+
+;; evil mode
+(require 'evil)
+(evil-mode 1)
+(define-key evil-normal-state-map "#" 'comment-line)
+(define-key evil-visual-state-map "#" 'comment-region)
+;; evil-leader
+(require 'evil-leader)
+(global-evil-leader-mode)
+(evil-leader/set-leader "<SPC>")
+(evil-leader/set-key
+ "<SPC>" 'execute-extended-command
+ "w" 'evil-write
+ "q" 'evil-quit
+ "x" 'evil-save-and-close
+ "a" 'auto-fill-mode
+ "tw" 'set-fill-column
+ "m" 'minimap-mode
+ "n" 'make-frame
+ "N" 'linum-mode
+ "c" 'count-words
+ "b" 'switch-to-buffer
+ "f" 'find-file-other-frame
+ "r" 'fill-paragraph
+ "1" 'delete-other-windows)
+
+;; elpy
+(elpy-enable)
+
+;; misc
+(add-hook 'python-mode-hook (lambda () (set-fill-column 79)))
+(add-hook 'python-mode-hook (lambda () (auto-fill-mode t)))
+(global-linum-mode t)
+(column-number-mode t)
+(tool-bar-mode -1)
+(menu-bar-mode -1) ;; open menu with F10... for now. mwahahahaha
+(scroll-bar-mode -1)
+(setq-default line-spacing 3)
+(setq-default bidi-display-reordering nil)
+(set-default 'truncate-lines t)
+(global-set-key (kbd "<f12>" ) 'minimap-mode)
+(global-set-key (kbd "<f8>") 'make-frame-command)
