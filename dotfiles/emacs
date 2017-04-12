@@ -87,7 +87,8 @@
  "b" 'switch-to-buffer
  "f" 'find-file-other-frame
  "r" 'fill-paragraph
- "1" 'delete-other-windows)
+ "1" 'delete-other-windows
+ "p" 'pyvenv-workon)
 
 ;; elpy
 (elpy-enable)
