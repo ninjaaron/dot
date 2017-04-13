@@ -1,5 +1,5 @@
 #!/bin/sh
-what=`which "$1"`
+what=`command -v "$1"`
 
 if (( $(echo "$what"|wc -l ) > 1 )); then
   echo "$what"|"$PAGER" -c 'set ft=sh'

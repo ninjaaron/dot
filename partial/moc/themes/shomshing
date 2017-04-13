@@ -1,0 +1,37 @@
+# Transparent background theme by Marcin Michałowski
+
+background           =  default default
+frame                =  magenta default bold
+window_title         =  white default bold
+directory            =  blue default
+selected_directory   =  yellow black
+playlist             =  white default bold
+selected_playlist    =  red black bold
+file                 =  white default
+selected_file        =  yellow black
+marked_file          =  yellow default bold
+marked_selected_file =  yellow black bold
+info                 =  magenta default
+selected_info        =  magenta black
+marked_info          =  magenta default bold
+marked_selected_info =  magenta black bold
+status               =  white default
+title                =  white default bold
+state                =  white default bold
+current_time         =  yellow default
+time_left            =  magenta default
+total_time           =  black default bold
+time_total_frames    =  white default
+sound_parameters     =  white default bold
+legend               =  white default
+disabled             =  black default bold
+enabled              =  white default bold
+empty_mixer_bar      =  white default
+filled_mixer_bar     =  black cyan
+empty_time_bar       =  white default
+filled_time_bar      =  black black bold
+entry                =  white default
+entry_title          =  black cyan
+error                =  red default bold
+message              =  green default bold
+plist_time           =  white default bold

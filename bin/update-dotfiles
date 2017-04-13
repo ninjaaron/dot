@@ -8,14 +8,3 @@ echo "== pulling changes =="
 git pull --recurse-submodules origin master
 echo "== pushing changes =="
 git push origin master
-echo "================ hg ================"
-cd ../conf
-hg addremove
-echo "== committing =="
-hg commit -m 'updating configs'
-echo "== pulling changes =="
-hg pull -u
-hg merge
-hg commit -m 'merging'
-echo "== pushing changes =="
-hg push
