@@ -1,6 +1,6 @@
-#!/usr/bin/bash
+#!/bin/sh
 
-source $HOME/.dmenurc
+. "$HOME/.dmenurc"
 Prompt="Power Button Pushed; What would you like to do?"
 Options="shutdown
 reboot
@@ -10,10 +10,9 @@ suspend-hybrid
 lock
 logout"
 
-
-read -t 10 -r entry< <(echo "$Options"|eval "${DMENU:-dmenu} -p '$Prompt'")
-(( $? == 142 )) && ( systemctl poweroff )
-
+entry="$(echo "$Options"|eval "${DMENU:-dmenu} -p '$Prompt'")"
+# read -t 10 -r entry< <(echo "$Options"|eval "${DMENU:-dmenu} -p '$Prompt'")
+# (( $? == 142 )) && ( systemctl poweroff )
 case $entry in
   shutdown )
     sudo umount -fl /data
@@ -39,6 +38,9 @@ case $entry in
     ;;
   lock )
     i3lock
+    ;;
+  foo)
+    echo foo
     ;;
   *)
 esac

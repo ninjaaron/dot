@@ -1,6 +1,12 @@
 #!/bin/sh
-{
-  sleep 150
-  # sleep 180
-  zenity --info --text='teatime!' 2> /dev/null
-}&
+start_timer() {
+  seconds="$(expr "${1:-3}" '*' 10)"
+  sleep "$seconds"
+  zenity --info --text="${2:-teatime!}" 2> /dev/null
+}
+
+if [ "$1" = "-s" ]; then
+  start_timer "$2" "$3"
+else
+  nohup teatime -s "$1" "$2" > /dev/null 2>&1 &
+fi

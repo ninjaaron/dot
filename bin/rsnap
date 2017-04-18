@@ -1,17 +1,12 @@
-#!/usr/bin/env bash
-
+#!/bin/sh
 mount /media/btrfs &&
 cd /media/btrfs/snapshots && {
 
-snapshots=( $(ls) )
+snapshots="$(ls)"
+total="$(echo "$snapshots"|wc -l)"
 
-for (( i = 0; i < ${#snapshots[@]}; i++ )); do
-
-    if (( i > ${#snapshots[@]} - 4 ));then
-        echo "Keeping snapshot of ${snapshots[$i]}"
-    else
-        btrfs subvolume delete "${snapshots[$i]}"
-    fi
+echo "$snapshots" | head -n "$(expr "$total" - 4)" | while read i; do
+  btrfs subvolume delete "$i"
 done
 
 btrfs subvolume snapshot /media/btrfs/rootvol/ "$(date +%F.%T)"

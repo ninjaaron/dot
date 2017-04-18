@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
   rsync  -aPl \
   --delete ~/* /mnt/nfs/alien/home/ninjaaron/data/backup/folio/home/ninjaaron \

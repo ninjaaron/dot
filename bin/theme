@@ -1,11 +1,11 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # set some themage
 
-[[ -n $1 ]]&&[[ ! -e ~/.themes/$1 ]]  && echo "No Such Theme" && exit
-[[ -z $1 ]] && theme=$(cat ~/.theme) || theme=$1
+[ -n "$1" ]&&[ ! -e ~/.themes/"$1" ]  && echo "No Such Theme" && exit
+[ -z "$1" ] && theme="$(cat ~/.theme)" || theme="$1"
 echo "$theme" > ~/.theme
-source ~/.themes/$theme
-[[ -n $vimExtra ]] && echo "$vimExtra" > ~/.vim/extra.vim || rm ~/.vim/extra.vim
+. "$HOME/.themes/$theme"
+[ -n "$vimExtra" ] && echo "$vimExtra" > ~/.vim/extra.vim || rm ~/.vim/extra.vim
 #pkill conky
 #~/bin/conksel
 chmod +x ~/.themes/xresources-gen
