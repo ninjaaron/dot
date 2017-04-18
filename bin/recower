@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 cd ~
 wget 'https://aur.archlinux.org/cgit/aur.git/snapshot/cower.tar.gz'

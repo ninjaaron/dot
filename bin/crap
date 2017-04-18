@@ -444,3 +444,4 @@ else
 fi 2> /dev/null
 
 exit
+#!/usr/bin/env dash

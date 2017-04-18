@@ -10,9 +10,9 @@ suspend-hybrid
 lock
 logout"
 
-
-read -t 10 -r entry< <(echo "$Options"|eval "${DMENU:-dmenu} -p '$Prompt'")
-(( $? == 142 )) && ( systemctl poweroff )
+entry="$(echo "$Options"|eval "${DMENU:-dmenu} -p '$Prompt'")"
+# read -t 10 -r entry< <(echo "$Options"|eval "${DMENU:-dmenu} -p '$Prompt'")
+# (( $? == 142 )) && ( systemctl poweroff )
 
 case $entry in
   shutdown )
@@ -39,6 +39,9 @@ case $entry in
     ;;
   lock )
     i3lock
+    ;;
+  foo)
+    echo foo
     ;;
   *)
 esac
