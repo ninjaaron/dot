@@ -1,20 +1,21 @@
-#!/usr/bin/bash
+#!/bin/sh
 
 # file browsing with dmenu
 
-source $HOME/.dmenurc
-source ~/.zshenv
+. $HOME/.dmenurc
+. ~/.zshenv
 DMENU="eval ${DMENU-dmenu}"
 
 # this is actually the last function called. Customize behavior by extension
 # here.
 
 open() {
-  local sel=$1
-  [[ ! -e ~/.filelog ]] && echo "### do not delete this line" > ~/.filelog
-  sed -i "/^${sel##*/}  ${PWD//\//\\/}\\/$sel/d
+  sel=$1
+  [ ! -e ~/.filelog ] && echo "### do not delete this line" > ~/.filelog
+  escaped="$(echo "$PWD"| sed 's:/:\\/:g')"
+  sed -i "/^${sel##*/}  $escaped\\/$sel/d
 1 a\
-${sel##*/}  ${PWD//\//\\/}/$sel" ~/.filelog
+${sel##*/}  $escaped/$sel" ~/.filelog
   ext="$(echo "${sel##*.}"|tr A-Z a-z)"
   case "$ext" in
     mkv|mov|avi|flv|ogv|mpeg|mp4|m4v|webm|wmv)
@@ -41,8 +42,7 @@ ${sel##*/}  ${PWD//\//\\/}/$sel" ~/.filelog
       ;;
     *) # with undefined extensions, open vim. If the directory isn't
        # somewhere in $HOME, ask for sudo.
-      if  [[ ${PWD/*$USER*/$USER} != $USER ]] &&
-      [[ $(echo -e "y\nn"|$DMENU -p "sudo?") = y ]] ; then
+      if [ "$(printf "y\nn"|$DMENU -p "sudo?")" = y ] ; then
         urxvtc -e sh -c "sudo vim -u $HOME/.vimrc '$PWD/$sel'"
         exit
       else
@@ -53,13 +53,13 @@ ${sel##*/}  ${PWD//\//\\/}/$sel" ~/.filelog
 
 
 dirhist() {
-  local dir=$(
+  dir=$(
     {
       echo "recent files"
       ls ~
       sed '1d' ~/.dirlog
     } | $DMENU -l 30)
-    if [[ $dir == "recent files" ]]; then
+    if [ "$dir" = "recent files" ]; then
       open $(sed '1d' ~/.filelog|$DMENU -l 30|awk -F' {2,}' '{print $2}')
     else
       browse "${dir#*  }"
@@ -68,17 +68,18 @@ dirhist() {
 
 
 browse() {
-  local sel=$1
-  [[ ! -e ~/.dirlog ]] && echo "### do not delete this line" > ~/.dirlog
-  while [[ -d "$sel" ]]; do
+  sel="$1"
+  [ ! -e ~/.dirlog ] && echo "### do not delete this line" > ~/.dirlog
+  while [ -d "$sel" ]; do
     cd "$sel"
-    if [[ $sel != '/' ]]; then
-      sed -i "/^${PWD##*/}  ${PWD//\//\\/}/d
-1 a\
+    if [ "$sel" != '/' ]; then
+      escaped="$(echo "$PWD"| sed 's:/:\\/:g')"
+      sed -i "/^${PWD##*/}  $escaped/d
+1 a\\
 ${PWD##*/}  $PWD" ~/.dirlog
     fi
 
-    local sel=$(
+    local sel="$(
       {
         case $hidden in
           true)
@@ -91,7 +92,7 @@ ${PWD##*/}  $PWD" ~/.dirlog
         esac
         echo "(term)"
       } | $DMENU -l 30
-    )
+    )"
   done
 
   case $sel in
@@ -119,13 +120,13 @@ run() {
   local cmd=$({
       echo .
       sed '1d' ~/.cmdlog
-      echo -e "${PATH//:/\\n}" | while read dir; do
+      echo "$PATH" | sed 's/:/\n/g' | while read dir; do
         ls "$dir"
       done
     } | $DMENU -p "exec:"
   )
-  [[ ! -e ~/.cmdlog ]] && echo "### do not delete this line" > ~/.cmdlog
-  if [[ $cmd != '.' ]]; then
+  [ ! -e ~/.cmdlog ] && echo "### do not delete this line" > ~/.cmdlog
+  if [ "$cmd" != '.' ]; then
     sed -i "/^$cmd$/d
 1 a\
 $cmd" ~/.cmdlog
@@ -159,25 +160,25 @@ $cmd" ~/.cmdlog
 }
 
 web() {
-  local sel=$(
+  sel=$(
     {
       echo search
       sqlite3 -separator ' | ' ~/.mozilla/firefox/*.default/places.sqlite \
         'SELECT title, url FROM moz_places ORDER BY last_visit_date DESC'
     }|dmenu -l 30
   )
-  if [[ $sel == "search" ]];then
+  if [ "$sel" = "search" ];then
     firefox --search "$(echo|dmenu -p "search:")"
-  elif [[ -n $sel ]]; then
+  elif [ -n "$sel" ]; then
     url="${sel##* | }"
     firefox "$url"
   fi
 }
 
 echo $0
-if [[ ${0##*/} == "dm" ]]; then
+if [ "${0##*/}" = "dm" ]; then
   run
-elif [[ ${0##*/} == "fm" ]]; then
+elif [ ${0##*/} = "fm" ]; then
   dirhist
 elif [[ ${0##*/} == "web" ]]; then
   web

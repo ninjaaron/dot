@@ -1,15 +1,13 @@
-#!/usr/bin/env bash
+#!/usr/bin/env dash
 PYDOCDIR="$HOME/doc/py-docs/python-3.6.0-docs-html"
 . ~/.dmenurc 2> /dev/null
 
 matches="$(find "$PYDOCDIR" -type f -name "*$1*.html")"
-len="$(echo "$matches" | wc -l 
-if (( ${#result[@]} > 1 )); then
-  urxvtc -e w3m "$(for i in "${result[@]}"; do
-    echo "$i"
-  done | eval "${DMENU:-dmenu} -l 10")"
-elif (( ${#result[@]} == 0 )); then
+len="$(echo "$matches" | wc -l)"
+if [ "$len" -gt 1 ]; then
+  urxvtc -e w3m "$( echo "$matches" | eval "${DMENU:-dmenu} -l 10")"
+elif [ ! "$matches" ]; then
   echo "no match"
 else
-  urxvtc -e w3m "${result[0]}"
+  urxvtc -e w3m "$matches"
 fi
