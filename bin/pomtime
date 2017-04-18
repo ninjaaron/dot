@@ -1,19 +1,16 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 time="${1:-25}"
 shift
-command=( zenity --info --text='take a break!' )
 
 for i in $(seq "$time");do
   sleep 60
   echo "$(( $time - i)) minutes remaining."
 done
-echo "take a break!"
-mocp --pause &> /dev/null
-sleep 1
+mocp --pause 2> /dev/null
 
-if [[ "$@" ]]; then
+if [ "$*" ]; then
   "$@"
 else
-  "${command[@]}" &> /dev/null
+  zenity --info --text='take a break!' 2> /dev/null
 fi

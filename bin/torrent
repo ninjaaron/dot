@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 add() {
   ssh sink "transmission-remote -a '$1'"

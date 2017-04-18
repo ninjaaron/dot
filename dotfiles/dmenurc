@@ -1,7 +1,7 @@
 theme=$(cat ~/.theme)
-source ~/.themes/$theme
+. ~/.themes/$theme
 
-if [[ -z $font ]]; then
+if [ -z "$font" ]; then
     fn="bitocrafull:pixelsize=11"
 else
     fn="$font"
