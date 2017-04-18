@@ -1,2 +1,6 @@
 #!/bin/sh
-sudo mount -o uid=$USER "$@" ~/mnt
+if printf "$1"|grep '^/dev/sd' -q; then
+  sudo mount -o uid=$USER "$@" ~/mnt
+else
+  sudo mount -L "$@" ~/mnt
+fi
