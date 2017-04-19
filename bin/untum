@@ -3,6 +3,7 @@ import sys
 import argparse
 import subprocess as sp
 import json
+import shlex
 from pathlib import Path
 
 def server_dump(pattern, maxsize=None):
@@ -18,8 +19,7 @@ def get_matches(server, pattern, maxsize=None):
     p = sp.run(['ssh', server, command, '--server-dump', "'%s'" % pattern]
                    + ([str(maxsize)] if maxsize is not None else []),
                stdout=sp.PIPE).stdout.decode()
-    print(repr(p))
-    return json.loads(p)
+    return list(map(shlex.quote, json.loads(p)))
 
 
 def main():
@@ -29,18 +29,25 @@ def main():
     add('maxsize', nargs='?', type=float, help='maximum filesize in MB')
     add('--server-dump', action='store_true',
         help='the server-side process to print matches')
-    add('-t' '--test', action='store_true', help='print matches and exit')
+    add('-t', '--test', action='store_true', help='print matches and exit')
     add('-s', '--server', default='sink')
-
+    add('-r', '--remove', action='store_true', help='remove files from server')
     a = ap.parse_args()
-
     if a.server_dump:
         server_dump(a.pattern, a.maxsize)
-        sys.exit(0)
-
-    print(repr(a.pattern), repr(a.maxsize))
-    from collist import collist
-    print(collist(get_matches(a.server, a.pattern, a.maxsize)))
+        return
+    matches = get_matches(a.server, a.pattern, a.maxsize)
+    if not matches:
+        print('no matches', file=2)
+        sys.exit(1)
+    if a.test:
+        from collist import collist
+        print(collist(matches))
+        return
+    else:
+        sp.run(['rsync', '--progress', '-h',
+                a.server+":{%s}"%','.join(matches), '.']
+                +(['--remove-source-files'] if a.remove else []), check=True)
 
 
 if __name__ == '__main__':

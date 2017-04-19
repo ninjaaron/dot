@@ -1,6 +1,6 @@
 # vim: ft=sh
 alias s='sudo -E'
-alias rs='rsync -av --progress'
+alias rs='rsync -h --progress'
 alias cpr='cp --reflink=always -R'
 alias rm='rm -r'
 
