@@ -6,6 +6,8 @@ import json
 from pathlib import Path
 
 def server_dump(pattern, maxsize=None):
+    if maxsize is not None:
+       maxsize *= 1024**2
     dir = Path()
     print(json.dumps(
         [str(p) for p in dir.glob(pattern)
@@ -13,10 +15,10 @@ def server_dump(pattern, maxsize=None):
 
 def get_matches(server, pattern, maxsize=None):
     command = Path(sys.argv[0]).name
-    p = sp.run(['ssh', server, command, '--server-dump', pattern]
+    p = sp.run(['ssh', server, command, '--server-dump', "'%s'" % pattern]
                    + ([str(maxsize)] if maxsize is not None else []),
                stdout=sp.PIPE).stdout.decode()
-    print(p)
+    print(repr(p))
     return json.loads(p)
 
 
@@ -31,14 +33,12 @@ def main():
     add('-s', '--server', default='sink')
 
     a = ap.parse_args()
-    print(repr(a.pattern), repr(a.maxsize))
 
-    if a.maxsize is not None:
-        a.maxsize *= 1024**2
     if a.server_dump:
         server_dump(a.pattern, a.maxsize)
         sys.exit(0)
 
+    print(repr(a.pattern), repr(a.maxsize))
     from collist import collist
     print(collist(get_matches(a.server, a.pattern, a.maxsize)))
 
