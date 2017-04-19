@@ -111,7 +111,8 @@ bindsym $mod+slash exec urxvtc -e ranger
 
 ## xdotool pasting...
 # bindsym Insert exec ~/bin/paste-primary
-
+bindsym $mod+i exec ~/bin/heber2
+bindsym $mod+g exec ~/bin/greeker
 
 bindsym $mod+d exec ~/bin/dm
 bindsym $mod+Escape exec ~/bin/pwr
