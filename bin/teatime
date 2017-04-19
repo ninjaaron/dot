@@ -1,6 +1,6 @@
 #!/bin/sh
 start_timer() {
-  seconds="$(expr "${1:-3}" '*' 10)"
+  seconds="$(expr "${1:-3}" '*' 60)"
   sleep "$seconds"
   zenity --info --text="${2:-teatime!}" 2> /dev/null
 }
