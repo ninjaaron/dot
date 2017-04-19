@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+import sys
+from pathlib import Path
+
+args = sys.argv[1:]
+dir = Path()
+max_size = int(args[1]) * 1024**2
+for p in dir.glob(args[0]):
+    if p.stat().st_size < max_size:
+        print(p)
