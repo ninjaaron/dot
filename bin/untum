@@ -1,10 +1,47 @@
 #!/usr/bin/env python3
 import sys
+import argparse
+import subprocess as sp
+import json
 from pathlib import Path
 
-args = sys.argv[1:]
-dir = Path()
-max_size = int(args[1]) * 1024**2
-for p in dir.glob(args[0]):
-    if p.stat().st_size < max_size:
-        print(p)
+def server_dump(pattern, maxsize=None):
+    dir = Path()
+    print(json.dumps(
+        [str(p) for p in dir.glob(pattern)
+         if maxsize is None or p.stat().st_size < maxsize]))
+
+def get_matches(server, pattern, maxsize=None):
+    command = Path(sys.argv[0]).name
+    p = sp.run(['ssh', server, command, '--server-dump', pattern]
+                   + ([str(maxsize)] if maxsize is not None else []),
+               stdout=sp.PIPE).stdout.decode()
+    print(p)
+    return json.loads(p)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    add = ap.add_argument
+    add('pattern', help='glob to match on the server')
+    add('maxsize', nargs='?', type=float, help='maximum filesize in MB')
+    add('--server-dump', action='store_true',
+        help='the server-side process to print matches')
+    add('-t' '--test', action='store_true', help='print matches and exit')
+    add('-s', '--server', default='sink')
+
+    a = ap.parse_args()
+    print(repr(a.pattern), repr(a.maxsize))
+
+    if a.maxsize is not None:
+        a.maxsize *= 1024**2
+    if a.server_dump:
+        server_dump(a.pattern, a.maxsize)
+        sys.exit(0)
+
+    from collist import collist
+    print(collist(get_matches(a.server, a.pattern, a.maxsize)))
+
+
+if __name__ == '__main__':
+    main()
