@@ -49,7 +49,6 @@ class PlayQueue:
 
     def __exit__(self, type, value, traceback):
         if value:
-            print(repr(value))
             with self.qpath.open('w') as q:
                 q.write(self.precmd+'\n')
                 q.writelines(l+'\n' for l in self.lines)
@@ -83,7 +82,7 @@ def player(func):
 
 @player
 def preview(cmd, p):
-    return sp.Popen(cmd, p.line)
+    return sp.Popen(cmd), p.line
 
 
 def cmdformat(cmd, line):
