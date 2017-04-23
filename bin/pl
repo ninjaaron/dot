@@ -83,7 +83,7 @@ def player(func):
 
 @player
 def preview(cmd, p):
-    return sp.Popen(cmd), p.line)
+    return sp.Popen(cmd, p.line)
 
 
 def cmdformat(cmd, line):
