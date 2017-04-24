@@ -37,7 +37,6 @@ export EDITOR="vim"
 export DOT="$PWD"
 export PYTHONSTARTUP="\$DOT/pystart.py"
 export PYTHONPATH="\$PYTHONPATH"
-export PYTHONDONTWRITEBYTECODE=1
 #export HIGHLIGHT="\$DOT/sub/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 #export COMPL="\$DOT/sub/zsh-autosuggestions/zsh-autosuggestions.zsh"
 EOF

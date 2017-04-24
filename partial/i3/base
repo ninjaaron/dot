@@ -108,6 +108,7 @@ bindsym $mod+Control+bracketright exec mocp --seek +60
 bindsym $mod+Return exec urxvtc
 # bindsym $mod+Return exec urxvtc -e fish
 bindsym $mod+slash exec urxvtc -e ranger
+bindsym $mod+apostrophe exec ~/clipboard2server
 
 ## xdotool pasting...
 # bindsym Insert exec ~/bin/paste-primary
