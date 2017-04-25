@@ -2,7 +2,7 @@
 if [ "$#" = "0" ]; then
   "$EDITOR"
 else
-  if (set -C; 2>/dev/null > "$1" && rm "$1") || [ -w "$1" -o -d "$1" ]; then
+  if (set -C; 2>/dev/null > "$1" && rm "$1")||[ -w "$1" ]||[ -d "$1" ]; then
     "$EDITOR" "$@"
   else
     echo -n "sudo [Y/n]? "
