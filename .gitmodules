@@ -4,15 +4,6 @@
 [submodule "dotfiles/vim/bundle/supertab"]
 	path = dotfiles/vim/bundle/supertab
 	url = https://github.com/ervandew/supertab.git
-[submodule "dotfiles/vim/bundle/nerdtree"]
-	path = dotfiles/vim/bundle/nerdtree
-	url = https://github.com/scrooloose/nerdtree.git
-[submodule "dotfiles/vim/bundle/VOoM"]
-	path = dotfiles/vim/bundle/VOoM
-	url = https://github.com/vim-scripts/VOoM.git
-[submodule "dotfiles/vim/bundle/emmet-vim"]
-	path = dotfiles/vim/bundle/emmet-vim
-	url = https://github.com/mattn/emmet-vim.git
 [submodule "dotfiles/vim/bundle/AutoComplPop"]
 	path = dotfiles/vim/bundle/AutoComplPop
 	url = https://github.com/vim-scripts/AutoComplPop.git
