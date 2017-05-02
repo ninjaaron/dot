@@ -25,7 +25,7 @@
  '(minimap-highlight-line nil)
  '(package-selected-packages
    (quote
-    (evil-leader use-package minimap yaml-mode company elpy evil)))
+    (web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
 (custom-set-faces
@@ -60,6 +60,8 @@
   :ensure t)
 (use-package evil-leader
   :ensure t)
+(use-package web-mode 
+  :ensure t)
 
 ;; company
 (add-hook 'after-init-hook 'global-company-mode)
@@ -69,6 +71,7 @@
 (evil-mode 1)
 (define-key evil-normal-state-map "#" 'comment-line)
 (define-key evil-visual-state-map "#" 'comment-region)
+
 ;; evil-leader
 (require 'evil-leader)
 (global-evil-leader-mode)
@@ -92,6 +95,11 @@
 
 ;; elpy
 (elpy-enable)
+
+;; web-mode
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+(setq web-mode-enable-engine-detection t)
 
 ;; misc
 (add-hook 'python-mode-hook (lambda () (set-fill-column 79)))
