@@ -25,8 +25,6 @@ augroup vimrcEx
   autocmd BufReadPost *
         \ if line("'\"") > 1 && line("'\"") <= line("$")
         \| exe "normal! g`\"" | endif
-  autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&
-        \b:NERDTreeType == "primary") | q | endif
   autocmd BufRead,BufNewFile *.asciidoc,*.adoc,*.ad
         \ setlocal filetype=asciidoc
   autocmd BufRead,BufNewFile *.md
@@ -37,7 +35,6 @@ execute pathogen#infect()
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabLongestEnhanced = 1
 let g:SuperTabLongestHighlight = 1
-let g:jedi#force_py_version = 3
 
 set gfn=Ubuntu\ Mono\ 11 go=
 

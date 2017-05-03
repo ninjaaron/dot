@@ -43,10 +43,10 @@ ${sel##*/}  $escaped/$sel" ~/.filelog
     *) # with undefined extensions, open vim. If the directory isn't
        # somewhere in $HOME, ask for sudo.
       if [ "$(printf "y\nn"|$DMENU -p "sudo?")" = y ] ; then
-        urxvtc -e sh -c "sudo vim -u $HOME/.vimrc '$PWD/$sel'"
+        urxvtc -e sh -c "sudo $EDITOR -u $HOME/.vimrc '$PWD/$sel'"
         exit
       else
-        urxvtc -e sh -c "vim '$PWD/$sel'"
+        urxvtc -e sh -c "$EDITOR '$PWD/$sel'"
       fi
   esac
 }
@@ -150,7 +150,7 @@ $cmd" ~/.cmdlog
       $DMENU -p "man:")
       urxvtc -e $SHELL -c "man $entry"
       ;;
-    bash*|fish*|ranger*|vim*|vi*|ed*|mocp*|info*|weechat*|htop|\
+    bash*|fish*|ranger*|nvi*|vi*|ed*|mocp*|info*|weechat*|htop|\
     bpython*|ipython*|python*|"man "* )
       urxvtc -e $SHELL -c "$cmd"
       ;;

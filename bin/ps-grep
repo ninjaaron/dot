@@ -1,2 +1,3 @@
 #!/bin/sh
+ps au | head -n1
 ps aux|grep "$@"|grep -v grep

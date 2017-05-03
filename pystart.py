@@ -127,22 +127,22 @@ class DotDict(dict):
 env = DotDict(os.environ)
 
 
-class Prompt:
-    def __init__(self):
-        colors = ('\x1b[%dm' % (30 + i) for i in range(8))
-        cnames = ('bk', 'rd', 'gr', 'yl', 'bl', 'mg', 'cy', 'wh')
-        self.colors = dict(zip(cnames, colors))
-        self.colors['nr'] = '\x1b[0m'
+# class Prompt:
+#     def __init__(self):
+#         colors = ('\x1b[%dm' % (30 + i) for i in range(8))
+#         cnames = ('bk', 'rd', 'gr', 'yl', 'bl', 'mg', 'cy', 'wh')
+#         self.colors = dict(zip(cnames, colors))
+#         self.colors['nr'] = '\x1b[0m'
 
-    def __str__(self):
-        self.colors['cwd'] = os.getcwd().replace(env.HOME, '~')
-        return '{bl}{cwd}{gr}>{nr} '.format(**self.colors)
+#     def __str__(self):
+#         self.colors['cwd'] = os.getcwd().replace(env.HOME, '~')
+#         return '{bl}{cwd}{gr}>{nr} '.format(**self.colors)
 
 
-class Prompt2(Prompt):
-    def __str__(self):
-        return '.' * (len(str(sys.ps1))-15) + ' '
+# class Prompt2(Prompt):
+#     def __str__(self):
+#         return '.' * (len(str(sys.ps1))-15) + ' '
 
-if not 'bpython' in sys.argv[0]:
-    sys.ps1 = Prompt()
-    sys.ps2 = Prompt2()
+# if not 'bpython' in sys.argv[0]:
+#     sys.ps1 = Prompt()
+#     sys.ps2 = Prompt2()
