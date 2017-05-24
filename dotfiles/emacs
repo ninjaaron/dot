@@ -25,7 +25,8 @@
  '(minimap-highlight-line nil)
  '(package-selected-packages
    (quote
-    (web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
+    (markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
+ '(safe-local-variable-values (quote ((engine . jinja2))))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
 (custom-set-faces
