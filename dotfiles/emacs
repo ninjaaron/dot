@@ -25,7 +25,7 @@
  '(minimap-highlight-line nil)
  '(package-selected-packages
    (quote
-    (web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
+    (rainbow-mode js2-mode web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
 (custom-set-faces
@@ -61,6 +61,8 @@
 (use-package evil-leader
   :ensure t)
 (use-package web-mode 
+  :ensure t)
+(use-package js2-mode
   :ensure t)
 
 ;; company
@@ -118,3 +120,11 @@
 (set-default 'truncate-lines t)
 (global-set-key (kbd "<f12>" ) 'minimap-mode)
 (global-set-key (kbd "<f8>") 'make-frame-command)
+(setq-default indent-tabs-mode nil)
+;;(setq js-indent-level 2)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(setq sh-indentation 2)
+(setq c-default-style "linux"
+      c-basic-offset 4
+      tab-width 4
+      c-indent-tabs-mode t)
