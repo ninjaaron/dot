@@ -123,7 +123,7 @@ URxvt.keysym.M-C-5: command:\033]710;xft:5thElement\007
 URxvt.keysym.M-C-percent: command:\033]710;xft:Ubuntu Mono:pixelsize=15,xft:Simple CLM\007
 URxvt.keysym.M-C-6: command:\033]710;xft:5thElementHeb,xft:Simple CLM\007
 URxvt.keysym.M-C-asciicircum: command:\033]710;xft:Ubuntu Mono:pixelsize=16,xft:Simple CLM\007
-URxvt.keysym.M-C-7: command:\033]710;xft:bitocra7,xft:Simple CLM\007
+URxvt.keysym.M-C-7: command:\033]710;xft:bitocra7\007
 URxvt.keysym.M-C-ampersand: command:\033]710;xft:Ubuntu Mono:pixelsize=17,xft:Simple CLM\007
 URxvt.keysym.M-C-8: command:\033]710;xft:bitocra7Heb,xft:Simple CLM\007
 URxvt.keysym.M-C-asterisk: command:\033]710;xft:Ubuntu Mono:pixelsize=18,xft:Simple CLM\007
