@@ -12,6 +12,8 @@ chmod +x ~/.themes/xresources-gen
 
 ~/.themes/xresources-gen
 ~/.i3/i3-colorgen.sh
+~/.config/sway/theme
+~/.config/termite/theme
 
 #herbstclient reload
 #~/.config/herbstluftwm/restartpanels.sh

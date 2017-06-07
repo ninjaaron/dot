@@ -14,4 +14,12 @@ remove() {
   done
 }
 
-"$@"
+
+case "$(basename "$0")" in
+  'torrent-add')
+    add "$@"
+    ;;
+  *)
+    "$@"
+    ;;
+esac
