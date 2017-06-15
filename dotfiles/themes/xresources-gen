@@ -102,7 +102,7 @@ URxvt.scrollBar: off
 URxvt.perl-ext-common:      default,url-select,keyboard-select,clipboard
 URxvt.keysym.M-c:   perl:clipboard:copy
 URxvt.keysym.M-v:   perl:clipboard:paste
-URxvt.url-select.launcher:  firefox
+URxvt.url-select.launcher:  qutebrowser
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt.keysym.M-Escape:      perl:keyboard-select:activate
