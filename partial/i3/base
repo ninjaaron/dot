@@ -26,6 +26,8 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 bindsym $mod+a focus parent
+bindsym $mod+Shift+m move scratchpad
+bindsym $mod+m scratchpad show
 # focus the child container
 #bindsym $mod+d focus child
 
