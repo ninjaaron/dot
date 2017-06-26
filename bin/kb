@@ -19,18 +19,18 @@ case "$board" in
     ;;
 esac
 
-killall xcape
-if xcape; then
-  xmodmap -e "keycode 36 = Hyper_L" -e "remove Mod4 = Hyper_L" \
-          -e "add Control = Hyper_L" -e "keycode 200 = Return"\
-          \
-          # -e "keycode 23 = Meta_L" -e "add Mod1 = Meta_L"\
-          # -e "keycode 201 = Tab" \
-          # \
-          # -e "keycode 22 = Meta_R" -e "add Mod1 = Meta_R" \
-          # -e "keycode 202 = BackSpace" \
+# killall xcape
+# if xcape; then
+#   xmodmap -e "keycode 36 = Hyper_L" -e "remove Mod4 = Hyper_L" \
+#           -e "add Control = Hyper_L" -e "keycode 200 = Return"\
+#           \
+#           # -e "keycode 23 = Meta_L" -e "add Mod1 = Meta_L"\
+#           # -e "keycode 201 = Tab" \
+#           # \
+#           # -e "keycode 22 = Meta_R" -e "add Mod1 = Meta_R" \
+#           # -e "keycode 202 = BackSpace" \
 
-  # Finally use xcape to cause the space bar to generate a space when tapped.
-  xcape -e "#36=Return;#108=BackSpace;#64=Return"
-  # xcape -e "#36=Return;#108=BackSpace;#64=Return;#23=Tab;#22=BackSpace"
-fi
+#   # Finally use xcape to cause the space bar to generate a space when tapped.
+#   xcape -e "#36=Return;#108=BackSpace;#64=Return"
+#   # xcape -e "#36=Return;#108=BackSpace;#64=Return;#23=Tab;#22=BackSpace"
+# fi

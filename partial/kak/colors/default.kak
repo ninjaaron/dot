@@ -1,0 +1,50 @@
+# Kakoune default color scheme
+
+# For Code
+face value red
+face type red
+face variable green
+face const green
+face module green
+face function cyan
+face docstring blue
+face string rgb:ffdd88
+face keyword yellow
+face operator blue
+face attribute green
+face comment rgb:555555
+face meta magenta
+face builtin magenta
+
+# For markup
+face title blue
+face header cyan
+face bold red
+face italic yellow
+face mono green
+face block magenta
+face link cyan
+face bullet cyan
+face list yellow
+
+# builtin faces
+face Default default,default
+face PrimarySelection yellow,black
+face SecondarySelection black,blue
+face PrimaryCursor black,white
+face SecondaryCursor black,white
+face LineNumbers default,default
+face LineNumberCursor default,default+r
+face MenuForeground magenta,black
+face MenuBackground yellow,black
+face MenuInfo cyan
+face Information black,yellow
+face Error red,black
+face StatusLine cyan,default
+face StatusLineMode yellow,default
+face StatusLineInfo blue,default
+face StatusLineValue green,default
+face StatusCursor black,cyan
+face Prompt yellow,default
+face MatchingChar default,default+b
+face BufferPadding blue,default
