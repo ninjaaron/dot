@@ -98,6 +98,7 @@
  "r" 'fill-paragraph
  "1" 'delete-other-windows
  "p" 'pyvenv-workon)
+(setq x-select-enable-clipboard-manager nil)
 
 ;; elpy
 (elpy-enable)
