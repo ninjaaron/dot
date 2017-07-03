@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ -d "$1" ]; then
+  echo "can't cat dir. using ls." >&2
+  ls --color=auto "$@"
+else
+  cat "$@"
+fi

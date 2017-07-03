@@ -1,0 +1,6 @@
+#!/bin/sh
+urxvtc "$@" || {
+  xrdb ~/.Xresources
+  urxvtd -q -f -o
+  urxvtc "$@"
+}
