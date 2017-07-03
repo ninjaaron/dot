@@ -17,12 +17,25 @@ add-highlighter -group / regions -default code python \
     double_string '"'   (?<!\\)(\\\\)*"  '' \
     single_string "'"   (?<!\\)(\\\\)*'  '' \
     comment       '#'   '$'              '' \
+    double_fstring 'f"""' '"""'            '' \
+    single_fstring "f'''" "'''"            '' \
+    double_fstring 'f"'   (?<!\\)(\\\\)*"  '' \
+    single_fstring "f'"   (?<!\\)(\\\\)*'  '' \
 
 add-highlighter -group /python/double_string fill string
 add-highlighter -group /python/single_string fill string
+add-highlighter -group /python/double_fstring fill string
+add-highlighter -group /python/single_fstring fill string
 add-highlighter -group /python/double_docstring fill docstring
 add-highlighter -group /python/single_docstring fill docstring
 add-highlighter -group /python/comment       fill comment
+
+add-highlighter -group /python/double_fstring regions regions interpolation (?<!\{)\{(?!\{) \} \{
+add-highlighter -group /python/single_fstring regions regions interpolation (?<!\{)\{(?!\{) \} \{
+add-highlighter -group /python/double_fstring/regions/interpolation fill clear
+add-highlighter -group /python/single_fstring/regions/interpolation fill clear
+add-highlighter -group /python/double_fstring/regions/interpolation ref python/code
+add-highlighter -group /python/single_fstring/regions/interpolation ref python/code
 
 %sh{
     # Grammar

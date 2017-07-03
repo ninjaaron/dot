@@ -1,6 +1,7 @@
 # Kakoune default color scheme
 
 # For Code
+face clear rgb:777777,rgb:101010
 face value red
 face type red
 face variable green

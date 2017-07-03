@@ -17,6 +17,7 @@ client.unfocused        ${window_border_i:-$bg_color} ${window_border_i:-$bg_col
 # finds out, if available)
 bar {
   status_command i3status -c ~/.i3/bar
+  position top
   colors {
     background         ${panel_bg:-$bg_color}
     statusline         ${panel_fg:-$fg_color}

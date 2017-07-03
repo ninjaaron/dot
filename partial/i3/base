@@ -123,5 +123,6 @@ bindsym $mod+grave exec i3lock -c 000000
 
 # rules
 no_focus [class="feh"]
+new_window pixel 2
 
 workspace 10 output DP1
