@@ -123,6 +123,33 @@ bindsym $mod+grave exec i3lock -c 000000
 
 # rules
 no_focus [class="feh"]
-new_window pixel 2
 
 workspace 10 output DP1
+# Style
+font pango:bitocrafull 9
+# class                 border  backgr. text    indicator
+client.focused          #101010 #1b1b1b #ee9966 #ee9966
+client.focused_inactive #101010 #101010 #555555 #101010
+client.unfocused        #101010 #101010 #555555 #101010
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+  status_command i3status -c ~/.i3/bar
+  colors {
+    background         #101010
+    statusline         #555555
+    focused_workspace  #101010 #1b1b1b #ee9966
+    active_workspace   #1b1b1b #101010 #ee9966
+    inactive_workspace #1b1b1b #101010 #1b1b1b
+    urgent_workspace   #101010 #101010 #4477ff
+  }
+}
+
+
+input "2:7:SynPS/2_Synaptics_TouchPad" {
+    tap enabled
+    natural_scroll enabled
+    middle_emulation enabled
+    dwt enabled
+}
