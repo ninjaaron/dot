@@ -31,7 +31,7 @@ URxvt.fading:30"
 window_border_width=0
 window_border_active_color=$yellow
 window_border_normal_color=$black
-frame_border_active_color='$884488'
+frame_border_active_color='#884488'
 frame_border_width=0
 window_gap=0
 pad="11 1 1 1"
