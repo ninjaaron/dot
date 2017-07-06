@@ -2,15 +2,15 @@
 mount /media/btrfs &&
 cd /media/btrfs/snapshots && {
 
-snapshots="$(ls)"
-total="$(echo "$snapshots"|wc -l)"
+  snapshots="$(ls)"
+  total="$(echo "$snapshots"|wc -l)"
 
-echo "$snapshots" | head -n "$(expr "$total" - 4)" | while read i; do
-  btrfs subvolume delete "$i"
-done
+  echo "$snapshots" | head -n "$(expr "$total" - 4)" | while read i; do
+    btrfs subvolume delete "$i"
+  done
 
-btrfs subvolume snapshot /media/btrfs/rootvol/ "$(date +%F.%T)"
+  btrfs subvolume snapshot /media/btrfs/rootvol/ "$(date +%F.%T)"
 
-cd /
-umount /media/btrfs/
+  cd /
+  umount /media/btrfs/
 }

@@ -6,7 +6,11 @@ source ~/.themes/"$theme"
 cat ~/.i3/base > ~/.config/sway/config
 
 cat >> ~/.config/sway/config << EOF
+bindsym \$mod+grave exec swaylock -c 000000
 # Style
+output HDMI-A-1 bg ~/pic/backs/apocolyps/DD-Post-Apocalyptic-Wallpaper-321.jpg fill
+output DP-1     bg ~/pic/backs/apocolyps/DD-Post-Apocalyptic-Wallpaper-151.jpg fill
+
 font pango:${font2:-bitocra 7}
 # class                 border  backgr. text    indicator
 client.focused          $bg_color ${frame_border_active_color:-$bg_color} ${window_title:-$fg_color} ${window_title:-$fg_color}
