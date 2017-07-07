@@ -3,5 +3,5 @@
 while true; do
   clear
   "$@"
-  sleep 5
+  sleep 1
 done

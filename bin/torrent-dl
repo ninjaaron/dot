@@ -3,7 +3,6 @@
 from collections import namedtuple
 import re
 import easyproc as ep
-from collist import collist
 import click
 
 Torrent = namedtuple('Torrent',
@@ -13,10 +12,9 @@ Torrent = namedtuple('Torrent',
 @click.command()
 @click.option('-s',prompt='server', help='server address')
 @click.option('-r', is_flag=True, help='delete torrent after downloading')
-@click.option('-p', is_flag=True, help='print matches and exit')
 @click.option('--ext', type=str, help='grab only this file extention')
 @click.argument('targets', type=str, nargs=-1)
-def main(s, r, p, ext, targets):
+def main(s, r, ext, targets):
     gap = re.compile(' {2,}')
     command = 'ssh sink transmission-remote -l'
     torrents = [gap.split(t.strip()) for t in ep.grab(command)][1:-1]
@@ -31,9 +29,6 @@ def main(s, r, p, ext, targets):
                    if pat.search(t.name) and t.perc == '100%')
     else:
         matches = (t for t in torrents if t.id.strip('*') in targets)
-    if p:
-        collist(t.name for t in matches)
-        exit()
     for torrent in matches:
         filename = s + ":dls/'" + torrent.name + "'"
         if ext:
