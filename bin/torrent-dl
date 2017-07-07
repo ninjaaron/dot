@@ -33,7 +33,7 @@ def main(s, r, ext, targets):
         filename = s + ":dls/'" + torrent.name + "'"
         if ext:
             filename += "/*" + ext
-        ep.run(['sftp', '-r', filename, '.'], check=True)
+        ep.run(['sftp', '-ar', filename, '.'], check=True)
         if r:
             ep.run(['ssh', s, 'transmission-remote', '-t',
                     torrent.id.strip('*'), '--remove-and-delete'])

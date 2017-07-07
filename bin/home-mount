@@ -1,6 +1,13 @@
 #!/bin/sh
-if printf "$1"|grep '^/dev/sd' -q; then
-  sudo mount -o uid=$USER "$@" ~/mnt
+if [ "$1" = '-u' ]; then
+  sudo umount "$2" && rmdir "$2"
+elif printf "$1"|grep '^/dev/sd' -q; then
+  mkdir ~/mnt
+  sudo mount -o uid=$USER "$1" ~/mnt || rmdir ~/mnt
+elif printf "$1"|grep ':' -q; then
+  mkdir ~/"$1"
+  sshfs "$1" ~/"$1" || rmdir ~/"$1"
 else
-  sudo mount -L "$@" ~/mnt
+  mkdir "$1"
+  sudo mount -L "$1" ~/"$1" || rmdir "$1"
 fi
