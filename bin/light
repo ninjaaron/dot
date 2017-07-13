@@ -1,20 +1,29 @@
 #!/bin/sh
-
 # Just some functions with xbacklighter for keybindings.
 
-level="$(($(xbacklight|cut -d "." -f1) + 1))"
+level="$(brightnessctl g|grep Current|egrep -o '[0-9]+\s')"
+
 
 # cuts the backlight by half
 half() {
-  [ "$level" -ge 99 ] && half=64 || half="$(( $level / 2 ))"
-  [ "$half" -eq 0 ] && half=2
-  xbacklight -set "$half"
+  if [ "$level" -le 1 ]; then
+    brightnessctl s 0
+  elif [ "$level" -le 9 ]; then
+    brightnessctl s 1
+  else
+    brightnessctl s $(( $level / 2 ))
+  fi
 }
 
 # doubles the backlight
 dub() {
-  dub="$(( $level * 2 ))"
-  [ -z "$dub" ] && xbacklight -set 10 || xbacklight -set "$dub"
+  if [ "$level" -eq 0 ]; then
+    brightnessctl s 1
+  elif [ "$level" -le 7 ]; then
+    brightnessctl s 8
+  else
+    brightnessctl s "$(( $level * 2 ))" || brightnessctl s 937
+  fi
 }
 
 "$@"
