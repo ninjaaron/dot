@@ -21,7 +21,7 @@
  '(minimap-highlight-line nil)
  '(package-selected-packages
    (quote
-    (rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
+    (0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
  '(safe-local-variable-values (quote ((engine . jinja2))))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
@@ -30,7 +30,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- ;; '(default ((t (:family "bitocrafull" :foundry "aaron" :slant normal :weight normal :height 83 :width normal))))
  '(minimap-active-region-background ((t (:background "#1b1b1b"))))
  '(minimap-font-face ((t (:height 30 :family "Ubuntu Mono"))))
  '(minimap-semantic-function-face ((t (:inherit (font-lock-function-name-face Ubuntu\ Mono) :background "#202414" :box (:line-width 1 :color "white") :height 2.75)))))

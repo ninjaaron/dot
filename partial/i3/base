@@ -10,6 +10,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 # general
+exec dunst
 set $mod Mod4
 floating_modifier $mod
 
@@ -91,8 +92,6 @@ bindsym XF86AudioPlay exec mocp --toggle-pause
 bindsym Pause exec  mocp --toggle-pause
 bindsym XF86AudioNext exec mocp --next
 bindsym XF86AudioPrev exec mocp --previous
-bindsym XF86PowerOff exec ~/bin/pwr
-bindsym XF86Sleep exec ~/bin/pwr
 bindsym XF86Calculator exec urxvtc -e bpython
 
 bindsym $mod+equal exec ponymix increase 5
@@ -120,6 +119,8 @@ bindsym $mod+g exec ~/bin/greeker
 bindsym $mod+d exec ~/bin/dm
 bindsym $mod+Escape exec ~/bin/pwr
 bindsym $mod+grave exec i3lock -c 000000
+bindsym XF86MonBrightnessDown exec light half
+bindsym XF86MonBrightnessUp exec light dub
 
 # rules
 no_focus [class="feh"]

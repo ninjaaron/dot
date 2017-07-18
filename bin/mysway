@@ -1,4 +1,5 @@
 #!/bin/sh
+udiskie &
 export XKB_DEFAULT_LAYOUT='usvi,usvi,tnk'
 export XKB_DEFAULT_VARIANT='trans,de,grk'
 export XKB_DEFAULT_OPTIONS='grp:shift_caps_toggle'
