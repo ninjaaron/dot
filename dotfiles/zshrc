@@ -84,7 +84,7 @@ precmd() {
     [[ -n $(git status -s) ]] 2> /dev/null && colo='red' || colo='green'
     PROMPT="%F{$colo}${branch#* }%f|$PROMPT"
   fi
-  [[ $updates != 00 && -n $updates ]] && PROMPT="%F{yellow}$updates%f|$PROMPT"
+  [[ $updates -ne 0 && -n $updates ]] && PROMPT="%F{yellow}$updates%f|$PROMPT"
   [[ -n $venv ]] && PROMPT="%F{magenta}$venv%f|$PROMPT"
   [[ $USER = 'root' ]] && PROMPT="%F{yellow}%m%f:%F{red}%~%f# "
   # PROMPT2=$(print -P $PROMPT|sed 's/././g')
