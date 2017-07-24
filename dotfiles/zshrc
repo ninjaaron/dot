@@ -86,7 +86,7 @@ precmd() {
   fi
   [[ $updates -ne 0 && -n $updates ]] && PROMPT="%F{yellow}$updates%f|$PROMPT"
   [[ -n $venv ]] && PROMPT="%F{magenta}$venv%f|$PROMPT"
-  [[ $USER = 'root' ]] && PROMPT="%F{yellow}%m%f:%F{red}%~%f# "
+  [[ $USER == 'root' ]] && PROMPT="%F{yellow}%m%f:%F{red}%~%f# "
   # PROMPT2=$(print -P $PROMPT|sed 's/././g')
   # PROMPT=$(~/prompt.py)
   PROMPT2="$(print -P $PROMPT|sed 's:\[[0-9]*m::g;
