@@ -109,7 +109,7 @@ URxvt.keysym.M-Escape:      perl:keyboard-select:activate
 URxvt.keysym.M-s:           perl:keyboard-select:search
 
 ! fonts to choose
-URxvt.keysym.M-C-0: command:\033]710;xft:bitbuntufull:pixelsize=10,xft:Simple CLM\007
+URxvt.keysym.M-C-0: command:\033]710;xft:bitbuntu11:pixelsize=11,xft:Simple CLM\007
 URxvt.keysym.M-C-parenright: command:\033]710;xft:Ubuntu Mono:pixelsize=20,xft:Simple CLM\007
 URxvt.keysym.M-C-1: command:\033]710;xft:bitocrafull:pixelsize=11,xft:Simple CLM\007
 URxvt.keysym.M-C-exclam: command:\033]710;xft:Ubuntu Mono:pixelsize=11:style=bold,xft:Simple CLM\007
@@ -119,11 +119,11 @@ URxvt.keysym.M-C-3: command:\033]710;xft:bitocra13full:pixelsize=13,xft:Simple C
 URxvt.keysym.M-C-numbersign: command:\033]710;xft:Ubuntu Mono:pixelsize=13,xft:Simple CLM\007
 URxvt.keysym.M-C-4: command:\033]710;-*-terminus-medium-*-*-*14-*,xft:Simple CLM\007
 URxvt.keysym.M-C-dollar: command:\033]710;xft:Ubuntu Mono:pixelsize=14,xft:Simple CLM\007
-URxvt.keysym.M-C-5: command:\033]710;xft:5thElement\007
+URxvt.keysym.M-C-5: command:\033]710;xft:5thElement:pixelsize=5\007
 URxvt.keysym.M-C-percent: command:\033]710;xft:Ubuntu Mono:pixelsize=15,xft:Simple CLM\007
 URxvt.keysym.M-C-6: command:\033]710;xft:5thElementHeb,xft:Simple CLM\007
 URxvt.keysym.M-C-asciicircum: command:\033]710;xft:Ubuntu Mono:pixelsize=16,xft:Simple CLM\007
-URxvt.keysym.M-C-7: command:\033]710;xft:bitocra7\007
+URxvt.keysym.M-C-7: command:\033]710;xft:bitocra7:pixelsize=7\007
 URxvt.keysym.M-C-ampersand: command:\033]710;xft:Ubuntu Mono:pixelsize=17,xft:Simple CLM\007
 URxvt.keysym.M-C-8: command:\033]710;xft:bitocra7Heb,xft:Simple CLM\007
 URxvt.keysym.M-C-asterisk: command:\033]710;xft:Ubuntu Mono:pixelsize=18,xft:Simple CLM\007
