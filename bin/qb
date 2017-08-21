@@ -1,2 +1,2 @@
 #!/bin/sh
-qutebrowser --backend=webengine
+qutebrowser --backend=webengine "$@"
