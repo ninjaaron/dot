@@ -9,6 +9,7 @@ cat >> ~/.config/sway/config << EOF
 bindsym \$mod+grave exec swaylock -c 000000
 # Style
 output HDMI-A-1 bg ~/pic/backs/apocolyps/DD-Post-Apocalyptic-Wallpaper-321.jpg fill
+output eDP-1 bg ~/pic/backs/apocolyps/DD-Post-Apocalyptic-Wallpaper-321.jpg fill
 output DP-1     bg ~/pic/backs/apocolyps/DD-Post-Apocalyptic-Wallpaper-151.jpg fill
 
 font pango:${font2:-bitocra 7}
