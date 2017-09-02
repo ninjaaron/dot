@@ -1,14 +1,17 @@
 #!/bin/sh
 if [ "$1" = '-u' ]; then
-  sudo umount "$2"
-  [ -e "$2" ] && rmdir "$2"
+  sudo umount ~/"$2"
+  [ -e ~/"$2" ] && rmdir ~/"$2"
 elif printf "$1"|grep '^/dev/sd' -q; then
   mkdir ~/mnt
   sudo mount -o uid=$USER "$1" ~/mnt || rmdir ~/mnt
 elif printf "$1"|grep ':' -q; then
   mkdir ~/"$1"
   sshfs "$1" ~/"$1" || rmdir ~/"$1"
+elif sudo blkid -t LABEL="$1" |grep 'TYPE="vfat"' -q; then
+  mkdir ~/"$1"
+  sudo mount -o uid=$USER -L "$1" ~/"$1" || rmdir ~/"$1"
 else
-  mkdir "$1"
+  mkdir ~/"$1"
   sudo mount -L "$1" ~/"$1" || rmdir "$1"
 fi

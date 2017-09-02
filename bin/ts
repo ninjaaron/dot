@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import easyproc as ep
 import sys, re
-torrents = ep.grab('transmission-remote -l')
+torrents = tuple(ep.grab('transmission-remote -l'))
 pat = re.compile(sys.argv[1], re.I) if sys.argv[1:] else re.compile('.*', re.I)
 for tor in (t for t in torrents[:-1] if pat.search(t, re.I) ):
     tor = re.split(' {2,}', tor.strip())
