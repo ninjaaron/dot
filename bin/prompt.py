@@ -15,7 +15,8 @@ status_proc = sp.Popen(['git', 'status', '-s'], stdout=sp.PIPE,
 # truncate the directory
 dir = os.getcwd().replace(os.environ['HOME'], '~').split('/')
 if len(dir) > 1:
-    short_dir = os.path.join(*(dir[:1]+[d[0] for d in dir[1:-1]]+dir[-1:]))
+    short_dir = os.path.join(*(dir[:1]+[
+        d[0] if d[0] != '.' else d[:2] for d in dir[1:-1]]+dir[-1:]))
 else:
     short_dir = dir[0]
 
