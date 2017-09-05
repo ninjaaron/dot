@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import os, sys
+import os, sys, pathlib
 import subprocess as sp
 
 if os.environ['USER'] == 'root':
@@ -13,7 +13,7 @@ status_proc = sp.Popen(['git', 'status', '-s'], stdout=sp.PIPE,
                        stderr=sp.DEVNULL, universal_newlines=True)
 
 # truncate the directory
-dir = os.path.split(os.getcwd().replace(os.environ['HOME'], '~'))
+dir = pathlib.Path(os.getcwd().replace(os.environ['HOME'], '~')).parts
 if len(dir) > 1:
     short_dir = os.path.join(*(dir[:1]+tuple(
         d[0] if d[0] != '.' else d[:2] for d in dir[1:-1]
