@@ -3,7 +3,7 @@
 cd $DOT
 echo "================ git ================" 1>&2
 echo "== committing ==" 1>&2
-git commit -am "updating dotfiles" &&
+git commit -am "updating dotfiles"
 echo "== pulling changes ==" 1>&2 &&
 git pull --recurse-submodules origin master &&
 echo "== pushing changes ==" 1>&2 &&
