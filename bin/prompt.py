@@ -47,5 +47,5 @@ venv = os.environ.get('VIRTUAL_ENV')
 if venv:
     prompt.append(f'{os.path.basename(venv)}|')
 
-
+# print
 print(''.join(prompt[::-1]))
