@@ -84,6 +84,7 @@ alias dh="diatheke -b OSMHB -k"
 alias mpp="mpv -playlist"
 alias ymus="youtube-dl -x --audio-format mp3"
 alias ns="newscript"
+alias uu="udiskie-umount"
 
 alias pbxc='xclip -o|pb'
 
