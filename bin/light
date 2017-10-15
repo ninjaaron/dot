@@ -1,7 +1,7 @@
 #!/bin/sh
 # Just some functions with xbacklighter for keybindings.
 
-level="$(brightnessctl g|grep Current|egrep -o '[0-9]+\s')"
+level="$(brightnessctl g)"
 
 
 # cuts the backlight by half
