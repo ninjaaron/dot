@@ -1,42 +1,46 @@
-#!/usr/bin/env python3
-
+#!/usr/bin/env eggshell
+shimport ssh, sftp
 from collections import namedtuple
 import re
-import easyproc as ep
-import click
+import argparse
 
 Torrent = namedtuple('Torrent',
                      'id, perc, have, eta, up, down, ratio, status, name')
 
 
-@click.command()
-@click.option('-s',prompt='server', help='server address')
-@click.option('-r', is_flag=True, help='delete torrent after downloading')
-@click.option('--ext', type=str, help='grab only this file extention')
-@click.argument('targets', type=str, nargs=-1)
-def main(s, r, ext, targets):
+def main():
+    ap = argparse.ArgumentParser()
+    add = ap.add_argument
+    add('targets', nargs='+')
+    add('-s', help='server address')
+    add('-r', action='store_true', help='delete torrent after downloading')
+    add('--ext', help='grab only this file extention')
+
+    args = ap.parse_args()
+
     gap = re.compile(' {2,}')
     command = 'ssh sink transmission-remote -l'
-    torrents = [gap.split(t.strip()) for t in ep.grab(command)][1:-1]
+    torrents = [gap.split(t.strip()) for t in
+                (ssh sink transmission-remote -l)][1:-1]
     for n, t in enumerate(torrents):
         torrents[n][8:] = ['  '.join(t[8:])]
     torrents = (Torrent(*t) for t in torrents)
     try:
-        int(targets[0])
+        int(args.targets[0])
     except ValueError:
-        pat = re.compile('(?i)' + targets[0])
+        pat = re.compile('(?i)' + args.targets[0])
         matches = (t for t in torrents
                    if pat.search(t.name) and t.perc == '100%')
     else:
-        matches = (t for t in torrents if t.id.strip('*') in targets)
+        matches = (t for t in torrents if t.id.strip('*') in args.targets)
     for torrent in matches:
-        filename = s + ":dls/'" + torrent.name + "'"
-        if ext:
+        filename = args.s + ":dls/'" + torrent.name + "'"
+        if args.ext:
             filename += "/*" + ext
-        ep.run(['sftp', '-ar', filename, '.'], check=True)
-        if r:
-            ep.run(['ssh', s, 'transmission-remote', '-t',
-                    torrent.id.strip('*'), '--remove-and-delete'])
+        sftp -ar (filename) .
+        if args.r:
+            ssh (args.s) transmission-remote -t \
+                    (torrent.id.strip('*')) --remove-and-delete
 
 
 if __name__ == '__main__':
