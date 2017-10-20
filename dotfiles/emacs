@@ -21,7 +21,7 @@
  '(minimap-highlight-line nil)
  '(package-selected-packages
    (quote
-    (0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
+    (toml-mode rust-mode 0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
  '(safe-local-variable-values (quote ((engine . jinja2))))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
@@ -125,10 +125,19 @@
 (global-set-key (kbd "<f12>" ) 'minimap-mode)
 (global-set-key (kbd "<f8>") 'make-frame-command)
 (setq-default indent-tabs-mode nil)
-;;(setq js-indent-level 2)
+(setq js-indent-level 2)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
 (setq sh-indentation 2)
-(setq c-default-style "linux"
-      c-basic-offset 4
-      tab-width 4
-      c-indent-tabs-mode t)
+(setq js-indent-level 4
+      js2-basic-offset 4)
+
+(add-hook 'c-mode-hook
+          '(lambda()
+             (setq indent-tabs-mode t)
+             (setq c-default-style "linux")
+             (setq c-basic-offset 8)
+             (setq tab-width 8)
+             (setq c-indent-tabs-mode t)
+             (setq c-comment)
+	     )
+	  )

@@ -87,6 +87,7 @@ alias ns="newscript"
 alias uu="udiskie-umount"
 
 alias pbxc='xclip -o|pb'
+alias pbcb='xclip -o -selection clipboard|pb'
 
 # find processes that match a regex
 alias psg="ps-grep"
