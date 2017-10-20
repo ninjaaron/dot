@@ -1,5 +1,9 @@
 #!/bin/sh
-lang="${2:-sh}"
+if [ -x $2 ]; then
+  lang="${1##*.}"
+else
+  lang="${2:-sh}"
+fi
 
 case "$lang" in
   perl)
