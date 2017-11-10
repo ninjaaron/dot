@@ -93,7 +93,7 @@ alias pbcb='xclip -o -selection clipboard|pb'
 alias psg="ps-grep"
 
 c() {
-  local dir=$(dirlog-cd "$@")
+  local dir="$(dirlog-cd "$@")"
   if [ "$dir" != "" ]; then
     LAST="$PWD"
     cd "$dir"&& ls
