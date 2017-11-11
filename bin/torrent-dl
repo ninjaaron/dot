@@ -19,7 +19,6 @@ def main():
     args = ap.parse_args()
 
     gap = re.compile(' {2,}')
-    command = 'ssh sink transmission-remote -l'
     torrents = [gap.split(t.strip()) for t in
                 (ssh sink transmission-remote -l)][1:-1]
     for n, t in enumerate(torrents):
