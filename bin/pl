@@ -7,10 +7,6 @@ from pathlib import Path
 from functools import wraps
 
 
-class Error(Exception):
-    pass
-
-
 def trunc_instance(func):
     return lambda c, p: func(c), p
 
