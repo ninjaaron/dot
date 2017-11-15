@@ -1,0 +1,75 @@
+#!/usr/bin/env python3
+import itertools
+import os
+import shlex
+import statesaver
+import subprocess
+import sys
+import time
+
+
+class PlayQueue(statesaver.Looper):
+    def __iter__(self):
+        with self:
+            for i in self.iterable:
+                self.current = i
+                yield i
+
+    def __exit__(self, *args, **kwargs):
+        self.iterable = itertools.chain((self.pop('current'),), self.iterable)
+        super().__exit__(*args, **kwargs)
+
+
+def cmdformat(cmd, line):
+    if cmd == '{}':
+        return line
+    line = shlex.quote(line)
+    if '{}' in cmd:
+        subbed = cmd.format(line)
+    else:
+        subbed = '{} {}'.format(cmd, line)
+    return subbed
+
+
+def main():
+    import argparse
+    parser = argparse.ArgumentParser(
+        description='go over files in a playlist-y thing')
+    add = parser.add_argument
+    add('command', nargs='?', help="command to execute for each file")
+    add('file', nargs='*', help="files to iterate on")
+    add('-a', '--append', nargs='+', help='files to append to playlist')
+    add('-p', '--prompt-command',
+        help='prompt to run this command after each execution of the main '
+        'command')
+    arg = parser.parse_args()
+    cache = '.playlist'
+    if arg.file and os.path.exists(cache):
+        print(os.path.exists(cache))
+        os.remove(cache)
+    if arg.append:
+        arg.file = arg.append
+    if arg.file == ['-']:
+        arg.file = sys.stdin.read().splitlines()
+
+    playq = PlayQueue(cache, arg.file)
+    playq.cmd = cmd = arg.command or playq.cmd
+    prompt = playq.state.setdefault('prompt_cmd', arg.prompt_command)
+    if arg.append:
+        playq.remaining = itertools.chain(playq.remaining, arg.file)
+
+    for line in playq:
+        subprocess.run(shlex.split(cmdformat(cmd, line)))
+        time.sleep(0.5)
+
+        if prompt:
+            pcmd = cmdformat(prompt, line)
+            i = input('{} [y/N]? '.format(pcmd))
+            if i == 'y':
+                subprocess.run(shlex.split(pcmd))
+            elif i == 'q':
+                break
+
+
+if __name__ == '__main__':
+    main()
