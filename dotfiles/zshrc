@@ -99,6 +99,15 @@ source $HOME/.aliases
 venv_wrapper=/usr/bin/virtualenvwrapper_lazy.sh
 [[ -e $venv_wrapper ]] && source $venv_wrapper
 
+#compdef pipenv
+_pipenv() {
+  eval $(env COMMANDLINE="${words[1,$CURRENT]}" _PIPENV_COMPLETE=complete-zsh  pipenv)
+}
+if [[ "$(basename ${(%):-%x})" != "_pipenv" ]]; then
+  autoload -U compinit && compinit
+  compdef _pipenv pipenv
+fi
+
 # syntax highlighting
 [[ -n $HIGHLIGHT ]] && source $HIGHLIGHT
 [[ -n $COMPL ]] && source $COMPL
