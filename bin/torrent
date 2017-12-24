@@ -1,7 +1,7 @@
 #!/bin/sh
 
 add() {
-  ssh sink "transmission-remote -a '$1'"
+  ssh store "transmission-remote -a '$1'"
 }
 
 files() {
