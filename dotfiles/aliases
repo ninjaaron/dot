@@ -83,7 +83,7 @@ alias dh="diatheke -b OSMHB -k"
 alias pl="playlist"
 alias mp="mpv --save-position-on-quit"
 alias mpp="mpv -playlist"
-alias ymus="youtube-dl -x --audio-format mp3"
+alias ymus="youtube-dl -f 140 -x --audio-format mp3"
 alias ns="newscript"
 alias uu="udiskie-umount"
 
