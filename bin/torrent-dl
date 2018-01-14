@@ -3,6 +3,7 @@ shimport ssh, sftp
 from collections import namedtuple
 import re
 import argparse
+import shlex
 
 Torrent = namedtuple('Torrent',
                      'id, perc, have, eta, up, down, ratio, status, name')
@@ -35,7 +36,7 @@ def main():
     else:
         matches = (t for t in torrents if t.id.strip('*') in args.targets)
     for torrent in matches:
-        filename = args.s + ":dls/'" + torrent.name + "'"
+        filename = args.s + ":dls/" + shlex.quote(torrent.name)
         if args.ext:
             filename += "/*" + ext
 
