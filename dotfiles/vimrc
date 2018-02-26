@@ -21,7 +21,6 @@ source $HOME/.vim/bind.vim
 " autocmd stuff
 augroup vimrcEx
   au!
-  autocmd BufRead /tmp/pentadacty*.txt source $HOME/.vim/pentadactyl.vim
   autocmd BufReadPost *
         \ if line("'\"") > 1 && line("'\"") <= line("$")
         \| exe "normal! g`\"" | endif
