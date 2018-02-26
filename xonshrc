@@ -1,5 +1,7 @@
 # vim: ft=python
+import sys
 from xonsh.tools import unthreadable, uncapturable
+$VI_MODE = True
 $XONSH_COLOR_STYLE = 'paraiso-dark'
 $PROMPT = '{env_name:{} }{cwd}{branch_color}{curr_branch: {}}{NO_COLOR}{BOLD_BLUE}>{NO_COLOR} '
 
@@ -68,11 +70,11 @@ aliases['tm'] = 'tmux new-session'
 aliases['w3g'] = 'w3m -cookie google.com'
 aliases['w3d'] = 'w3m duckduckgo.com'
 aliases['png'] = "ping google.com"
-aliases['trans'] = $HOME + "/bin/translink"
+aliases['trans'] = "$HOME/bin/translink"
 aliases['td'] = "transmission-daemon"
 aliases['ta'] = "torrent add"
 aliases['tl'] = "transmission-remote -l"
-aliases['tdl'] = $HOME + "/bin/torrent-dl -s sink"
+aliases['tdl'] = "$HOME/bin/torrent-dl -s sink"
 aliases['trr'] = "torrent remove"
 aliases['tf'] = "torrent files"
 aliases['hc'] = "herbstclient"
