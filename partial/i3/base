@@ -106,7 +106,7 @@ bindsym $mod+Control+bracketright exec mocp --seek +60
 
 # launchers
 ## terminal
-# bindsym $mod+Return exec urxvtcd
+bindsym $mod+z exec urxvtcd
 bindsym $mod+Return exec urxvtcd -e xonsh
 bindsym $mod+slash exec urxvtc -e ranger
 bindsym $mod+apostrophe exec ~/clipboard2server
