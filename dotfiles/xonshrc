@@ -42,7 +42,13 @@ aliases['pRs'] = "sudo pacman -Rs"
 aliases['pU'] = "sudo pacman -U"
 aliases['aSyu'] = "pacaur -Syua"
 aliases['pQ'] = "pacman -Q"
-aliases['pSyu'] = "sudo ~/bin/rsnap; sudo pacmatic -Syu; pacman -Qu | wc -l | int2byte > ~/.updates"
+
+def _pSyu(args):
+    sudo ~/bin/rsnap
+    sudo pacmatic -Syu
+    pacman -Qu | wc -l | int2byte > ~/.updates
+
+aliases['pSyu'] = _pSyu
 
 aliases['sc'] = "sudo systemctl"
 
