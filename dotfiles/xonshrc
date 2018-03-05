@@ -1,16 +1,20 @@
 # vim: ft=python
-import sys
+import sys as _sys
 from xonsh.tools import unthreadable, uncapturable
+import os
+from pathlib import Path
 $VI_MODE = True
 $XONSH_COLOR_STYLE = 'paraiso-dark'
-$PROMPT = '{env_name:{} }{cwd}{branch_color}{curr_branch: {}}{NO_COLOR}{BOLD_BLUE}>{NO_COLOR} '
+$PROMPT = '{env_name:{}|}{BLUE}{short_cwd}{branch_color}{curr_branch:|{}}{NO_COLOR}>{NO_COLOR} '
+
+xontrib load vox
 
 try:
     import dirlog as _dirlog
     aliases['c'] = unthreadable(
             lambda args: _dirlog.c(args[0] if args else ''))
 except ImportError:
-    print('failed to import dirlog', file=sys.stderr)
+    print('failed to import dirlog', file=_sys.stderr)
 
 
 def _ern(args):
@@ -26,6 +30,12 @@ def _ern(args):
             mv @(filename) @(buff)
 
 
+def _pSyu(args):
+    sudo ~/bin/rsnap
+    sudo pacmatic -Syu
+    pacman -Qu | wc -l | int2byte > ~/.updates
+
+
 aliases['ern'] = _ern
 
 aliases['s'] = 'sudo -E'
@@ -34,6 +44,7 @@ aliases['cpr'] = 'cp --reflink=always -R'
 aliases['rm'] = 'rm -r'
 
 aliases['dot'] = "cd $DOT"
+
 # packagmanagment
 aliases['pS'] = "sudo pacmatic -S"
 aliases['aS'] = "pacaur -aS"
@@ -42,12 +53,6 @@ aliases['pRs'] = "sudo pacman -Rs"
 aliases['pU'] = "sudo pacman -U"
 aliases['aSyu'] = "pacaur -Syua"
 aliases['pQ'] = "pacman -Q"
-
-def _pSyu(args):
-    sudo ~/bin/rsnap
-    sudo pacmatic -Syu
-    pacman -Qu | wc -l | int2byte > ~/.updates
-
 aliases['pSyu'] = _pSyu
 
 aliases['sc'] = "sudo systemctl"
@@ -114,3 +119,5 @@ aliases['dt'] = "update-dotfiles"
 aliases['mnt'] = "home-mount"
 aliases['umnt'] = "home-mount -u"
 aliases['wt'] = "whiletrue"
+
+aliases['psg'] = "ps-grep"
