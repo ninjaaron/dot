@@ -105,6 +105,7 @@ b() {
   c "$LAST"
 }
 
+
 alias nt="urxvtc -e"
 alias e="permedit"
 alias ne="urxvtc -e permedit"
