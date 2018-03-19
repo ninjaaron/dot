@@ -1,125 +1,73 @@
 # vim: ft=python
-import sys as _sys
-from xonsh.tools import unthreadable, uncapturable
-import os
 from pathlib import Path
 $VI_MODE = True
 $XONSH_COLOR_STYLE = 'paraiso-dark'
 $PROMPT = '{env_name:{}|}{BLUE}{short_cwd}{branch_color}{curr_branch:|{}}{NO_COLOR}>{NO_COLOR} '
+$XONSH_SHOW_TRACEBACK = True
 
 xontrib load vox
 
-try:
-    import dirlog as _dirlog
-    aliases['c'] = unthreadable(
-            lambda args: _dirlog.c(args[0] if args else ''))
-except ImportError:
-    print('failed to import dirlog', file=_sys.stderr)
 
-
-def _ern(args):
+def load_aliases():
+    import sys
+    import re
     import tempfile
-    for filename in args:
-        with tempfile.NamedTemporaryFile('w+') as tf:
-            tf.write(filename)
-            tf.flush()
-            $EDITOR @(tf.name)
-            tf.seek(0)
-            buff = tf.read().strip()
-        if filename != buff:
-            mv @(filename) @(buff)
+    from hashlib import md5
+    from xonsh.tools import unthreadable, uncapturable
+    home = Path.home()
+
+    # make futzy aliases
+    try:
+        import dirlog as dirlog
+        aliases['c'] = unthreadable(
+                lambda args: dirlog.c(args[0] if args else ''))
+    except ImportError:
+        print('failed to import dirlog', file=_sys.stderr)
+
+    def _ern(args):
+        for filename in args:
+            with tempfile.NamedTemporaryFile('w+') as tf:
+                tf.write(filename)
+                tf.flush()
+                $EDITOR @(tf.name)
+                tf.seek(0)
+                buff = tf.readline().strip()
+            if filename != buff:
+                mv @(filename) @(buff)
 
 
-def _pSyu(args):
-    sudo ~/bin/rsnap
-    sudo pacmatic -Syu
-    pacman -Qu | wc -l | int2byte > ~/.updates
+    def _pSyu(args):
+        sudo ~/bin/rsnap
+        sudo pacmatic -Syu
+        pacman -Qu | wc -l | int2byte > ~/.updates
+
+    aliases['ern'] = _ern
+    aliases['pSyu'] = _pSyu
 
 
-aliases['ern'] = _ern
+    # import shell aliases
+    al_cache = home/'.cache/ali_cache.xsh'
+    al_path = home/'.aliases'
+    al_hash = home/'.cache/ali_hash'
+    with open(al_path, 'rb') as af, open(al_hash, 'rb') as ah:
+        old_hash = ah.read()
+        shell_aliases = af.read()
+        new_hash = md5(shell_aliases).digest()
 
-aliases['s'] = 'sudo -E'
-aliases['rs'] = 'rsync -rh --progress'
-aliases['cpr'] = 'cp --reflink=always -R'
-aliases['rm'] = 'rm -r'
+    if old_hash != new_hash:
+        ali = '\n'.join(i for i in shell_aliases.decode().splitlines()
+                        if i.startswith('alias '))
+        ali = re.sub(r'^alias ([\w-]*)=(.*?)$', r"aliases['\1'] = \2",
+                     ali, flags=re.M)
+        with open(al_hash, 'wb') as ah, open(al_cache, 'w') as ac:
+            ah.write(new_hash)
+            ac.write(ali)
 
-aliases['dot'] = "cd $DOT"
+        exec(ali)
 
-# packagmanagment
-aliases['pS'] = "sudo pacmatic -S"
-aliases['aS'] = "pacaur -aS"
-aliases['pSs'] = "pacaur -Ss"
-aliases['pRs'] = "sudo pacman -Rs"
-aliases['pU'] = "sudo pacman -U"
-aliases['aSyu'] = "pacaur -Syua"
-aliases['pQ'] = "pacman -Q"
-aliases['pSyu'] = _pSyu
+    else:
+        source @(al_cache)
 
-aliases['sc'] = "sudo systemctl"
 
-aliases['agi'] = 'sudo apt-get install'
-aliases['agp'] = 'sudo apt-get purge'
-aliases['agu'] = 'sudo apt-get update'
-aliases['agdu'] = 'sudo apt-get dist-upgrade'
-aliases['agac'] = 'sudo apt-get autoclean'
-aliases['agar'] = 'sudo apt-get autoremove'
-aliases['aar'] = 'sudo add-apt-repository'
-
-aliases['acs'] = 'apt-cache search'
-aliases['acsh'] = 'apt-cache show'
-
-aliases['grub-update'] = "sudo grub-mkconfig -o /boot/grub/grub.cfg"
-
-# power
-aliases['reboot'] = "systemctl reboot"
-aliases['halt'] = "systemctl poweroff"
-aliases['sus'] = "systemctl suspend"
-
+load_aliases()
 aliases['e'] = $EDITOR
-aliases['tma'] = 'tmux attach -d'  #opens a window with the last tmux session
-aliases['tm'] = 'tmux new-session'
-aliases['w3g'] = 'w3m -cookie google.com'
-aliases['w3d'] = 'w3m duckduckgo.com'
-aliases['png'] = "ping google.com"
-aliases['trans'] = "$HOME/bin/translink"
-aliases['td'] = "transmission-daemon"
-aliases['ta'] = "torrent add"
-aliases['tl'] = "transmission-remote -l"
-aliases['tdl'] = "$HOME/bin/torrent-dl -s sink"
-aliases['trr'] = "torrent remove"
-aliases['tf'] = "torrent files"
-aliases['hc'] = "herbstclient"
-aliases['di'] = "diatheke"
-aliases['dk'] = "diatheke -b NET -k"
-aliases['dh'] = "diatheke -b OSMHB -k"
-aliases['pl'] = "playlist"
-aliases['mp'] = "mpv --save-position-on-quit"
-aliases['mpp'] = "mpv -playlist"
-aliases['ymus'] = "youtube-dl -f 140 -x --audio-format mp3"
-aliases['ns'] = "newscript"
-aliases['uu'] = "udiskie-umount"
-
-aliases['ls'] = "ls --color=auto"
-aliases['ll'] = "ls --color=auto -lh"
-aliases['la'] = "ls --color=auto -A"
-aliases['lla'] = "ls --color=auto -lhA"
-aliases['lsg'] = "ls|grep"
-
-aliases['pe'] = 'perl -pe'
-aliases['ne'] = 'perl -ne'
-aliases['df'] = "df -h"
-aliases['du'] = "du -h"
-aliases['x'] = 'chmod +x'
-aliases['grep'] = 'grep --color=auto'
-aliases['f'] = 'find -name'
-aliases['ast'] = "~/bin/autosus toggle"
-aliases['l'] = "dlog ls --color=auto"
-aliases['kbde'] = "setxkbmap -layout de"
-aliases['eng'] = "dict -d deu-eng"
-aliases['deu'] = "dict -d eng-deu"
-aliases['dt'] = "update-dotfiles"
-aliases['mnt'] = "home-mount"
-aliases['umnt'] = "home-mount -u"
-aliases['wt'] = "whiletrue"
-
-aliases['psg'] = "ps-grep"
