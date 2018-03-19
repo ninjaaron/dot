@@ -114,7 +114,9 @@ aliases['grep'] = 'grep --color=auto'
 aliases['f'] = 'find -name'
 aliases['ast'] = "~/bin/autosus toggle"
 aliases['l'] = "dlog ls --color=auto"
-aliases['de'] = "setxkbmap -layout de"
+aliases['kbde'] = "setxkbmap -layout de"
+aliases['eng'] = "dict -d deu-eng"
+aliases['deu'] = "dict -d eng-deu"
 aliases['dt'] = "update-dotfiles"
 aliases['mnt'] = "home-mount"
 aliases['umnt'] = "home-mount -u"
