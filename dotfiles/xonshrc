@@ -41,8 +41,6 @@ def load_aliases():
         sudo pacmatic -Syu
         pacman -Qu | wc -l | int2byte > ~/.updates
 
-    aliases['ern'] = _ern
-    aliases['pSyu'] = _pSyu
 
 
     # import shell aliases
@@ -67,6 +65,10 @@ def load_aliases():
 
     else:
         source @(al_cache)
+
+
+    aliases['ern'] = _ern
+    aliases['pSyu'] = _pSyu
 
 
 load_aliases()
