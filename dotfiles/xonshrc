@@ -67,7 +67,5 @@ def load_aliases():
     aliases['pSyu'] = _pSyu
 
 
-
-
 load_aliases()
 aliases['e'] = $EDITOR
