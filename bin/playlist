@@ -1,23 +1,10 @@
 #!/usr/bin/env python3
-import itertools
 import os
 import shlex
 import statesaver
 import subprocess
 import sys
 import time
-
-
-class PlayQueue(statesaver.Looper):
-    def __iter__(self):
-        with self:
-            for i in self.iterable:
-                self.current = i
-                yield i
-
-    def __exit__(self, *args, **kwargs):
-        self.iterable = itertools.chain((self.pop('current'),), self.iterable)
-        super().__exit__(*args, **kwargs)
 
 
 def cmdformat(cmd, line):
@@ -52,7 +39,7 @@ def main():
     if arg.file == ['-']:
         arg.file = sys.stdin.read().splitlines()
 
-    playq = PlayQueue(cache, arg.file)
+    playq = statesaver.PlayQueue(cache, arg.file)
     playq.cmd = cmd = arg.command or playq.cmd
     prompt = playq.state.setdefault('prompt_cmd', arg.prompt_command)
     if arg.append:
