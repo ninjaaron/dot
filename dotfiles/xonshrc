@@ -9,20 +9,31 @@ xontrib load vox
 
 
 def load_aliases():
+    import os
     import sys
     import re
     import tempfile
+    import dirlog
     from hashlib import md5
     from xonsh.tools import unthreadable, uncapturable
     home = Path.home()
 
     # make futzy aliases
-    try:
-        import dirlog as dirlog
-        aliases['c'] = unthreadable(
-                lambda args: dirlog.c(args[0] if args else ''))
-    except ImportError:
-        print('failed to import dirlog', file=_sys.stderr)
+
+    @unthreadable
+    def _c(args):
+        if not args:
+            os.chdir(dirlog.get_and_update(''))
+            ls --color=auto
+            return
+
+        try:
+            os.chdir(dirlog.get_and_update(*args))
+            ls --color=auto
+        except TypeError:
+            print('bad args:', args)
+
+    aliases['c'] = _c
 
     def _ern(args):
         for filename in args:

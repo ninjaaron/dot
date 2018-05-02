@@ -13,7 +13,7 @@ endfunction
 " settings
 for [ key, setting ] in [
       \['W', 'wrap!'], ['n', 'nu!'], ['sp', 'spell!'], ['1', 'list!']]
-  exe "noremap <leader>".key ":set" setting."<cr>"
+  exe "nnoremap <leader>".key ":set" setting."<cr>"
 endfor
 nnoremap <leader>tw :set tw=0
 nnoremap <leader>/ :noh<cr>
@@ -33,7 +33,7 @@ function! ToggleHebrew()
     set norightleft keymap=
   endif
 endfunction
-noremap <leader>i :call ToggleHebrew()<cr>
+nnoremap <leader>i :call ToggleHebrew()<cr>
 
 " comment out blocks.
 function! Comment(char) range
@@ -52,23 +52,23 @@ xnoremap # :call Comment('#')<CR>
 nnoremap # ^i# <ESC>
 
 " reformat
-noremap <leader>r mvgq}`v
+nnoremap <leader>r mvgq}`v
 
 " word count
-noremap <leader>c g
-noremap <leader>C :set ic!<CR>
-noremap <leader><leader> :
+nnoremap <leader>c g
+nnoremap <leader>C :set ic!<CR>
+nnoremap <leader><leader> :
 
 
 " saving and quitting
 for key in ['w', 'q', 'x']
-  exe "noremap <leader>".key ":".key."<CR>" | endfor
+  exe "nnoremap <leader>".key ":".key."<CR>" | endfor
 
 " filetypes
 for [ key, ft ] in [
       \['a', 'asciidoc'], ['p', 'python'], ['s', 'sh'], ['v', 'vim'],
       \['js', 'javascript']]
-  exe "noremap <leader>f".key ":set filetype=".ft "<CR>"
+  exe "nnoremap <leader>f".key ":set filetype=".ft "<CR>"
 endfor
 
 " Window management
@@ -80,7 +80,7 @@ function! Vs()
   exe "vertical resize" (&textwidth + 5)
   winc l
 endfunction
-noremap <leader>vs :call Vs()<CR>
+nnoremap <leader>vs :call Vs()<CR>
 
 noremap j gj
 noremap k gk

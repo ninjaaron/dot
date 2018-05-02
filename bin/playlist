@@ -8,18 +8,6 @@ import sys
 import time
 
 
-class PlayQueue(statesaver.Looper):
-    def __iter__(self):
-        with self:
-            for i in self.iterable:
-                self.current = i
-                yield i
-
-    def __exit__(self, *args, **kwargs):
-        self.iterable = itertools.chain((self.pop('current'),), self.iterable)
-        super().__exit__(*args, **kwargs)
-
-
 def cmdformat(cmd, line):
     if cmd == '{}':
         return line
@@ -52,11 +40,11 @@ def main():
     if arg.file == ['-']:
         arg.file = sys.stdin.read().splitlines()
 
-    playq = PlayQueue(cache, arg.file)
-    playq.cmd = cmd = arg.command or playq.cmd
-    prompt = playq.state.setdefault('prompt_cmd', arg.prompt_command)
+    playq = statesaver.PlayQueue(cache, arg.file)
+    cmd = playq['cmd'] = arg.command or playq['cmd']
+    prompt = playq.setdefault('prompt_cmd', arg.prompt_command)
     if arg.append:
-        playq.remaining = itertools.chain(playq.remaining, arg.file)
+        playq['remaining'] = itertools.chain(playq.remaining, arg.file)
 
     for line in playq:
         subprocess.run(shlex.split(cmdformat(cmd, line)))
