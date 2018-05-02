@@ -35,13 +35,10 @@ def load_aliases():
             if filename != buff:
                 mv @(filename) @(buff)
 
-
     def _pSyu(args):
         sudo ~/bin/rsnap
         sudo pacmatic -Syu
         pacman -Qu | wc -l | int2byte > ~/.updates
-
-
 
     # import shell aliases
     al_cache = home/'.cache/ali_cache.xsh'
@@ -65,7 +62,6 @@ def load_aliases():
 
     else:
         source @(al_cache)
-
 
     aliases['ern'] = _ern
     aliases['pSyu'] = _pSyu
