@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+## create snapshots of src in dst. save last $keep snapshots.
+
+src="$1"
+dst="$2"
+keep="$3"
+
+timestamp="$(date +%F.%T)"
+
+if [[ ! -e $dst ]]; then
+  mkdir "$dst"
+fi
+
+snapshots=( "$dst/"* )
+dst="$dst/$timestamp"
+
+## cleanup old snapshots
+if [[ $keep ]]; then
+  for ((i=0;i < ${#snapshots[@]} -  $keep; ++i)); do
+    echo "removing ${snapshots[i]}" >&2
+    rm -rf "${snapshots[i]}"
+  done
+fi
+
+
+## copy the latest snapshot with hard links
+if [[ $snapshots ]]; then
+  latest="${snapshots[-1]}"
+  cp -ral "$latest" "$dst"
+fi
+
+## copy in the changes
+rsync -avu "$src/" "$dst"

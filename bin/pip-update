@@ -1,3 +1,5 @@
 #!/bin/sh
 
-pip list --user -o|cut -d' ' -f1|xargs pip install --user -U
+pip list --user --format json -o|
+  rep -j '(i.name for i in j)'|
+  xargs pip install --user -U
