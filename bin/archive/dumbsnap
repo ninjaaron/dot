@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+import datetime
+import os
+import pathlib
+import sys
+import shutil
+
+
+def join_end(src_top, src_end, dst):
+    return dst/pathlib.Path(
+        *src_end.parts[len(src_top):])
+
+
+def mksnap(src, dst, latest):
+    def mkdst(src_end):
+        return join_end(src, src_end, dst)
+
+
+def make_and_clean_snapshot(src, dst, keep=None):
+    src, dst = pathlib.Path(src), pathlib.Path(dst)
+    if not dst.exists():
+        dst.mkdir(parents=True)
+    snapshots = list(dst.iterdir())
+    timestamp = datetime.datetime.now().strftime('%F.%T')
+    dst = dst/timestamp
+
+    if not snapshots:
+        print('No snapshots so far. copying', src)
+              file=sys.stderr)
+        shutil.copytree(src, dst)
+        return
+
+    snapshots.sort()
+    latest = snapshots[-1]
+    mksnap(src, dst/timestamp, latest)
+
+
+def main():
+    src, dst = sys.argv[1:3]
+    keep = sys.argv[3] if sys.argv[3:] else None
+    make_and_clean_snapshot(src, dst, keep)
+    
+
+
+if __name__ == '__main__':
+    main()
