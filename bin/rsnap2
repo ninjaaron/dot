@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+import argparse
+import datetime
+import os
+from pathlib import Path
+import subprocess as sp
+import sys
+
+
+class MountError(Exception):
+    pass
+
+
+class BtrfsError(Exception):
+    pass
+
+
+def mount(*args):
+    try:
+        sp.run(['mount', *args], check=True)
+    except sp.CalledProcessError:
+        raise MountError('could not mount ' + str(args))
+
+
+def unmount(*args):
+    try:
+        sp.run(['umount', *args], check=True)
+    except sp.CalledProcessError:
+        raise MountError('could not unmount ' + str(args))
+
+
+def subvol_delete(*subvols):
+    try:
+        sp.run(['btrfs', 'subvolume', 'delete', *subvols], check=True)
+    except sp.CalledProcessError:
+        raise BtrfsError(' '.join(['could not delete', *subvols]))
+
+
+def mksnapshot(src, dst=None):
+    try:
+        sp.run(['btrfs', 'subvolume', 'snapshot', src, dst])
+    except sp.CalledProcessError:
+        raise BtrfsError("couldn't snapshot " + src + ' to ' + dst)
+
+
+def make_and_clean_snapshots(subvol, snap_path, keep):
+    ## get list of saved snapshots
+    snap_path = Path(snap_path)
+    if not snap_path.exists():
+        snap_path.mkdir()
+    snapshots = list(snap_path.iterdir())
+    snapshots.sort()
+    ## delete extras
+    if snapshots[keep:]:
+        subvol_delete(*snapshots[:-keep])
+    ## create new snapshot
+    mksnapshot(
+        subvol, snap_path/datetime.datetime.now().strftime('%F.%T'))
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--mount', '-m', help='argument to pass to mount')
+    ap.add_argument('--keep', '-k', help='number of snapshots to keep',
+                    type=int)
+    ap.add_argument('src')
+    ap.add_argument('dst')
+    args = ap.parse_args()
+    try:
+        mount(args.mount)
+        make_and_clean_snapshots(args.mount, args.src, args.dst, args.keep)
+        unmount(args.mount)
+    except MountError as e:
+        print('Error:', e)
+        sys.exit(1)
+    except BtrfsError as e:
+        print('Error:', e)
+        sys.exit(2)
+    
+
+if __name__ == '__main__':
+    main()
