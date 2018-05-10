@@ -20,7 +20,7 @@ alias pRs="sudo pacman -Rs"
 alias pU="sudo pacman -U"
 alias aSyu="pacaur -Syua"
 alias pQ="pacman -Q"
-alias pSyu="sudo ~/bin/rsnap2; sudo pacmatic -Syu; pacman -Qu | wc -l | int2byte > ~/.updates"
+alias pSyu="sudo ~/bin/rsnap2 -k 3 -m /media/btrfs/ /media/btrfs/rootvol /media/btrfs/snapshots; sudo pacmatic -Syu; pacman -Qu | wc -l | int2byte > ~/.updates"
 
 alias sc="sudo systemctl"
 
