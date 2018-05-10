@@ -68,7 +68,7 @@ def main():
     args = ap.parse_args()
     try:
         mount(args.mount)
-        make_and_clean_snapshots(args.mount, args.src, args.dst, args.keep)
+        make_and_clean_snapshots(args.src, args.dst, args.keep)
         unmount(args.mount)
     except MountError as e:
         print('Error:', e)
