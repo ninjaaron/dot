@@ -2,4 +2,4 @@
 
 pip3 list --user --format json -o|
   rep -j '(i.name for i in j)'|
-  xargs pip install --user -U
+  xargs pip3 install --user -U
