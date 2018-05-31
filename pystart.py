@@ -49,7 +49,7 @@ class Cmd:
 
     def __repr__(self):
         -self
-        return ''
+        return 'None'
 
     def __getitem__(self, value):
         if isinstance(value, (int, slice)):
