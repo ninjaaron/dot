@@ -4,7 +4,6 @@ my ($total, $comments, $blanklines) = (0, 0, 0);
 while (<>){
     $total++;
     $comments++ if /^\s*#/;
-    # $comments++ if m[^\s*//];
     $blanklines++ if /^\s*$/;
 }
 my $code = $total - $comments - $blanklines;
