@@ -9,12 +9,12 @@ variant="$variant, de, grk"
 case "$board" in
   hh*)
     setxkbmap -layout "$layout" -variant "$variant" \
-      -option "grp:shifts_toggle"
+      -option "grp:shift_caps_toggle"
      xmodmap -e 'keycode 135 = Menu'
     ;;
   *)
     setxkbmap -layout "$layout" -variant "$variant" \
-      -option "grp:shifts_toggle,ctrl:swapcaps"
+      -option "grp:shift_caps_toggle,ctrl:swapcaps"
      xmodmap -e 'keycode 135 = Super_R'
     ;;
 esac
