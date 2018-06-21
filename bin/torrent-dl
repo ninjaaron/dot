@@ -21,12 +21,9 @@ def main():
 
     gap = re.compile(' {2,}')
 
-    torrents = [gap.split(t.strip()) for t in
-                (ssh (args.s) transmission-remote -l)][1:-1]
+    torrents = [Torrent(*gap.split(t.strip(), 8)) for t in
+                list(ssh (args.s) transmission-remote -l)[1:-1]]
 
-    for n, t in enumerate(torrents):
-        torrents[n][8:] = ['  '.join(t[8:])]
-    torrents = (Torrent(*t) for t in torrents)
     try:
         int(args.targets[0])
     except ValueError:
