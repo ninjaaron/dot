@@ -55,7 +55,7 @@ def load_aliases():
     al_cache = home/'.cache/ali_cache.xsh'
     al_path = home/'.aliases'
     al_hash = home/'.cache/ali_hash'
-    with open(al_path, 'rb') as af, open(al_hash, 'rb') as ah:
+    with al_path.open('rb') as af, al_hash.open('rb') as ah:
         old_hash = ah.read()
         shell_aliases = af.read()
         new_hash = md5(shell_aliases).digest()
@@ -65,11 +65,13 @@ def load_aliases():
                         if i.startswith('alias '))
         ali = re.sub(r'^alias ([\w-]*)=(.*?)$', r"aliases['\1'] = \2",
                      ali, flags=re.M)
-        with open(al_hash, 'wb') as ah, open(al_cache, 'w') as ac:
+        with al_hash.open('wb') as ah, al_cache.open('w') as ac:
             ah.write(new_hash)
             ac.write(ali)
 
-        exec(ali)
+        try:
+            exec(ali)
+        
 
     else:
         source @(al_cache)
