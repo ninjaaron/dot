@@ -3,7 +3,7 @@ from pprint import pprint
 from timeit import timeit
 import libaaron
 
-local_mods = ('from collist import displayhook;sys.displayhook = displayhook')
+local_mods = ('from collist import displayhook;sys.displayhook = displayhook',)
 for mod in local_mods:
     try:
         exec(mod)
