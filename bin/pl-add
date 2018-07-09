@@ -1,0 +1,4 @@
+#!/bin/sh
+for filename in "$@"; do
+  echo "$PWD/$filename" >> ~/playlist.m3u
+done
