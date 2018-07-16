@@ -7,15 +7,15 @@ layout="usvi, usvi, tnk"
 variant="$variant, de, grk"
 
 case "$board" in
-  hh*)
-    setxkbmap -layout "$layout" -variant "$variant" \
-      -option "grp:shift_caps_toggle"
-     xmodmap -e 'keycode 135 = Menu'
-    ;;
-  *)
+  c*)
     setxkbmap -layout "$layout" -variant "$variant" \
       -option "grp:shift_caps_toggle,ctrl:swapcaps"
      xmodmap -e 'keycode 135 = Super_R'
+    ;;
+  *)
+    setxkbmap -layout "$layout" -variant "$variant" \
+      -option "grp:shift_caps_toggle"
+     xmodmap -e 'keycode 135 = Menu'
     ;;
 esac
 

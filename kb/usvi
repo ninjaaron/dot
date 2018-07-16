@@ -247,4 +247,13 @@ xkb_symbols "german-tranie" {
     include "usvi(diaeresis)"
 };
 
+
+xkb_symbols "epo" {
+    name[group1] ="USA is #1, also Germany";
+    include "usvi(basic)"
+    include "usvi(noalt)"
+    include "epo(qwerty)"
+};
+
+
 // vim: tw=0

@@ -61,6 +61,7 @@ alias f='find -name'
 alias ast="~/bin/autosus toggle"
 alias l="dlog ls --color=auto"
 alias de="setxkbmap -layout de"
+alias epo="setxkbmap -layout usvi -variant epo"
 alias dt="update-dotfiles"
 alias mnt="home-mount"
 alias umnt="home-mount -u"
