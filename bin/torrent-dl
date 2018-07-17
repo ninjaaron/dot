@@ -1,12 +1,63 @@
-#!/usr/bin/env eggshell
-shimport ssh, sftp
-from collections import namedtuple
+#!/usr/bin/env python3
 import re
 import argparse
 import shlex
+import compose
+import easyproc as ep
 
-Torrent = namedtuple('Torrent',
-                     'id, perc, have, eta, up, down, ratio, status, name')
+gap = re.compile(' {2,}')
+
+
+@compose.struct
+class Torrent:
+    id: str
+    perc: str
+    have: str
+    eta: str
+    up: str
+    down: str
+    ratio: str
+    status: str
+    name: str
+    server = None
+
+    @classmethod
+    def fromline(cls, line, server=None):
+        id, *rest = gap.split(line.strip(), 8)
+        return cls(id.strip('*'), *rest, server)
+
+    def remove(self):
+        self.server.remove(self)
+
+    def download(self, path='.'):
+        self.server.download(self, path)
+
+
+@compose.struct
+class Transmission:
+    server: str
+    dir: str
+
+    def cmd(self, *args):
+        return [
+            'ssh',
+            shlex.quote(self.server),
+            'transmission-remote',
+            *map(shlex.quote, args)
+        ]
+
+    @property
+    def torrents(self):
+        dump = ep.grab(self.cmd('-l'))
+        return [Torrent.fromline(t, self) for t in list(dump)[1:-1]]
+
+    def download(self, torrent, path='.'):
+        filename = '%s:%s/%s' % (
+            self.server, self.dir, shlex.quote(torrent.name))
+        ep.run(['sftp', '-ar', filename, path])
+
+    def remove(self, torrent):
+        ep.run(self.cmd('-t', torrent.id, '--remove-and-delete'))
 
 
 def main():
@@ -15,35 +66,26 @@ def main():
     add('targets', nargs='+')
     add('-s', help='server address')
     add('-r', action='store_true', help='delete torrent after downloading')
-    add('--ext', help='grab only this file extention')
 
     args = ap.parse_args()
-
-    gap = re.compile(' {2,}')
-
-    torrents = [Torrent(*gap.split(t.strip(), 8)) for t in
-                list(ssh (args.s) transmission-remote -l)[1:-1]]
+    server = Transmission(args.s, 'dls')
+    torrents = server.torrents
 
     try:
         int(args.targets[0])
     except ValueError:
         pat = re.compile('(?i)' + args.targets[0])
         matches = (t for t in torrents
-                   if pat.search(t.name) and t.perc == '100%')
+                       if pat.search(t.name) and t.perc == '100%')
     else:
-        matches = (t for t in torrents if t.id.strip('*') in args.targets)
-    for torrent in matches:
-        filename = args.s + ":dls/" + shlex.quote(torrent.name)
-        if args.ext:
-            filename += "/*" + ext
+        matches = (t for t in torrents if t.id in args.targets)
 
-        sftp -ar (filename) .
+    print(matches)
+    for torrent in matches:
+        torrent.download()
         if args.r:
-            ssh (args.s) transmission-remote -t \
-                    (torrent.id.strip('*')) --remove-and-delete
+            torrent.remove()
 
 
 if __name__ == '__main__':
     main()
-
-# vim: ft=python
