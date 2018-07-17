@@ -5,50 +5,106 @@
 # ‾‾‾‾‾‾‾‾‾
 
 hook global BufCreate .*[.](py) %{
-    set buffer filetype python
+    set-option buffer filetype python
 }
 
 # Highlighters & Completion
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
-add-highlighter -group / regions -default code python \
-    double_docstring '"""' '"""'            '' \
-    single_docstring "'''" "'''"            '' \
+add-highlighter shared/ regions -default code python \
+    docstring     '"""' '"""'            '' \
+    docstring     "'''" "'''"            '' \
     double_string '"'   (?<!\\)(\\\\)*"  '' \
     single_string "'"   (?<!\\)(\\\\)*'  '' \
     comment       '#'   '$'              '' \
     double_fstring 'f"""' '"""'            '' \
     single_fstring "f'''" "'''"            '' \
     double_fstring 'f"'   (?<!\\)(\\\\)*"  '' \
-    single_fstring "f'"   (?<!\\)(\\\\)*'  '' \
+    single_fstring "f'"   (?<!\\)(\\\\)*'  ''
 
-add-highlighter -group /python/double_string fill string
-add-highlighter -group /python/single_string fill string
-add-highlighter -group /python/double_fstring fill string
-add-highlighter -group /python/single_fstring fill string
-add-highlighter -group /python/double_docstring fill docstring
-add-highlighter -group /python/single_docstring fill docstring
-add-highlighter -group /python/comment       fill comment
+# Integer formats
+add-highlighter shared/python/code regex '(?i)\b0b[01]+l?\b' 0:value
+add-highlighter shared/python/code regex '(?i)\b0x[\da-f]+l?\b' 0:value
+add-highlighter shared/python/code regex '(?i)\b0o?[0-7]+l?\b' 0:value
+add-highlighter shared/python/code regex '(?i)\b([1-9]\d*|0)l?\b' 0:value
+# Float formats
+add-highlighter shared/python/code regex '\b\d+[eE][+-]?\d+\b' 0:value
+add-highlighter shared/python/code regex '(\b\d+)?\.\d+\b' 0:value
+add-highlighter shared/python/code regex '\b\d+\.' 0:value
+# Imaginary formats
+add-highlighter shared/python/code regex '\b\d+\+\d+[jJ]\b' 0:value
 
-add-highlighter -group /python/double_fstring regions regions interpolation (?<!\{)\{(?!\{) \} \{
-add-highlighter -group /python/single_fstring regions regions interpolation (?<!\{)\{(?!\{) \} \{
-add-highlighter -group /python/double_fstring/regions/interpolation fill clear
-add-highlighter -group /python/single_fstring/regions/interpolation fill clear
-add-highlighter -group /python/double_fstring/regions/interpolation ref python/code
-add-highlighter -group /python/single_fstring/regions/interpolation ref python/code
+add-highlighter shared/python/double_string fill string
+add-highlighter shared/python/single_string fill string
+
+add-highlighter shared/python/docstring/ regions -default docstring py-docstring \
+    python '>>> \K'    '\z' '' \
+    python '\.\.\. \K' '\z' ''
+add-highlighter shared/python/docstring/py-docstring/python    ref python
+add-highlighter shared/python/docstring/py-docstring/docstring fill string
+
+add-highlighter shared/python/comment       fill comment
+add-highlighter shared/python/double_fstring regions regions interpolation (?<!\{)\{(?!\{) \} \{
+add-highlighter shared/python/single_fstring regions regions interpolation (?<!\{)\{(?!\{) \} \{
+add-highlighter shared/python/double_fstring/regions/interpolation fill clear
+add-highlighter shared/python/single_fstring/regions/interpolation fill clear
+add-highlighter shared/python/double_fstring/regions/interpolation ref python/code
+add-highlighter shared/python/single_fstring/regions/interpolation ref python/code
+add-highlighter shared/python/code regex '\bdef\s+(\w+)' 1:function
+add-highlighter shared/python/code regex '\bclass\s+(\w+)' 1:function
 
 %sh{
     # Grammar
-    const="True|False|None|\d+"
+    const="True|False|None|self|inf"
     meta="import|from"
+
+    # attributes and methods list based on https://docs.python.org/3/reference/datamodel.html
+    attributes="__annotations__|__closure__|__code__|__defaults__|__dict__|__doc__"
+    attributes="${attributes}|__globals__|__kwdefaults__|__module__|__name__|__qualname__"
+    methods="__abs__|__add__|__aenter__|__aexit__|__aiter__|__and__|__anext__"
+    methods="${methods}|__await__|__bool__|__bytes__|__call__|__complex__|__contains__"
+    methods="${methods}|__del__|__delattr__|__delete__|__delitem__|__dir__|__divmod__"
+    methods="${methods}|__enter__|__eq__|__exit__|__float__|__floordiv__|__format__"
+    methods="${methods}|__ge__|__get__|__getattr__|__getattribute__|__getitem__"
+    methods="${methods}|__gt__|__hash__|__iadd__|__iand__|__ifloordiv__|__ilshift__"
+    methods="${methods}|__imatmul__|__imod__|__imul__|__index__|__init__"
+    methods="${methods}|__init_subclass__|__int__|__invert__|__ior__|__ipow__"
+    methods="${methods}|__irshift__|__isub__|__iter__|__itruediv__|__ixor__|__le__"
+    methods="${methods}|__len__|__length_hint__|__lshift__|__lt__|__matmul__"
+    methods="${methods}|__missing__|__mod__|__mul__|__ne__|__neg__|__new__|__or__"
+    methods="${methods}|__pos__|__pow__|__radd__|__rand__|__rdivmod__|__repr__"
+    methods="${methods}|__reversed__|__rfloordiv__|__rlshift__|__rmatmul__|__rmod__"
+    methods="${methods}|__rmul__|__ror__|__round__|__rpow__|__rrshift__|__rshift__"
+    methods="${methods}|__rsub__|__rtruediv__|__rxor__|__set__|__setattr__"
+    methods="${methods}|__setitem__|__set_name__|__slots__|__str__|__sub__"
+    methods="${methods}|__truediv__|__xor__"
+
+    # built-in exceptions https://docs.python.org/3/library/exceptions.html
+    exceptions="ArithmeticError|AssertionError|AttributeError|BaseException|BlockingIOError"
+    exceptions="${exceptions}|BrokenPipeError|BufferError|BytesWarning|ChildProcessError"
+    exceptions="${exceptions}|ConnectionAbortedError|ConnectionError|ConnectionRefusedError"
+    exceptions="${exceptions}|ConnectionResetError|DeprecationWarning|EOFError|Exception"
+    exceptions="${exceptions}|FileExistsError|FileNotFoundError|FloatingPointError|FutureWarning"
+    exceptions="${exceptions}|GeneratorExit|ImportError|ImportWarning|IndentationError"
+    exceptions="${exceptions}|IndexError|InterruptedError|IsADirectoryError|KeyboardInterrupt"
+    exceptions="${exceptions}|KeyError|LookupError|MemoryError|ModuleNotFoundError|NameError"
+    exceptions="${exceptions}|NotADirectoryError|NotImplementedError|OSError|OverflowError"
+    exceptions="${exceptions}|PendingDeprecationWarning|PermissionError|ProcessLookupError"
+    exceptions="${exceptions}|RecursionError|ReferenceError|ResourceWarning|RuntimeError"
+    exceptions="${exceptions}|RuntimeWarning|StopAsyncIteration|StopIteration|SyntaxError"
+    exceptions="${exceptions}|SyntaxWarning|SystemError|SystemExit|TabError|TimeoutError|TypeError"
+    exceptions="${exceptions}|UnboundLocalError|UnicodeDecodeError|UnicodeEncodeError|UnicodeError"
+    exceptions="${exceptions}|UnicodeTranslateError|UnicodeWarning|UserWarning|ValueError|Warning"
+    exceptions="${exceptions}|ZeroDivisionError"
+
     # Keyword list is collected using `keyword.kwlist` from `keyword`
     keywords="and|as|assert|break|class|continue|def|del|elif|else|except|exec"
-    keywords="${keywords}|finally|for|global|if|lambda|not|or|pass|print"
-    keywords="${keywords}|raise|return|try|while|with|yield|in|async"
-    operators="\bis\b|[=!<>]=|[|!<>*^+-]"
+    keywords="${keywords}|finally|for|global|if|in|is|lambda|not|or|pass|print"
+    keywords="${keywords}|raise|return|try|while|with|yield"
+
     types="bool|buffer|bytearray|bytes|complex|dict|file|float|frozenset|int"
     types="${types}|list|long|memoryview|object|set|str|tuple|unicode|xrange"
-    types="${types}"
+
     builtins="abs|all|any|ascii|bin|callable|chr|classmethod|compile|complex"
     builtins="${builtins}|delattr|dict|dir|divmod|enumerate|eval|exec|filter"
     builtins="${builtins}|format|frozenset|getattr|globals|hasattr|hash|help"
@@ -59,54 +115,53 @@ add-highlighter -group /python/single_fstring/regions/interpolation ref python/c
 
     # Add the language's grammar to the static completion list
     printf %s\\n "hook global WinSetOption filetype=python %{
-        set window static_words '${values}:${meta}:${keywords}:${types}:${builtins}'
-    }" | sed 's,|,:,g'
+        set-option window static_words '${values}:${meta}:${attributes}:${methods}:${exceptions}:${keywords}:${types}:${functions}'
+    }" | tr '|' ':'
 
     # Highlight keywords
     printf %s "
-        add-highlighter -group /python/code regex '\b(${const})\b' 0:const
-        add-highlighter -group /python/code regex '\b(${meta})\b' 0:meta
-        add-highlighter -group /python/code regex '${operators}' 0:operator
-        add-highlighter -group /python/code regex '\b(${keywords})\b' 0:keyword
-        add-highlighter -group /python/code regex '\b(${builtins})\b\(' 1:builtin
-        add-highlighter -group /python/code regex '^\s*(def|class)\s+(\w+)' 2:function
-    "
-
-    # Highlight types and attributes
-    printf %s "
-        add-highlighter -group /python/code regex '\b(${types})\b' 0:type
-        add-highlighter -group /python/code regex '@[\w_]+\b' 0:attribute
+        add-highlighter shared/python/code regex '\b(${const})\b' 0:const
+        add-highlighter shared/python/code regex '\b(${meta})\b' 0:meta
+        add-highlighter shared/python/code regex '\b(${attribute})\b' 0:attribute
+        add-highlighter shared/python/code regex '\b(${exceptions})\b' 0:function
+        add-highlighter shared/python/code regex '\b(${keywords})\b' 0:keyword
+        add-highlighter shared/python/code regex '\b(${builins})\b\(' 1:builtin
+        add-highlighter shared/python/code regex '\b(${types})\b' 0:type
+        add-highlighter shared/python/code regex '@[\w_]+\b' 0:attribute
     "
 }
+
+add-highlighter shared/python/code regex (?<=[\w\s\d'"_])(<=|<<|>>|>=|<>|<|>|!=|==|\||\^|&|\+|-|\*\*|\*|//|/|%|~) 0:operator
+add-highlighter shared/python/code regex (?<=[\w\s\d'"_])((?<![=<>!])=(?![=])|[+*-]=) 0:builtin
 
 # Commands
 # ‾‾‾‾‾‾‾‾
 
-def -hidden python-indent-on-new-line %{
-    eval -draft -itersel %{
+define-command -hidden python-indent-on-new-line %{
+    evaluate-commands -draft -itersel %{
         # copy '#' comment prefix and following white spaces
-        try %{ exec -draft k <a-x> s ^\h*#\h* <ret> y jgh P }
+        try %{ execute-keys -draft k <a-x> s ^\h*#\h* <ret> y jgh P }
         # preserve previous line indent
-        try %{ exec -draft \; K <a-&> }
+        try %{ execute-keys -draft \; K <a-&> }
         # cleanup trailing whitespaces from previous line
-        try %{ exec -draft k <a-x> s \h+$ <ret> d }
+        try %{ execute-keys -draft k <a-x> s \h+$ <ret> d }
         # indent after line ending with :
-        try %{ exec -draft <space> k x <a-k> :$ <ret> j <a-gt> }
+        try %{ execute-keys -draft <space> k x <a-k> :$ <ret> j <a-gt> }
     }
 }
 
 # Initialization
 # ‾‾‾‾‾‾‾‾‾‾‾‾‾‾
 
-hook -group python-highlight global WinSetOption filetype=python %{ add-highlighter ref python }
+hook -group python-highlight global WinSetOption filetype=python %{ add-highlighter window ref python }
 
 hook global WinSetOption filetype=python %{
     hook window InsertChar \n -group python-indent python-indent-on-new-line
     # cleanup trailing whitespaces on current line insert end
-    hook window InsertEnd .* -group python-indent %{ try %{ exec -draft \; <a-x> s ^\h+$ <ret> d } }
+    hook window ModeChange insert:.* -group python-indent %{ try %{ execute-keys -draft \; <a-x> s ^\h+$ <ret> d } }
 }
 
-hook -group python-highlight global WinSetOption filetype=(?!python).* %{ remove-highlighter python }
+hook -group python-highlight global WinSetOption filetype=(?!python).* %{ remove-highlighter window/python }
 
 hook global WinSetOption filetype=(?!python).* %{
     remove-hooks window python-indent

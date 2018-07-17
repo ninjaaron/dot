@@ -1,51 +1,51 @@
 # Kakoune default color scheme
 
 # For Code
-face clear rgb:777777,rgb:101010
-face value red
-face type red
-face variable green
-face const green
-face module green
-face function cyan
-face docstring blue
-face string rgb:ffdd88
-face keyword yellow
-face operator blue
-face attribute green
-face comment rgb:555555
-face meta magenta
-face builtin magenta
+face global clear rgb:777777,rgb:101010
+face global value red
+face global type red
+face global variable green
+face global const green
+face global module green
+face global function cyan
+face global docstring blue
+face global string rgb:ffdd88
+face global keyword yellow
+face global operator blue
+face global attribute green
+face global comment rgb:555555
+face global meta magenta
+face global builtin magenta
 
 # For markup
-face title blue
-face header cyan
-face bold red
-face italic yellow
-face mono green
-face block magenta
-face link cyan
-face bullet cyan
-face list yellow
+face global title blue
+face global header cyan
+face global bold red
+face global italic yellow
+face global mono green
+face global block magenta
+face global link cyan
+face global bullet cyan
+face global list yellow
 
 # builtin faces
-face Default default,default
-face PrimarySelection yellow,black
-face SecondarySelection black,blue
-face PrimaryCursor black,white
-face SecondaryCursor black,white
-face LineNumbers default,default
-face LineNumberCursor default,default+r
-face MenuForeground magenta,black
-face MenuBackground yellow,black
-face MenuInfo cyan
-face Information black,yellow
-face Error red,black
-face StatusLine cyan,default
-face StatusLineMode yellow,default
-face StatusLineInfo blue,default
-face StatusLineValue green,default
-face StatusCursor black,cyan
-face Prompt yellow,default
-face MatchingChar default,default+b
-face BufferPadding blue,default
+face global Default default,default
+face global PrimarySelection yellow,black
+face global SecondarySelection black,blue
+face global PrimaryCursor black,white
+face global SecondaryCursor black,white
+face global LineNumbers default,default
+face global LineNumberCursor default,default+r
+face global MenuForeground magenta,black
+face global MenuBackground yellow,black
+face global MenuInfo cyan
+face global Information black,yellow
+face global Error red,black
+face global StatusLine cyan,default
+face global StatusLineMode yellow,default
+face global StatusLineInfo blue,default
+face global StatusLineValue green,default
+face global StatusCursor black,cyan
+face global Prompt yellow,default
+face global MatchingChar default,default+b
+face global BufferPadding blue,default
