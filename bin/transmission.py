@@ -194,12 +194,14 @@ class Torrents:
 Torrent.s = Torrents()
 
 
-async def sftp(torrent, host, remove=False, delete=False, coro=False):
+async def sftp(
+        torrent, host, sleeptime=5, remove=False, delete=False, coro=False):
     await torrent.add_attrs('percentDone', 'downloadDir', 'name')
     while not torrent.percentDone == 1:
-        print(torrent.percentDone*100, torrent.name)
-        await aio.sleep(5)
+        print('%5.1f' % (torrent.percentDone*100), torrent.name)
+        await aio.sleep(sleeptime)
         await torrent.update()
+
     args = [
         'sftp', '-ar',
         host + ':/' + shlex.quote(torrent.downloadDir[1:] + torrent.name),
@@ -221,11 +223,11 @@ async def main():
     async with Torrent.s as ts:
         fs = await ts.session.request(
             'free-space', {'path': '/home/ninjaaron/'})
-        print(fs)
+        print(fs.arguments['size-bytes'] / 1024**3)
         tor = await ts.add(sys.argv[1])
         print(tor.id, tor.name, await tor.get('downloadDir'))
         print(*ts)
-        dls = [await aio.spawn(sftp(t, 'sink', coro=True, delete=True))
+        dls = [await aio.spawn(sftp(t, 'sink', 0, delete=True))
                for t in ts]
         for dl in dls:
             await dl
