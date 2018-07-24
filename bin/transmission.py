@@ -10,8 +10,7 @@ import libaaron
 from libaaron import aio
 URL = 'http://localhost:9091/transmission/rpc'
 HEADER = 'X-Transmission-Session-Id'
-dct = libaaron.DotDict
-decoder = json.JSONDecoder(object_hook=dct)
+decoder = json.JSONDecoder(object_hook=libaaron.DotDict)
 IDs = t.Union[t.Sequence[int], int]
 
 
@@ -54,7 +53,10 @@ class AsyncSession:
             return self.hdr
 
     async def request(
-            self, method: str, arguments: t.Mapping, tag: int = None
+            self,
+            method: str,
+            arguments: t.Mapping,
+            tag: int = None
     ) -> t.Mapping:
         data = dict(method=method, arguments=arguments)
         if tag:
@@ -136,6 +138,10 @@ class Torrent:
     async def update(self):
         await self.add_attrs(*self.data)
 
+    @property
+    async def path(self):
+        return (await self.get('downloadDir')) + (await self.get('name'))
+
     def __getattr__(self, attr):
         return self.data[attr]
 
@@ -152,6 +158,7 @@ class Torrent:
         return await self.session.tremove(self.id, delete)
 
 
+@compose.struct
 class Torrents:
     __slots__ = 'session', 'queue'
 
