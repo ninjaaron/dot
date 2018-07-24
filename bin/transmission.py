@@ -155,22 +155,22 @@ class Torrent:
 class Torrents:
     __slots__ = 'session', 'queue'
 
-    async def __call__(
-            self, *ids: IDs, fields='name', url=None):
+    async def __call__(self, *ids: IDs, fields='name', url=None, update=True):
         if not hasattr(self, 'session'):
             self.session = AsyncSession(url or URL)
         elif url:
             self.session.close()
             self.session = AsyncSession(url)
 
-        self.queue = [
-            Torrent(data, self.session) for data in
-            await self.session.tget(fields, ids=ids)]
+        if update:
+            self.queue = [
+                Torrent(data, self.session) for data in
+                await self.session.tget(fields, ids=ids)]
 
         return self
 
     async def __aenter__(self):
-        return await self()
+        return await self(update=False)
 
     async def __aexit__(self, exc_type, exc_value, traceback):
         await self.close()
@@ -182,6 +182,8 @@ class Torrents:
         return iter(self.queue)
 
     async def add(self, filename, paused=False):
+        if not hasattr(self, 'queue'):
+            self.queue = []
         try:
             tor = await self.session.tadd(filename, paused)
             tor = Torrent(tor, self.session)
