@@ -166,7 +166,7 @@ class Torrent:
 
 
 class Torrents:
-    __slots__ = 'session', 'queue'
+    __slots__ = 'session', 'ts'
 
     async def __call__(self, *ids: IDs, fields=None, url=None, update=True):
         if fields is None:
@@ -178,15 +178,23 @@ class Torrents:
             self.session = AsyncSession(url)
 
         if update:
-            self.queue = set(
+            self.ts = set(
                 Torrent(data, self.session) for data in
                 await self.session.tget(fields, ids=ids))
 
         return self
 
+    async def update(self):
+        if not self.ts:
+            return
+
+        fields = self.ts[0].data.values()
+        ids = (t.get('id') for t in self)
+        return self(*ids, fields)
+
     async def by_pattern(self, pattern, fields=None):
         pat = re.compile('(?i)' + pattern)
-        self.queue = set(
+        self.ts = set(
             t for t in await self(fields=fields) if pat.search(t.name))
         return self
 
@@ -200,19 +208,23 @@ class Torrents:
         await self.session.close()
 
     def __iter__(self):
-        return iter(self.queue)
+        return iter(self.ts)
 
-    async def completed(self, sleep=1):
-        for tor in aio.as_completed(t.wait(sleep) for t in self):
-            yield await tor
+    async def completed(self, sleep=1, forever=False):
+        while forever or self.ts:
+            for torrent in self.ts:
+                if await torrent.get('status') == 6:
+                    self.ts.remove(torrent)
+                    yield torrent
+            await aio.sleep(sleep)
 
     async def add(self, filename, paused=False):
-        if not hasattr(self, 'queue'):
-            self.queue = set()
+        if not hasattr(self, 'ts'):
+            self.ts = set()
         try:
             tor = await self.session.tadd(filename, paused)
             tor = Torrent(tor, self.session)
-            self.queue.add(tor)
+            self.ts.add(tor)
             return tor
         except Duplicate as d:
             return Torrent(d.tor, self.session)
