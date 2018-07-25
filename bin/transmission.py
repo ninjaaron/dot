@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 import json
-import shlex
-import subprocess as sp
-import sys
+import re
 import typing as t
 import aiohttp
 import compose
@@ -147,6 +145,9 @@ class Torrent:
 
     __getitem__ = __getattr__
 
+    def __hash__(self):
+        return hash(self.id)
+
     async def get(self, attr):
         try:
             return self.data[attr]
@@ -157,11 +158,19 @@ class Torrent:
     async def remove(self, delete=False):
         return await self.session.tremove(self.id, delete)
 
+    async def wait(self, sleep=1):
+        while await self.get('status') != 6:
+            await aio.sleep(sleep)
+            await self.update()
+        return self
+
 
 class Torrents:
     __slots__ = 'session', 'queue'
 
-    async def __call__(self, *ids: IDs, fields='name', url=None, update=True):
+    async def __call__(self, *ids: IDs, fields=None, url=None, update=True):
+        if fields is None:
+            fields = 'id', 'name', 'downloadDir', 'percentDone', 'status'
         if not hasattr(self, 'session'):
             self.session = AsyncSession(url or URL)
         elif url:
@@ -169,10 +178,16 @@ class Torrents:
             self.session = AsyncSession(url)
 
         if update:
-            self.queue = [
+            self.queue = set(
                 Torrent(data, self.session) for data in
-                await self.session.tget(fields, ids=ids)]
+                await self.session.tget(fields, ids=ids))
 
+        return self
+
+    async def by_pattern(self, pattern, fields=None):
+        pat = re.compile('(?i)' + pattern)
+        self.queue = set(
+            t for t in await self(fields=fields) if pat.search(t.name))
         return self
 
     async def __aenter__(self):
@@ -187,60 +202,20 @@ class Torrents:
     def __iter__(self):
         return iter(self.queue)
 
+    async def completed(self, sleep=1):
+        for tor in aio.as_completed(t.wait(sleep) for t in self):
+            yield await tor
+
     async def add(self, filename, paused=False):
         if not hasattr(self, 'queue'):
-            self.queue = []
+            self.queue = set()
         try:
             tor = await self.session.tadd(filename, paused)
             tor = Torrent(tor, self.session)
-            self.queue.append(tor)
+            self.queue.add(tor)
             return tor
         except Duplicate as d:
             return Torrent(d.tor, self.session)
 
 
 Torrent.s = Torrents()
-
-
-async def sftp(
-        torrent, host, sleeptime=5, remove=False, delete=False, coro=False):
-    await torrent.add_attrs('percentDone', 'downloadDir', 'name')
-    while not torrent.percentDone == 1:
-        print('%5.1f' % (torrent.percentDone*100), torrent.name)
-        await aio.sleep(sleeptime)
-        await torrent.update()
-
-    args = [
-        'sftp', '-ar',
-        host + ':/' + shlex.quote(torrent.downloadDir[1:] + torrent.name),
-        '.'
-    ]
-
-    if coro:
-        with open(torrent.name + '.log', 'wb') as log:
-            proc = await aio.proc(*args, stderr=sp.STDOUT, stdout=log)
-        ret = await proc.wait()
-    else:
-        ret = sp.run(args).returncode
-
-    if ret == 0 and (remove or delete):
-        await torrent.remove(delete)
-
-
-async def main():
-    async with Torrent.s as ts:
-        fs = await ts.session.request(
-            'free-space', {'path': '/home/ninjaaron/'})
-        print(fs.arguments['size-bytes'] / 1024**3)
-        tor = await ts.add(sys.argv[1])
-        print(tor.id, tor.name, await tor.get('downloadDir'))
-        print(*ts)
-        dls = [await aio.spawn(sftp(t, 'sink', 0, delete=True))
-               for t in ts]
-        for dl in dls:
-            await dl
-    return 'foo'
-
-
-if __name__ == '__main__':
-    aio.run(main())
