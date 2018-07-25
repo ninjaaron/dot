@@ -1,50 +1,92 @@
 #!/usr/bin/env python3
-import argparse
 import re
+import argparse
 import shlex
-import subprocess
-import typing as t
-from libaaron import aio
-import transmission
+import compose
+import easyproc as ep
+import libaaron
+
 gap = re.compile(' {2,}')
-Torrents = t.Iterable[transmission.Torrent]
 
 
-def get_matches(torrents: Torrents, targets: t.Sequence[str]) -> Torrents:
-    try:
-        int(targets[0])
-    except ValueError:
-        pat = re.compile('(?i)' + targets[0])
-        return (t for t in torrents if pat.search(t.name)
-                and t.percentDone == 100)
-    return (t for t in torrents if t.id in targets)
+@compose.struct
+class Torrent:
+    id: str
+    perc: str
+    have: str
+    eta: str
+    up: str
+    down: str
+    ratio: str
+    status: str
+    name: str
+    server = None
+
+    @classmethod
+    def fromline(cls, line, server=None):
+        id, *rest = gap.split(line.strip(), 8)
+        return cls(id.strip('*'), *rest, server)
+
+    def remove(self):
+        self.server.remove(self)
+
+    def download(self, path='.'):
+        self.server.download(self, path)
 
 
-def download(server: str, path: str) -> int:
-    args = ['sftp', '-ar', server + ':/' + shlex.quote(path[1:]), '.']
-    return subprocess.run(args).returncode
+@compose.struct
+class Transmission:
+    server: str
+    dir: str
+
+    def cmd(self, *args):
+        return [
+            'ssh',
+            shlex.quote(self.server),
+            'transmission-remote',
+            *map(shlex.quote, args)
+        ]
+
+    @property
+    def torrents(self):
+        dump = ep.grab(self.cmd('-l'))
+        return [Torrent.fromline(t, self) for t in list(dump)[1:-1]]
+
+    def download(self, torrent, path='.'):
+        filename = '%s:%s/%s' % (
+            self.server, self.dir, shlex.quote(torrent.name))
+        ep.run(['sftp', '-ar', filename, path])
+
+    def remove(self, torrent):
+        ep.run(self.cmd('-t', torrent.id, '--remove-and-delete'))
 
 
-async def main():
-    # args
+def main():
+    libaaron.quietinterrupt('download interupted')
     ap = argparse.ArgumentParser()
     add = ap.add_argument
     add('targets', nargs='+')
     add('-s', help='server address')
     add('-r', action='store_true', help='delete torrent after downloading')
-    args = ap.parse_args()
 
-    # do the stuff
-    async with transmission.Torrent.s as torrents:
-        matches = get_matches(
-            torrents(fields=('name', 'percentDone', 'downloadDir')),
-            args.targets
-        )
-        for torrent in matches:
-            retcode = download(args.s, await torrent.path)
-            if args.r and not retcode:
-                torrent.remove()
+    args = ap.parse_args()
+    server = Transmission(args.s, 'dls')
+    torrents = server.torrents
+
+    try:
+        int(args.targets[0])
+    except ValueError:
+        pat = re.compile('(?i)' + args.targets[0])
+        matches = (t for t in torrents
+                   if pat.search(t.name) and t.perc == '100%')
+    else:
+        matches = (t for t in torrents if t.id in args.targets)
+
+    for torrent in matches:
+        torrent.download()
+        if args.r:
+            torrent.remove()
 
 
 if __name__ == '__main__':
-    aio.run(main())
+    main()

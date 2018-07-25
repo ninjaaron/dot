@@ -158,7 +158,6 @@ class Torrent:
         return await self.session.tremove(self.id, delete)
 
 
-@compose.struct
 class Torrents:
     __slots__ = 'session', 'queue'
 
