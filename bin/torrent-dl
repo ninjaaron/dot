@@ -1,39 +1,69 @@
 #!/usr/bin/env python3
 import argparse
 import shlex
-import subprocess
 import libaaron
 from libaaron import aio
 import transmission as tr
 
 
-def sftp_dl(path, host):
+async def sftp_dl(path, host):
     args = ['sftp', '-ar', host + ':/' + shlex.quote(path[1:]), '.']
-    return subprocess.run(args).returncode
+    proc = await aio.proc(*args)
+    return await proc.wait()
+
+
+async def download_loop(host, queue, remove=False):
+    print('starting loop')
+    while True:
+        torrent = await queue.get()
+        retcode = await sftp_dl(await torrent.path, host)
+        if remove and not retcode:
+            await torrent.remove(delete=True)
+            print('removed:', torrent.name)
+        elif retcode:
+            print('failed to download', torrent.name)
+
+
+def print_queued(torrents):
+    if not torrents.ts:
+        return
+    print('queued:')
+    print(*('  ' + t.name for t in torrents), sep='\n')
 
 
 async def main():
-    libaaron.quietinterrupt('download interupted')
+    libaaron.quietinterrupt('')
     ap = argparse.ArgumentParser()
     add = ap.add_argument
-    add('targets', nargs='+')
+    add('targets', nargs='*')
     add('-s', help='server address')
     add('-r', action='store_true', help='delete torrent after downloading')
+    add('-l', type=int, help='port to listen on')
 
     args = ap.parse_args()
-    async with tr.Torrents() as torrents:
-        try:
-            await torrents(*map(int, args.targets))
-        except ValueError:
-            await torrents.by_pattern(args.targets[0])
-        print('queued:')
-        print(*('  ' + t.name for t in torrents), sep='\n')
 
-        async for torrent in torrents.completed():
-            retcode = sftp_dl(await torrent.path, args.s)
-            if args.r and not retcode:
-                await torrent.remove(delete=True)
-                print('removed:', torrent.name)
+    queue = aio.Queue()
+    dl_loop = aio.spawn(download_loop(args.s, queue, args.r))
+
+    async with tr.Torrents() as torrents:
+        if args.targets:
+            try:
+                await torrents(*map(int, args.targets))
+            except ValueError:
+                await torrents.by_pattern(args.targets[0])
+        print_queued(torrents)
+
+        if args.l:
+            await torrents.listen(args.l)
+            completed = torrents.completed(forever=True)
+        else:
+            completed = torrents.completed()
+
+        async for torrent in completed:
+            await queue.put(torrent)
+
+        await queue.join()
+        dl_loop.cancel()
 
 
 if __name__ == '__main__':

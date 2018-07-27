@@ -168,14 +168,13 @@ class Torrent:
 class Torrents:
     __slots__ = 'session', 'ts'
 
+    def __init__(self, url=None):
+        self.session = AsyncSession(url or URL)
+        self.ts = set()
+
     async def __call__(self, *ids: IDs, fields=None, url=None, update=True):
         if fields is None:
             fields = 'id', 'name', 'downloadDir', 'percentDone', 'status'
-        if not hasattr(self, 'session'):
-            self.session = AsyncSession(url or URL)
-        elif url:
-            self.session.close()
-            self.session = AsyncSession(url)
 
         if update:
             self.ts = set(
@@ -188,9 +187,9 @@ class Torrents:
         if not self.ts:
             return
 
-        fields = self.ts[0].data.values()
-        ids = (t.get('id') for t in self)
-        return self(*ids, fields)
+        fields = list(list(self.ts)[0].data.keys())
+        ids = [await t.get('id') for t in self]
+        return await self(*ids, fields)
 
     async def by_pattern(self, pattern, fields=None):
         pat = re.compile('(?i)' + pattern)
@@ -212,15 +211,31 @@ class Torrents:
 
     async def completed(self, sleep=1, forever=False):
         while forever or self.ts:
-            for torrent in self.ts:
-                if await torrent.get('status') == 6:
-                    self.ts.remove(torrent)
-                    yield torrent
+            if self.ts:
+                await self.update()
+                cur = list(self.ts)
+                for torrent in cur:
+                    if await torrent.get('status') == 6:
+                        self.ts.remove(torrent)
+                        yield torrent
             await aio.sleep(sleep)
 
+    async def listen(self, port, paused=False):
+
+        async def handler(reader, writer):
+            filename = await reader.read(4096)
+            filename = filename.decode()
+            try:
+                tor = await self.add(filename, paused)
+                writer.write(json.dumps(tor.data, ensure_ascii=False).encode())
+            except (aiohttp.client_exceptions.ContentTypeError, KeyError):
+                writer.write(b"Error")
+            await writer.drain()
+            writer.close()
+
+        await aio.start_server(handler, 'localhost', port)
+
     async def add(self, filename, paused=False):
-        if not hasattr(self, 'ts'):
-            self.ts = set()
         try:
             tor = await self.session.tadd(filename, paused)
             tor = Torrent(tor, self.session)
@@ -228,6 +243,3 @@ class Torrents:
             return tor
         except Duplicate as d:
             return Torrent(d.tor, self.session)
-
-
-Torrent.s = Torrents()
