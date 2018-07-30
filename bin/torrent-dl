@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import shlex
-import libaaron
+import sys
 from libaaron import aio
 import transmission as tr
 
@@ -9,13 +9,18 @@ import transmission as tr
 async def sftp_dl(path, host):
     args = ['sftp', '-ar', host + ':/' + shlex.quote(path[1:]), '.']
     proc = await aio.proc(*args)
-    return await proc.wait()
+    try:
+        return await proc.wait()
+    except aio.CancelledError:
+        proc.terminate()
+        raise
 
 
 async def download_loop(host, queue, remove=False):
-    print('starting loop')
     while True:
         torrent = await queue.get()
+        if not torrent:
+            break
         retcode = await sftp_dl(await torrent.path, host)
         if remove and not retcode:
             await torrent.remove(delete=True)
@@ -32,7 +37,6 @@ def print_queued(torrents):
 
 
 async def main():
-    libaaron.quietinterrupt('')
     ap = argparse.ArgumentParser()
     add = ap.add_argument
     add('targets', nargs='*')
@@ -42,9 +46,22 @@ async def main():
 
     args = ap.parse_args()
 
+    # set up the download_loop and event handlers
+    loop = aio.get_event_loop()
     queue = aio.Queue()
     dl_loop = aio.spawn(download_loop(args.s, queue, args.r))
+    stop = False
+    loop.add_signal_handler(2, lambda *args: (dl_loop.cancel(), sys.exit(2)))
 
+    def exception_handler(loop, context):
+        dl_loop.cancel()
+        nonlocal stop
+        stop = True
+        loop.default_exception_handler(context)
+
+    loop.set_exception_handler(exception_handler)
+
+    # get download candidates
     async with tr.Torrents() as torrents:
         if args.targets:
             try:
@@ -53,6 +70,7 @@ async def main():
                 await torrents.by_pattern(args.targets[0])
         print_queued(torrents)
 
+        # set up listener to wait for more requests
         if args.l:
             await torrents.listen(args.l)
             completed = torrents.completed(forever=True)
@@ -60,10 +78,12 @@ async def main():
             completed = torrents.completed()
 
         async for torrent in completed:
+            if stop:
+                break
             await queue.put(torrent)
 
-        await queue.join()
-        dl_loop.cancel()
+        await queue.put(None)
+        await dl_loop
 
 
 if __name__ == '__main__':
