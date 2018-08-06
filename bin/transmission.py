@@ -263,7 +263,7 @@ class Torrents:
         await aio.start_server(handler, 'localhost', port)
 
     async def add(self, filename, paused=False):
-        if not isinstance(Torrent, filename):
+        if not isinstance(filename, Torrent):
             try:
                 tor = await self.session.tadd(filename, paused)
                 tor = Torrent(tor, self.session)

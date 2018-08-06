@@ -1,7 +1,11 @@
 import sys, os, re
 from pprint import pprint
 from timeit import timeit
-import libaaron
+try:
+    import libaaron
+    env = libaaron.DotDict(os.environ)
+except ImportError as e:
+    print(e)
 
 local_mods = ('from collist import displayhook;sys.displayhook = displayhook',)
 for mod in local_mods:
@@ -22,7 +26,6 @@ except ImportError:
 # exit = Exit()
 
 
-env = libaaron.DotDict(os.environ)
 
 
 # class Prompt:
