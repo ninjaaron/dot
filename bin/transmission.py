@@ -6,6 +6,16 @@ import aiohttp
 import compose
 import libaaron
 from libaaron import aio
+
+# ## Torrent status codes ##
+# 0 /* Torrent is stopped */
+# 1 /* Queued to check files */
+# 2 /* Checking files */
+# 3 /* Queued to download */
+# 4 /* Downloading */
+# 5 /* Queued to seed */
+# 6 /* Seeding */
+
 URL = 'http://localhost:9091/transmission/rpc'
 HEADER = 'X-Transmission-Session-Id'
 decoder = json.JSONDecoder(object_hook=libaaron.DotDict)
@@ -16,6 +26,10 @@ class Duplicate(Exception):
     def __init__(self, tor):
         self.tor = tor
         self.args = tor.name,
+
+
+class NoJson(Exception):
+    pass
 
 
 # base async api
@@ -61,7 +75,15 @@ class AsyncSession:
             data['tag'] = tag
         async with self.sess.post(
                 URL, json=data, headers=await self.get_hdr()) as resp:
-            return await resp.json(loads=decoder.decode)
+            if resp.status == 409:
+                self.hdr = {HEADER: resp.headers[HEADER]}
+                return await self.request(method, arguments, tag)
+            try:
+                return await resp.json(loads=decoder.decode)
+            except aiohttp.client_exceptions.ContentTypeError:
+                nj = NoJson()
+                nj.content = await resp.read()
+                raise nj
 
     async def torrents(
             self,
@@ -113,11 +135,12 @@ class AsyncSession:
         result = await self.torrents('add', arguments, *args, **kwargs)
         try:
             return result.arguments['torrent-added']
-        except KeyError:
+        except KeyError as e:
             if 'torrent-duplicate' in result.arguments:
                 raise Duplicate(result.arguments['torrent-duplicate'])
             else:
-                raise
+                e.content = result.result.encode()
+                raise e
 
 
 @compose.struct
@@ -154,6 +177,9 @@ class Torrent:
         except KeyError:
             await self.add_attrs(attr)
             return self.data[attr]
+
+    async def set(self, arguments, *args, **kwargs):
+        return await self.session.tset(arguments, *args, **kwargs)
 
     async def remove(self, delete=False):
         return await self.session.tremove(self.id, delete)
@@ -192,7 +218,7 @@ class Torrents:
         return await self(*ids, fields)
 
     async def by_pattern(self, pattern, fields=None):
-        pat = re.compile('(?i)' + pattern)
+        pat = re.compile(pattern, re.IGNORECASE)
         self.ts = set(
             t for t in await self(fields=fields) if pat.search(t.name))
         return self
@@ -215,7 +241,7 @@ class Torrents:
                 await self.update()
                 cur = list(self.ts)
                 for torrent in cur:
-                    if await torrent.get('status') == 6:
+                    if await torrent.get('percentDone') == 1:
                         self.ts.remove(torrent)
                         yield torrent
             await aio.sleep(sleep)
@@ -227,19 +253,21 @@ class Torrents:
             filename = filename.decode()
             try:
                 tor = await self.add(filename, paused)
-                writer.write(json.dumps(tor.data, ensure_ascii=False).encode())
-            except (aiohttp.client_exceptions.ContentTypeError, KeyError):
-                writer.write(b"Error")
+                writer.write(
+                    str(tor.id).encode() + b'\t' + tor.name.encode() + b'\n')
+            except (NoJson, KeyError) as e:
+                writer.write(e.content + b'\n')
             await writer.drain()
             writer.close()
 
         await aio.start_server(handler, 'localhost', port)
 
     async def add(self, filename, paused=False):
-        try:
-            tor = await self.session.tadd(filename, paused)
-            tor = Torrent(tor, self.session)
-            self.ts.add(tor)
-            return tor
-        except Duplicate as d:
-            return Torrent(d.tor, self.session)
+        if not isinstance(filename, Torrent):
+            try:
+                tor = await self.session.tadd(filename, paused)
+                tor = Torrent(tor, self.session)
+            except Duplicate as d:
+                return Torrent(d.tor, self.session)
+        self.ts.add(tor)
+        return tor
