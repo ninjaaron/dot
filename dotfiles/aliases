@@ -57,7 +57,11 @@ alias df="df -h"
 alias du="du -h"
 alias x='chmod +x'
 alias grep='grep --color=auto'
-alias f='find -name'
+f() {
+  local search="$1"
+  shift
+  find -iname "*$search*" "$@"
+}
 alias ast="~/bin/autosus toggle"
 alias l="dlog ls --color=auto"
 alias de="setxkbmap -layout de"
