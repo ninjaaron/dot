@@ -3,6 +3,7 @@ alias s='sudo -E'
 alias rs='rsync -rh --progress'
 alias cpr='cp --reflink=always -R'
 alias rm='rm -r'
+alias xn='xargs -d \\n'
 
 # vim aliases
 alias book="$EDITOR ~/doc/work/heb/book.asciidoc"
