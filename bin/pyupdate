@@ -7,7 +7,7 @@ fi
 pyclean
 git commit -a
 git push
-pip wheel .
 python setup.py sdist
+pip wheel .
 twine upload *.whl dist/*
 pyclean

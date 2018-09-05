@@ -1,12 +1,23 @@
-#!/bin/sh
-if [ "$#" = "0" ]; then
-  "$EDITOR"
-else
-  if (set -C; 2>/dev/null > "$1" && rm "$1")||[ -w "$1" ]||[ -d "$1" ]; then
-    "$EDITOR" "$@"
-  else
-    echo -n "sudo [Y/n]? "
-    read sudo
-    [ "${sudo:-y}" = y ] && sudo "$EDITOR" "$@" || "$EDITOR" "$@"
-  fi 2> /dev/null
-fi
+#!/usr/bin/env python3
+import os
+import pathlib
+import subprocess as sp
+import sys
+
+
+def main():
+    editor = os.environ.get('EDITOR') or 'nano'
+    test = path = pathlib.Path(sys.argv[-1])
+    args = [editor, *sys.argv[1:]]
+    while not test.exists():
+        test = test.parent
+    if not os.access(test, os.W_OK):
+        resp = input('sudo [Y/n]? ')
+        if not resp or resp.lower().startswith('y'):
+            args.insert(0, 'sudo')
+    sp.call(args)
+    
+
+
+if __name__ == '__main__':
+    main()
