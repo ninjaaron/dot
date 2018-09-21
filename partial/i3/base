@@ -54,7 +54,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
-bindsym $mod+b border toggle
+# bindsym $mod+b border toggle
 bindsym $mod+f fullscreen
 
 ## switch to workspace
