@@ -94,6 +94,8 @@ precmd() {
                                    s/././g') "
 }
 
+# . /usr/share/powerline/bindings/zsh/powerline.zsh
+
 setopt sharehistory autocd extendedglob
 source $HOME/.aliases
 venv_wrapper=/usr/bin/virtualenvwrapper_lazy.sh

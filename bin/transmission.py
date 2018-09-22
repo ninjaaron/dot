@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 import json
+from os import path
 import re
 import typing as t
+
 import aiohttp
 import compose
 import libaaron
@@ -161,7 +163,8 @@ class Torrent:
 
     @property
     async def path(self):
-        return (await self.get('downloadDir')) + (await self.get('name'))
+        return path.join(
+            await self.get('downloadDir'), await self.get('name'))
 
     def __getattr__(self, attr):
         return self.data[attr]
