@@ -69,8 +69,7 @@ def load_aliases():
             ah.write(new_hash)
             ac.write(ali)
 
-        try:
-            exec(ali)
+        exec(ali)
         
 
     else:
