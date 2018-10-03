@@ -5,16 +5,21 @@ import subprocess as sp
 import sys
 
 
-def main():
+def permedit(args):
     editor = os.environ.get('EDITOR') or 'nano'
-    test = path = pathlib.Path(sys.argv[-1])
-    args = [editor, *sys.argv[1:]]
+    test = path = pathlib.Path(args[-1])
+    args.insert(0, editor)
     while not test.exists():
         test = test.parent
     if not os.access(test, os.W_OK):
         resp = input('sudo [Y/n]? ')
-        if not resp or resp.lower().startswith('y'):
+        if not resp or resp.strip().lower().startswith('y'):
             args.insert(0, 'sudo')
+    return args
+
+
+def main():
+    args = permedit(sys.argv[1:])
     sp.call(args)
     
 
