@@ -1,3 +1,4 @@
-function aSyu
-	pacaur -Syua $argv;
+# Defined in - @ line 0
+function aSyu --description 'alias aSyu=yay -Syu'
+	yay -Syu $argv;
 end

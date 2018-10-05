@@ -4,4 +4,5 @@ function faz
     eval "$i"
     funcsave $name
   end
+  ~/bin/fishy_leftovers.py
 end

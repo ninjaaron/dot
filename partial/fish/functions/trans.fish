@@ -1,3 +1,4 @@
-function trans
-	ssh -fNT -L 9091:localhost:9091 sink $argv;
+# Defined in - @ line 0
+function trans --description 'alias trans=/home/ninjaaron/bin/translink'
+	/home/ninjaaron/bin/translink  $argv;
 end

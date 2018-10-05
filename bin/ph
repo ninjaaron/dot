@@ -1,4 +1,4 @@
-#!/usr/bin/env dash
+#!/usr/bin/env sh
 PYDOCDIR="$HOME/doc/py-docs/python-3.6.0-docs-html"
 . ~/.dmenurc 2> /dev/null
 

@@ -3,6 +3,12 @@ function fish_prompt
   set nc (set_color normal)
   set div $nc "|"
 
+  # system updates
+  set updates (b2x < ~/.updates ^ /dev/null)
+  if [ "$updates" != 00 ]
+    echo -ns (set_color yellow) $updates $div
+  end
+
   # git branches status
   set branch (git branch ^ /dev/null | fgrep '*' | sed 's/\* //')
   if [ "$branch" ]
@@ -13,12 +19,6 @@ function fish_prompt
       set color (set_color green)
     end
     echo -ns $color $branch $div
-  end
-
-  # system updates
-  set updates (b2x < ~/.updates ^ /dev/null)
-  if [ "$updates" != 00 ]
-    echo -ns (set_color yellow) $updates $div
   end
 
   # working directory

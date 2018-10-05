@@ -1,4 +1,4 @@
-function act
-  set env $argv[1]
-  source $env/bin/activate.fish
+# Defined in - @ line 0
+function act --description 'alias act=source ~/bin/activate-venv'
+	source ~/bin/activate-venv $argv;
 end
