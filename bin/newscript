@@ -1,4 +1,13 @@
 #!/bin/sh
+
+if [ "$1" = "-m" ]; then
+  just_make=true
+  shift
+else
+  just_make=false
+fi
+
+
 if [ -x $2 ]; then
   lang="${1##*.}"
 else
@@ -6,10 +15,9 @@ else
 fi
 
 case "$lang" in
-  perl)
+  pl|perl)
     tmpl="\
 #!/usr/bin/env perl
-
 use 5.022;
 use warnings;
 use autodie;"
@@ -17,6 +25,7 @@ use autodie;"
   py|python)
     tmpl="\
 #!/usr/bin/env python3
+import sys
 
 
 def main():
@@ -40,4 +49,9 @@ esac
 
 printf "$tmpl\n" >> "$1"
 chmod +x "$1"
-eval "$EDITOR '$1'"
+
+if [ "$just_make" = true ]; then
+  echo "$EDITOR"
+else
+  eval "$EDITOR '$1'"
+fi
