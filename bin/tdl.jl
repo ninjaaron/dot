@@ -1,5 +1,5 @@
 #!/usr/bin/env julia
-shquote(s) = "'$(replace(s, "'", "'\"'\"'"))'" 
+shquote(s) = "'" * replace(s, "'", "'\"'\"'") * "'" 
 struct Torrent
     id
     perc

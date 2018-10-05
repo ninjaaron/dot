@@ -1,2 +1,2 @@
 #!/bin/sh
-kill $(ps aux|dmenu -l 30|awk '{print $2}')
+kill "$(ps aux|dmenu -l 30|awk '{print $2}')"

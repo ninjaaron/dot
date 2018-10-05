@@ -2,6 +2,6 @@
 # make a thumbnail for an image
 pic="$1"
 scale="${2:-250}"
-name=`echo "$pic"|cut -d'.' -f1`
+name="${name%.*}"
 
 convert -scale "$scale" "$pic" "$name"-thumb.png
