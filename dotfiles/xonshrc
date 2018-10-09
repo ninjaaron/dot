@@ -1,5 +1,6 @@
 # vim: ft=python
 import typing
+from pathlib import Path
 $VI_MODE = True
 $XONSH_COLOR_STYLE = 'paraiso-dark'
 $PROMPT = '{env_name:{}|}{BLUE}{short_cwd}{branch_color}{curr_branch:|{}}{NO_COLOR}>{NO_COLOR} '
@@ -86,7 +87,6 @@ def load_aliases():
             ac.write(ali)
 
         exec(ali)
-        
 
     else:
         source @(al_cache)
@@ -99,8 +99,11 @@ def load_aliases():
 
 
 load_aliases()
-_exp_path = '/home/ninjaaron/brace_expansion.py'
-_exp_env = {}
-_exp_code = compile(open(_exp_path).read(), _exp_path, 'exec')
-exec(_exp_code, _exp_env)
-exp = _exp_env['brace_expand']
+
+
+_exp_path = Path('/home/ninjaaron/brace_expansion.py')
+if _exp_path.exists():
+    _exp_env = {}
+    _exp_code = compile(open(_exp_path).read(), _exp_path, 'exec')
+    exec(_exp_code, _exp_env)
+    exp = _exp_env['brace_expand']
