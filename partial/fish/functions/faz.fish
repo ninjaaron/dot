@@ -4,6 +4,7 @@ function faz
       set funcs $funcs $func
     end
   end
+
   rm $funcs
 
   for i in (grep "^alias" ~/.aliases)
