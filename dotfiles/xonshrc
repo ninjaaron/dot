@@ -99,3 +99,8 @@ def load_aliases():
 
 
 load_aliases()
+_exp_path = '/home/ninjaaron/brace_expansion.py'
+_exp_env = {}
+_exp_code = compile(open(_exp_path).read(), _exp_path, 'exec')
+exec(_exp_code, _exp_env)
+exp = _exp_env['brace_expand']
