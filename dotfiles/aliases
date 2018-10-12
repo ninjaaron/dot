@@ -21,9 +21,7 @@ alias pRs="sudo pacman -Rs"
 alias pU="sudo pacman -U"
 alias aSyu="yay -Syu"
 alias pQ="pacman -Q"
-dir='/media/btrfs'
-alias pSyu="sudo ~/bin/rsnap2 -k 3 -m $dir/ $dir/rootvol $dir/snapshots; sudo pacmatic -Syu; pacman -Qu | wc -l | int2byte > ~/.updates"
-unset dir
+alias pSyu="pacupdate.sh /media/btrfs"
 
 alias sc="sudo systemctl"
 
