@@ -88,6 +88,7 @@ alias mpp="mpv -playlist"
 alias ymus="youtube-dl -f 140 -x --audio-format mp3"
 alias ns="newscript"
 alias uu="udiskie-umount"
+alias ptpython="$HOME/.ptpython/venv/bin/python -m ptpython"
 
 alias pbxc='xclip -o|pb'
 alias pbcb='xclip -o -selection clipboard|pb'

@@ -7,12 +7,12 @@ try:
 except ImportError as e:
     print(e)
 
-local_mods = ('from collist import displayhook;sys.displayhook = displayhook',)
-for mod in local_mods:
-    try:
-        exec(mod)
-    except ImportError as e:
-        print(e)
+# local_mods = ('from collist import displayhook;sys.displayhook = displayhook',)
+# for mod in local_mods:
+#     try:
+#         exec(mod)
+#     except ImportError as e:
+#         print(e)
 
 try:
     from importlib import reload as rl
