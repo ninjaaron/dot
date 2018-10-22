@@ -59,11 +59,6 @@ def load_aliases():
             if filename != buff:
                 mv @(filename) @(buff)
 
-    def _pSyu(args):
-        sudo ~/bin/rsnap
-        sudo pacmatic -Syu
-        pacman -Qu | wc -l | int2byte > ~/.updates
-
     def _ns(args):
         $ed = $(newscript -m @(args)).strip()
         $ed @(args[0])
@@ -93,7 +88,6 @@ def load_aliases():
 
     aliases['e'] = permedit
     aliases['ern'] = _ern
-    aliases['pSyu'] = _pSyu
     aliases['ns'] = _ns
     aliases['echo'] = lambda args: print(*args)
 

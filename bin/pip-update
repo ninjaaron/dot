@@ -1,5 +1,5 @@
 #!/bin/sh
 
 pip3 list --user --format json -o|
-  rep -j 'i.name for i in j if not i.name == "prompt-toolkit"'|
+  rep -j 'i.name for i in j'|
   xargs pip3 install --user -U
