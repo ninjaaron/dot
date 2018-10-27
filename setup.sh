@@ -46,3 +46,6 @@ echo 'export PATH="$HOME/bin:$HOME/.local/bin:$HOME/.gem/ruby/2.3.0/bin:$PATH"' 
 
 cp $HOME/.zshenv $HOME/.profile
 echo "source ~/.aliases" >> $HOME/.bashrc
+
+python3 -m ensurepip --user -U
+pip3 install --user -U pip dirlog libaaron requests
