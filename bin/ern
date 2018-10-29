@@ -4,6 +4,6 @@ for file in "$@"; do
   temp="/tmp/$(echo "$file"|md5sum)"
   echo "$file" > "$temp"
   "$EDITOR" "$temp"
-  [ "$file" != "$(cat "$temp")" ] && mv "$file" "$(cat "$temp")"
+  [ "$file" != "$(cat "$temp")" ] && mv -- "$file" "$(cat "$temp")"
   rm "$temp"
 done

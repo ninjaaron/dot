@@ -5,27 +5,21 @@ try:
     import libaaron
     env = libaaron.DotDict(os.environ)
 except ImportError as e:
-    print(e)
+    # print(e)
+    pass
 
-# local_mods = ('from collist import displayhook;sys.displayhook = displayhook',)
-# for mod in local_mods:
-#     try:
-#         exec(mod)
-#     except ImportError as e:
-#         print(e)
+local_mods = ('from collist import displayhook;sys.displayhook = displayhook',)
+for mod in local_mods:
+    try:
+        exec(mod)
+    except ImportError as e:
+        # print(e)
+        pass
 
 try:
     from importlib import reload as rl
 except ImportError:
     rl = reload
-# class Exit:
-#     def __repr__(self):
-#         __builtins__.exit()
-
-
-# exit = Exit()
-
-
 
 
 # class Prompt:
