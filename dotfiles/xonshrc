@@ -4,6 +4,7 @@ from pathlib import Path
 $VI_MODE = True
 $XONSH_COLOR_STYLE = 'paraiso-dark'
 $PROMPT = '{env_name:{}|}{BLUE}{short_cwd}{branch_color}{curr_branch:|{}}{NO_COLOR}>{NO_COLOR} '
+$XONSH_HISTORY_BACKEND = 'sqlite'
 # $XONSH_SHOW_TRACEBACK = True
 
 xontrib load vox

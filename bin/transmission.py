@@ -145,8 +145,7 @@ class AsyncSession:
                 raise e
 
 
-@compose.struct
-class Torrent:
+class Torrent(compose.Struct):
     data: dict
     session: AsyncSession
 
