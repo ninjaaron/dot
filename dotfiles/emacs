@@ -99,6 +99,22 @@
  "p" 'pyvenv-workon)
 (setq x-select-enable-clipboard-manager nil)
 
+(defun change-font (font-name)
+  "I can never rememver how to change the font..."
+  (interactive "sfontname: ")
+  (set-frame-font font-name))
+
+
+(defun ubuntu-font (size)
+  "change to Ubuntu font"
+  (interactive "ssize: ")
+  (set-frame-font (format "Ubuntu Mono %s" size)))
+
+(defun bitocra-font ()
+  "change to bitocra font"
+  (interactive)
+  (set-frame-font "bitocrafull"))
+
 ;; elpy
 (elpy-enable)
 
