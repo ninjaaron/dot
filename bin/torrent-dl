@@ -49,7 +49,7 @@ async def main():
     # set up the download_loop and event handlers
     loop = aio.get_event_loop()
     queue = aio.Queue()
-    dl_loop = aio.spawn(download_loop(args.s, queue, args.r))
+    dl_loop = aio.create_task(download_loop(args.s, queue, args.r))
     stop = False
     loop.add_signal_handler(2, lambda *args: (dl_loop.cancel(), sys.exit(2)))
 

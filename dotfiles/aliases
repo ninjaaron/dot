@@ -59,7 +59,9 @@ alias grep='grep --color=auto'
 alias f='fuzzyfind'
 alias ast="~/bin/autosus toggle"
 alias l="dlog ls --color=auto"
-alias de="setxkbmap -layout de"
+alias dekb="setxkbmap -layout de"
+alias deu="dict -d fd-deu-eng"
+alias eng="dict -d fd-eng-deu"
 alias epo="setxkbmap -layout usvi -variant epo"
 alias dt="update-dotfiles"
 alias mnt="home-mount"
@@ -88,7 +90,7 @@ alias mpp="mpv -playlist"
 alias ymus="youtube-dl -f 140"
 alias ns="newscript"
 alias uu="udiskie-umount"
-alias ptpython="$HOME/.ptpython/venv/bin/python -m ptpython"
+# alias ptpython="$HOME/.ptpython/venv/bin/python -m ptpython"
 
 alias pbxc='xclip -o|pb'
 alias pbcb='xclip -o -selection clipboard|pb'
