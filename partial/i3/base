@@ -106,8 +106,8 @@ bindsym $mod+Control+bracketright exec mocp --seek +60
 
 # launchers
 ## terminal
+bindsym $mod+Return exec urxvtcd -e fish
 bindsym $mod+z exec urxvtcd -e xonsh
-bindsym $mod+Return exec urxvtcd
 bindsym $mod+slash exec urxvtc -e ranger
 bindsym $mod+apostrophe exec ~/clipboard2server
 
@@ -126,4 +126,4 @@ bindsym XF86MonBrightnessUp exec light dub
 no_focus [class="feh"]
 new_window pixel 2
 
-workspace 10 output DP-1
+workspace 10 output DP1

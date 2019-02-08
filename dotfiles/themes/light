@@ -21,7 +21,7 @@ light_cyan="#55aaaa"
 light_grey="#999999"
 white="#dddddd"
 
-font="Ubuntu Mono:pixelsize=12:style=bold"
+font="Ubuntu Mono:pixelsize=13:style=bold"
 font2="Ubuntu Mono Bold 10"
 transparent="false"
 tr_settings=light

@@ -11,7 +11,7 @@
  '(custom-enabled-themes (quote (shomshing)))
  '(custom-safe-themes
    (quote
-    ("abffe1169d8f63953e6c9ed9c77db7cbc6fc9ac0c010d83b183c32c9825beff5")))
+    ("1b2c1adbfea189cbc7e5084b3c8bd9cbb6c26cc778ea6f7e3a2f3c8189bc738b" "24fc794a16809a86a63ec2e6f8801e99141aca73fc238ea30d35f87c88847329" "abffe1169d8f63953e6c9ed9c77db7cbc6fc9ac0c010d83b183c32c9825beff5")))
  '(elpy-modules
    (quote
     (elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-django elpy-module-sane-defaults)))
@@ -21,10 +21,8 @@
  '(minimap-highlight-line nil)
  '(package-selected-packages
    (quote
-
-    (4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython julia-mode toml-mode rust-mode 0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
+    (ein 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython julia-mode toml-mode rust-mode 0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
  '(pyvenv-activate "~/.cache/pypoetry/virtualenvs/")
-
  '(safe-local-variable-values (quote ((engine . jinja2))))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
