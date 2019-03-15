@@ -8,8 +8,8 @@ set cot=longest,menuone
 set backupdir=./.backup,$HOME/.vim/backups,/tmp
 set directory=./.backup,$HOME/.vim/backups,/tmp
 
-" syntax on
-syntax off
+syntax on
+" syntax off
 filetype plugin indent on
 
 if &shell =~# 'fish$'

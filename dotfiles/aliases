@@ -11,6 +11,7 @@ alias heb="cd ~/doc/work/heb/git/"
 alias hla="$EDITOR ~/.config/herbstluftwm/autostart"
 alias hlf="$EDITOR ~/.config/herbstluftwm/func"
 alias hls="$EDITOR ~/.config/herbstluftwm/swap"
+alias nosyntax="$EDITOR -c 'syntax off'"
 
 alias dot="cd $DOT"
 # packagmanagment
@@ -90,7 +91,6 @@ alias mpp="mpv -playlist"
 alias ymus="youtube-dl -f 140"
 alias ns="newscript"
 alias uu="udiskie-umount"
-# alias ptpython="$HOME/.ptpython/venv/bin/python -m ptpython"
 
 alias pbxc='xclip -o|pb'
 alias pbcb='xclip -o -selection clipboard|pb'
