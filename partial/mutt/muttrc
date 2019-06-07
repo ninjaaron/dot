@@ -1,20 +1,21 @@
-source ~/.mutt/pass
 set editor=`echo \$EDITOR`
-set my_name = "Aaron Christianson"
-set realname = "Aaron Christianson"
 set from = "ninjaaron@gmail.com"
+set realname = "Aaron Christianson"
+set imap_user="ninjaaron@gmail.com"
+source ~/.mutt/pass
+# set my_name = "Aaron Christianson"
 set use_from = yes
 set edit_headers=yes
 set send_charset="utf-8"
 set signature="/home/ninjaaron/.mutt/sig"
+set ssl_starttls = yes
 
 set hostname = gmail.com
-set imap_user="ninjaaron@gmail.com"
-set folder=imaps://ninjaaron@imap.gmail.com/
-set spoolfile=+INBOX
-set postponed = +[Gmail]/Drafts
+set folder="imaps://imap.gmail.com:993"
+set spoolfile="+INBOX"
+set postponed = "+[Gmail]/Drafts"
 set record = "+[Gmail]/Sent Mail"
-unset imap_passive
+# unset imap_passive
 set header_cache =~/.mutt/cache/headers
 set message_cachedir =~/.mutt/cache/bodies
 set certificate_file =~/.mutt/certificates
@@ -27,11 +28,11 @@ set header_cache = ~/.cache/mutt
 set mailcap_path = ~/.mutt/mailcap
 auto_view text/html
 
-set pgp_use_gpg_agent = yes
-set crypt_use_gpgme = yes
-set crypt_replyencrypt = yes
-set crypt_replysign = yes
-set crypt_replysignencrypted = yes
+# set pgp_use_gpg_agent = yes
+# set crypt_use_gpgme = yes
+# set crypt_replyencrypt = yes
+# set crypt_replysign = yes
+# set crypt_replysignencrypted = yes
 
 source ~/.mutt/colors
-source ~/.mutt/gpg.rc
+# source ~/.mutt/gpg.rc

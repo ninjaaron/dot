@@ -11,6 +11,7 @@ alias heb="cd ~/doc/work/heb/git/"
 alias hla="$EDITOR ~/.config/herbstluftwm/autostart"
 alias hlf="$EDITOR ~/.config/herbstluftwm/func"
 alias hls="$EDITOR ~/.config/herbstluftwm/swap"
+alias nosyntax="$EDITOR -c 'syntax off'"
 
 alias dot="cd $DOT"
 # packagmanagment

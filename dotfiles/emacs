@@ -11,7 +11,7 @@
  '(custom-enabled-themes (quote (shomshing)))
  '(custom-safe-themes
    (quote
-    ("a3a50dac689cab998aff2fe42a8c9490d3a9c372c29712f690f1dd0e8afb68e1" "24fc794a16809a86a63ec2e6f8801e99141aca73fc238ea30d35f87c88847329" "59fc29518e698ca6da046525a0f3cd79d3f3e26ffd1500818ab9edc5b841d657" "abffe1169d8f63953e6c9ed9c77db7cbc6fc9ac0c010d83b183c32c9825beff5")))
+    ("1b2c1adbfea189cbc7e5084b3c8bd9cbb6c26cc778ea6f7e3a2f3c8189bc738b" "24fc794a16809a86a63ec2e6f8801e99141aca73fc238ea30d35f87c88847329" "abffe1169d8f63953e6c9ed9c77db7cbc6fc9ac0c010d83b183c32c9825beff5")))
  '(elpy-modules
    (quote
     (elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-django elpy-module-sane-defaults)))
