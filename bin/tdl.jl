@@ -1,5 +1,4 @@
 #!/usr/bin/env julia
-shquote(s) = "'" * replace(s, "'", "'\"'\"'") * "'" 
 struct Torrent
     id
     perc
@@ -21,7 +20,7 @@ function main()
                if search(t.name, target) != 0:-1 && t.perc == "100%")
 
     for torrent in matches
-        filename = "$server:dls/$(shquote(torrent.name))"
+        filename = "$server:dls/$(Base.shell_escape(torrent.name))"
         run(`sftp -ar $filename .`)
     end
 end
