@@ -34,7 +34,7 @@
  '(minimap-active-region-background ((t (:background "#1b1b1b"))))
  '(minimap-font-face ((t (:height 30 :family "Ubuntu Mono"))))
  '(minimap-semantic-function-face ((t (:inherit (font-lock-function-name-face Ubuntu\ Mono) :background "#202414" :box (:line-width 1 :color "white") :height 2.75)))))
-(add-to-list 'default-frame-alist '(font . "bitocrafull"))
+(add-to-list 'default-frame-alist '(font . "bitocrafull-9:width=condensed"))
 
 ;; added melpa
 (require 'package)
@@ -120,7 +120,7 @@
 (defun bitocra-font ()
   "change to bitocra font"
   (interactive)
-  (set-frame-font "bitocrafull"))
+  (set-frame-font "bitocrafull:width=condensed"))
 
 ;; elpy
 (elpy-enable)
