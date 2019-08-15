@@ -103,7 +103,9 @@
  "f" 'find-file-other-frame
  "r" 'fill-paragraph
  "1" 'delete-other-windows
- "p" 'pyvenv-workon)
+ "p" 'pyvenv-workon
+ "u" 'ubuntu12
+ )
 (setq x-select-enable-clipboard-manager nil)
 
 (defun change-font (font-name)
@@ -116,6 +118,11 @@
   "change to Ubuntu font"
   (interactive "ssize: ")
   (set-frame-font (format "Ubuntu Mono %s" size)))
+
+(defun ubuntu12 ()
+  "set font to Ubuntu Mono 12"
+  (interactive)
+  (set-frame-font "Ubuntu Mono 12"))
 
 (defun bitocra-font ()
   "change to bitocra font"
