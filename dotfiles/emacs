@@ -21,7 +21,7 @@
  '(minimap-highlight-line nil)
  '(package-selected-packages
    (quote
-    (tuareg slime lsp-julia lsp-mode ht f dash-functional quelpa flycheck-haskell ghc markdown-preview-mode 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython julia-mode toml-mode rust-mode 0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
+    (tide typescript-mode tuareg slime lsp-julia lsp-mode ht f dash-functional quelpa flycheck-haskell ghc markdown-preview-mode 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython julia-mode toml-mode rust-mode 0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
  '(pyvenv-activate "~/.cache/pypoetry/virtualenvs/")
  '(safe-local-variable-values (quote ((engine . jinja2))))
  '(scroll-bar-mode nil)
@@ -122,6 +122,27 @@
   (interactive)
   (set-frame-font "bitocrafull:width=condensed"))
 
+;; tide
+(defun setup-tide-mode ()
+  (interactive)
+  (tide-setup)
+  (flycheck-mode +1)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode +1)
+  (tide-hl-identifier-mode +1)
+  ;; company is an optional dependency. You have to
+  ;; install it separately via package-install
+  ;; `M-x package-install [ret] company`
+  (company-mode +1))
+
+;; aligns annotation to the right hand side
+(setq company-tooltip-align-annotations t)
+
+;; formats the buffer before saving
+(add-hook 'before-save-hook 'tide-format-before-save)
+
+(add-hook 'typescript-mode-hook #'setup-tide-mode)
+
 ;; elpy
 (elpy-enable)
 
@@ -167,3 +188,5 @@
              (setq c-comment)
 	     )
 	  )
+
+(add-to-list 'load-path "~/.emacs.d/cc-mode")
