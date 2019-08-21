@@ -121,3 +121,6 @@ if [[ -e $HOME/perl5 ]]; then
   PERL_MB_OPT="--install_base \"/home/ninjaaron/perl5\""; export PERL_MB_OPT;
   PERL_MM_OPT="INSTALL_BASE=/home/ninjaaron/perl5"; export PERL_MM_OPT;
 fi
+
+# opam configuration
+test -r /home/ninjaaron/.opam/opam-init/init.zsh && . /home/ninjaaron/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
