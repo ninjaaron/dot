@@ -124,6 +124,6 @@ bindsym XF86MonBrightnessUp exec light dub
 
 # rules
 no_focus [class="feh"]
-new_window pixel 2
+default_border pixel 2
 
 workspace 10 output DP1

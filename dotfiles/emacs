@@ -35,6 +35,7 @@
  '(minimap-font-face ((t (:height 30 :family "Ubuntu Mono"))))
  '(minimap-semantic-function-face ((t (:inherit (font-lock-function-name-face Ubuntu\ Mono) :background "#202414" :box (:line-width 1 :color "white") :height 2.75)))))
 (add-to-list 'default-frame-alist '(font . "bitocrafull-9:width=condensed"))
+(load "/home/ninjaaron/.opam/4.08.1/share/emacs/site-lisp/tuareg-site-file")
 
 ;; added melpa
 (require 'package)
@@ -197,3 +198,13 @@
 	  )
 
 (add-to-list 'load-path "~/.emacs.d/cc-mode")
+(let ((opam-share (ignore-errors (car (process-lines "opam" "config" "var" "share")))))
+  (when (and opam-share (file-directory-p opam-share))
+    ;; Register Merlin
+    (add-to-list 'load-path (expand-file-name "emacs/site-lisp" opam-share))
+    (autoload 'merlin-mode "merlin" nil t nil)
+    ;; Automatically start it in OCaml buffers
+    (add-hook 'tuareg-mode-hook 'merlin-mode t)
+    (add-hook 'caml-mode-hook 'merlin-mode t)
+    ;; Use opam switch to lookup ocamlmerlin binary
+    (setq merlin-command 'opam)))
