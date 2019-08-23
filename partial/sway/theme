@@ -7,9 +7,9 @@ cat ~/.i3/base > ~/.config/sway/config
 
 cat >> ~/.config/sway/config << EOF
 # Style
-output HDMI-A-1 bg ~/pic/backs/apocolyps/DD-Post-Apocalyptic-Wallpaper-321.jpg fill
+output HDMI-A-1 bg /home/ninjaaron/pic/backs/vertastronaut.jpg fill
 output eDP-1 bg ~/pic/backs/apocolyps/DD-Post-Apocalyptic-Wallpaper-321.jpg fill
-output DP-1     bg ~/pic/backs/apocolyps/DD-Post-Apocalyptic-Wallpaper-151.jpg fill
+output DP-1     bg /home/ninjaaron/pic/backs/vertastronaut.jpg fill
 
 output DP-1 transform 270 pos 1080 0
 output HDMI-A-1 transform 270 pos 0 0
