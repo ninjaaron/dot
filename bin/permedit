@@ -7,11 +7,11 @@ import sys
 
 def permedit(args):
     editor = os.environ.get('EDITOR') or 'nano'
-    test = path = pathlib.Path(args[-1])
+    test = pathlib.Path(args[-1])
     args.insert(0, editor)
     while not test.exists():
         test = test.parent
-    if not os.access(test, os.W_OK):
+    if not os.access(str(test), os.W_OK):
         resp = input('sudo [Y/n]? ')
         if not resp or resp.strip().lower().startswith('y'):
             args.insert(0, 'sudo')
@@ -21,7 +21,6 @@ def permedit(args):
 def main():
     args = permedit(sys.argv[1:])
     sp.call(args)
-    
 
 
 if __name__ == '__main__':
@@ -29,4 +28,3 @@ if __name__ == '__main__':
         main()
     except KeyboardInterrupt:
         pass
-
