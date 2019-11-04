@@ -1,13 +1,14 @@
 # vim: ft=python
-import typing
 from pathlib import Path
+# XONSH WIZARD START
+xontrib load coreutils jedi vox
+# XONSH WIZARD END
+
 $VI_MODE = True
 $XONSH_COLOR_STYLE = 'paraiso-dark'
 $PROMPT = '{env_name:{}|}{BLUE}{short_cwd}{branch_color}{curr_branch:|{}}{NO_COLOR}>{NO_COLOR} '
 $XONSH_HISTORY_BACKEND = 'sqlite'
-# $XONSH_SHOW_TRACEBACK = True
-
-xontrib load vox
+$XONSH_SHOW_TRACEBACK = True
 
 
 def load_aliases():
@@ -73,11 +74,16 @@ def load_aliases():
         shell_aliases = af.read()
         new_hash = md5(shell_aliases).digest()
 
+    ctlchars = set('&|;><')
     if old_hash != new_hash:
-        ali = '\n'.join(i for i in shell_aliases.decode().splitlines()
-                        if i.startswith('alias '))
-        ali = re.sub(r'^alias ([\w-]*)=(.*?)$', r"aliases['\1'] = \2",
-                     ali, flags=re.M)
+        import shlex
+        ali = (shlex.split(i)[1] for i in shell_aliases.decode().splitlines()
+               if i.startswith('alias '))
+        ali = (cmd.split("=", maxsplit=1) for cmd in ali)
+        ali = ((al, cmd if ctlchars.intersection(cmd) else shlex.split(cmd))
+               for al, cmd in ali)
+        ali = '\n'.join("aliases['" + al + "'] = " + repr(cmd)
+                        for al, cmd in ali)
         with al_hash.open('wb') as ah, al_cache.open('w') as ac:
             ah.write(new_hash)
             ac.write(ali)
@@ -94,11 +100,3 @@ def load_aliases():
 
 
 load_aliases()
-
-
-_exp_path = Path('/home/ninjaaron/brace_expansion.py')
-if _exp_path.exists():
-    _exp_env = {}
-    _exp_code = compile(open(_exp_path).read(), _exp_path, 'exec')
-    exec(_exp_code, _exp_env)
-    exp = _exp_env['brace_expand']

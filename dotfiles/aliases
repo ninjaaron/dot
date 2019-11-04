@@ -45,7 +45,7 @@ alias halt="systemctl poweroff"
 alias sus="systemctl suspend"
 
 # misc command shortcuts
-alias ls="ls --color=auto"
+alias ls="ls --color=auto -v"
 alias ll="ls --color=auto -lh"
 alias la="ls --color=auto -A"
 alias lla="ls --color=auto -lhA"

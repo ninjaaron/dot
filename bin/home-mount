@@ -1,11 +1,12 @@
 #!/bin/sh
 if [ "$1" = '-u' ]; then
-  sudo umount ~/"$2"
+  sudo umount ~/"$2" &&
   [ -e ~/"$2" ] && rmdir ~/"$2"
+  exit "$?"
 elif printf "$1"|grep '^/dev/sd' -q; then
   mkdir ~/mnt 2> /dev/null
   sudo mount -o uid=$USER "$1" ~/mnt || rmdir ~/mnt
-  exit
+  exit $?
 fi
 
 mkdir ~/"$1" 2> /dev/null
