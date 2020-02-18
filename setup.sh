@@ -4,8 +4,8 @@
 # link pathogen #
 #################
 
-mkdir dotfiles/vim/{autoload,backups}
-ln sub/vim-pathogen/autoload/pathogen.vim dotfiles/vim/autoload/
+mkdir dotfiles/vim/{autoload,backups,bundle}
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 
 ###############################
 # link config files and ~/bin #
