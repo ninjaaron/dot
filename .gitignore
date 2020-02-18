@@ -2,6 +2,7 @@
 *.backup*
 *.swp
 dotfiles/vim/backups/*
+dotfiles/vim/bundle/*
 dotfiles/vim/autoload/*
 dotfiles/vim/.netwhist
 dotfiles/vim/.netrwhist
