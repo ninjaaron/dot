@@ -91,6 +91,8 @@
 (define-key evil-normal-state-map "#" 'comment-line)
 (define-key evil-visual-state-map "#" 'comment-region)
 
+
+
 ;; evil-leader
 (require 'evil-leader)
 (global-evil-leader-mode)
@@ -112,6 +114,7 @@
  "1" 'delete-other-windows
  "p" 'pyvenv-workon
  "u" 'ubuntu12
+ "sp" 'flyspell-mode
  )
 (setq x-select-enable-clipboard-manager nil)
 
