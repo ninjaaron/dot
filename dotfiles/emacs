@@ -21,7 +21,7 @@
  '(minimap-highlight-line nil)
  '(package-selected-packages
    (quote
-    (tide typescript-mode tuareg slime lsp-julia lsp-mode ht f dash-functional quelpa flycheck-haskell ghc markdown-preview-mode 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython julia-mode toml-mode rust-mode 0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
+    (reason-mode company-lsp lsp-ui gnu-elpa-keyring-update tide typescript-mode tuareg slime lsp-julia lsp-mode ht f dash-functional quelpa flycheck-haskell ghc markdown-preview-mode 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython julia-mode toml-mode rust-mode 0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
  '(pyvenv-activate "~/.cache/pypoetry/virtualenvs/")
  '(safe-local-variable-values (quote ((engine . jinja2))))
  '(scroll-bar-mode nil)
@@ -43,6 +43,9 @@
 (add-to-list 'package-archives 
              '("melpa" . "http://melpa.org/packages/"))
 (package-initialize)
+;; (setq lsp-julia-package-dir nil)
+(require 'lsp-julia)
+(add-hook 'julia-mode-hook #'lsp-mode)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
