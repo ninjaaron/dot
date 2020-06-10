@@ -85,9 +85,9 @@ bindsym $mod+semicolon move workspace to output right
 
 # media
 bindsym $mod+Shift+d exec --no-startup-id i3-dmenu-desktop
-bindsym XF86AudioRaiseVolume exec ponymix increase 5
-bindsym XF86AudioLowerVolume exec ponymix decrease 5
-bindsym XF86AudioMute exec ponymix toggle
+bindsym XF86AudioRaiseVolume exec pulsemixer --change-volume +5
+bindsym XF86AudioLowerVolume exec pulsemixer --change-volume -5
+bindsym XF86AudioMute exec pulsemixer --toggle-mute
 bindsym XF86AudioPlay exec mocp --toggle-pause
 bindsym Pause exec  mocp --toggle-pause
 bindsym XF86AudioNext exec mocp --next

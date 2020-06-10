@@ -4,7 +4,7 @@
 # get the settings
 theme=$(cat ~/.theme)
 font="bitocrafull:pixelsize=10"
-source ~/.themes/"$theme"
+. ~/.themes/"$theme"
 
 # write the comments and colors
 cat > ~/.Xresources << EOF

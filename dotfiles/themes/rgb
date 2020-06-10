@@ -3,4 +3,4 @@
 sed "s/[\"']#\\(..\\)\\(..\\)\\(..\\)[\"']/'rgb:\\1\\/\\2\\/\\3'/" \
   ~/.themes/$(cat ~/.theme) > /tmp/rgb
 
-source /tmp/rgb
+. /tmp/rgb

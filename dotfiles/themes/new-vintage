@@ -1,4 +1,4 @@
-source ~/.themes/vintage
+. ~/.themes/vintage
 
 # settings for ~/.Xresources
 transparent=true

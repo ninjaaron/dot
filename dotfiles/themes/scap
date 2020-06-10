@@ -1,7 +1,7 @@
 theme_name="La Scapigliata"
 date_modified="Tue Nov 13 13:47:14 CST 2012"
 
-source ~/.themes/sepia
+. ~/.themes/sepia
 
 bg_color="#332115"
 fg_color="#FAD6B4"
