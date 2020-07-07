@@ -4,6 +4,6 @@ date_modified="Tue Dec 18 12:35:56 CST 2012"
 . ~/.themes/shomshing
 
 font="Ubuntu Mono:pixelsize=16:"
-font2="Ubuntu Mono bold 13"
+font2="Ubuntu Mono 13"
 
 # vim: filetype=sh

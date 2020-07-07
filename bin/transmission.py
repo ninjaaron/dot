@@ -2,10 +2,9 @@
 import json
 from os import path
 import re
-import typing as t
+from typing import Union, Sequence, NamedTuple, Mapping, List
 
 import aiohttp
-import compose
 import libaaron
 from libaaron import aio
 
@@ -21,7 +20,7 @@ from libaaron import aio
 URL = 'http://localhost:9091/transmission/rpc'
 HEADER = 'X-Transmission-Session-Id'
 decoder = json.JSONDecoder(object_hook=libaaron.DotDict)
-IDs = t.Union[t.Sequence[int], int]
+IDs = Union[Sequence[int], int]
 
 
 class Duplicate(Exception):
@@ -69,9 +68,9 @@ class AsyncSession:
     async def request(
             self,
             method: str,
-            arguments: t.Mapping,
+            arguments: Mapping,
             tag: int = None
-    ) -> t.Mapping:
+    ) -> Mapping:
         data = dict(method=method, arguments=arguments)
         if tag:
             data['tag'] = tag
@@ -90,10 +89,10 @@ class AsyncSession:
     async def torrents(
             self,
             method: str,
-            arguments: t.Mapping,
+            arguments: Mapping,
             ids: IDs = None,
             *args, **kwargs
-    ) -> t.Mapping:
+    ) -> Mapping:
         if arguments is None:
             arguments = {}
         if ids:
@@ -102,8 +101,8 @@ class AsyncSession:
         return await self.request(method, arguments, *args, **kwargs)
 
     async def tget(
-            self, fields: t.Sequence[str], *args, **kwargs
-    ) -> t.List[t.Mapping]:
+            self, fields: Sequence[str], *args, **kwargs
+    ) -> List[Mapping]:
         if isinstance(fields, str):
             fields = [fields]
         else:
@@ -114,8 +113,8 @@ class AsyncSession:
         return data.arguments.torrents
 
     async def tset(
-            self, arguments: t.Mapping, *args, **kwargs
-    ) -> t.Mapping:
+            self, arguments: Mapping, *args, **kwargs
+    ) -> Mapping:
         return await self.torrents('set', arguments, *args, **kwargs)
 
     async def tremove(self, ids: IDs, delete=False, *args, **kwargs):
@@ -145,7 +144,7 @@ class AsyncSession:
                 raise e
 
 
-class Torrent(compose.Struct):
+class Torrent(NamedTuple):
     data: dict
     session: AsyncSession
 
