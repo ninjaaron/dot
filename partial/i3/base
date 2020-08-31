@@ -85,9 +85,9 @@ bindsym $mod+semicolon move workspace to output right
 
 # media
 bindsym $mod+Shift+d exec --no-startup-id i3-dmenu-desktop
-bindsym XF86AudioRaiseVolume exec ponymix increase 5
-bindsym XF86AudioLowerVolume exec ponymix decrease 5
-bindsym XF86AudioMute exec ponymix toggle
+bindsym XF86AudioRaiseVolume exec pulsemixer --change-volume +5
+bindsym XF86AudioLowerVolume exec pulsemixer --change-volume -5
+bindsym XF86AudioMute exec pulsemixer --toggle-mute
 bindsym XF86AudioPlay exec mocp --toggle-pause
 bindsym Pause exec  mocp --toggle-pause
 bindsym XF86AudioNext exec mocp --next
@@ -106,7 +106,7 @@ bindsym $mod+Control+bracketright exec mocp --seek +60
 
 # launchers
 ## terminal
-bindsym $mod+Return exec urxvtcd -e fish
+bindsym $mod+Return exec urxvtcd -e zsh
 bindsym $mod+z exec urxvtcd -e xonsh
 bindsym $mod+slash exec urxvtc -e ranger
 bindsym $mod+apostrophe exec ~/clipboard2server
