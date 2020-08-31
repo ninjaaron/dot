@@ -1,7 +1,7 @@
 #!/usr/bin/env scriptjulia
 function start_timer(minutes, text="teatime!")
-    # sleep(parse(Int, minutes) * 60)
-    sleep(parse(Int, minutes))
+    sleep(parse(Int, minutes) * 60)
+    # sleep(parse(Int, minutes))
     run(`zenity --info --text=$text`)
 end
 
