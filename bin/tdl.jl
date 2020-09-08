@@ -1,4 +1,4 @@
-#!/usr/bin/env julia
+#!/usr/bin/env scriptjulia
 struct Torrent
     id
     perc
