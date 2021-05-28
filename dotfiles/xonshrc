@@ -4,11 +4,11 @@ from pathlib import Path
 xontrib load coreutils jedi vox
 # XONSH WIZARD END
 
+$XONSH_SHOW_TRACEBACK = True
 $VI_MODE = True
 $XONSH_COLOR_STYLE = 'paraiso-dark'
-$PROMPT = '{env_name:{}|}{BLUE}{short_cwd}{branch_color}{curr_branch:|{}}{NO_COLOR}>{NO_COLOR} '
+$PROMPT = '{env_name:{}|}{BLUE}{short_cwd}{branch_color}{curr_branch:|{}}{RESET}>{RESET} '
 $XONSH_HISTORY_BACKEND = 'sqlite'
-$XONSH_SHOW_TRACEBACK = True
 
 
 def load_aliases():
@@ -63,16 +63,21 @@ def load_aliases():
 
     def _ns(args):
         $ed = $(newscript -m @(args)).strip()
-        $ed @(args[0])
+        "$ed" @(args[0])
 
     # import shell aliases
     al_cache = p'$HOME/.cache/ali_cache.xsh'
     al_path = p'$HOME/.aliases'
     al_hash = p'$HOME/.cache/ali_hash'
-    with al_path.open('rb') as af, al_hash.open('rb') as ah:
-        old_hash = ah.read()
-        shell_aliases = af.read()
-        new_hash = md5(shell_aliases).digest()
+    with al_path.open('rb') as alias_file:
+        shell_aliases = alias_file.read()
+    new_hash = md5(shell_aliases).digest()
+
+    try:
+        with al_hash.open('rb') as alias_hash_file:
+            old_hash = alias_hash_file.read()
+    except FileNotFoundError:
+        old_hash = None
 
     ctlchars = set('&|;><')
     if old_hash != new_hash:
