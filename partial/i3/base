@@ -87,6 +87,8 @@ bindsym $mod+semicolon move workspace to output right
 bindsym $mod+Shift+d exec --no-startup-id i3-dmenu-desktop
 bindsym XF86AudioRaiseVolume exec pulsemixer --change-volume +5
 bindsym XF86AudioLowerVolume exec pulsemixer --change-volume -5
+bindsym $mod+equal exec pulsemixer --change-volume +5
+bindsym $mod+minus exec pulsemixer --change-volume -5
 bindsym XF86AudioMute exec pulsemixer --toggle-mute
 bindsym XF86AudioPlay exec mocp --toggle-pause
 bindsym Pause exec  mocp --toggle-pause
@@ -94,8 +96,6 @@ bindsym XF86AudioNext exec mocp --next
 bindsym XF86AudioPrev exec mocp --previous
 bindsym XF86Calculator exec urxvtc -e bpython
 
-bindsym $mod+equal exec ponymix increase 5
-bindsym $mod+minus exec ponymix decrease 5
 bindsym $mod+backslash exec mocp --toggle-pause
 bindsym $mod+bracketleft exec mocp --previous
 bindsym $mod+bracketright exec mocp --next
@@ -126,4 +126,4 @@ bindsym XF86MonBrightnessUp exec light dub
 no_focus [class="feh"]
 default_border pixel 2
 
-workspace 10 output DP1
+workspace 10 output eDP1

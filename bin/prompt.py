@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 import os, sys, pathlib
-import subprocess as sp
+import asyncio
+import asyncio.subprocess as sp
 
 ENV = os.environ
+
 
 def get_short_dir():
     dir = pathlib.Path(os.getcwd().replace(ENV["HOME"], "~")).parts
@@ -14,29 +16,26 @@ def get_short_dir():
         return dir[0]
 
 
-def get_git_prompt_later():
-    branch_proc = sp.Popen(
-        ["git", "branch"], stdout=sp.PIPE, stderr=sp.DEVNULL, universal_newlines=True
+async def get_git_prompt():
+    branch_proc = await sp.create_subprocess_exec(
+        "git", "branch", stdout=sp.PIPE, stderr=sp.DEVNULL
     )
-    status_proc = sp.Popen(
-        ["git", "status", "-s"], stdout=sp.PIPE, stderr=sp.DEVNULL, universal_newlines=True
+    status_proc = await sp.create_subprocess_exec(
+        "git", "status", "-s", stdout=sp.PIPE, stderr=sp.DEVNULL
     )
+    branch_out = (await branch_proc.communicate())[0].decode().splitlines()
+    color = "red" if (await status_proc.communicate())[0] else "green"
 
-    def get_git_prompt():
-        branch = [i for i in branch_proc.stdout if i.startswith("*")][0][2:-1]
-        color = "red" if status_proc.stdout.read() else "green"
-        return color, branch
-
-    return get_git_prompt
+    branch = [i for i in branch_out if i.startswith("*")][0][2:]
+    return color, branch
 
 
-
-def main():
+async def main():
     if ENV["USER"] == "root":
         print("%F{yellow}%m%f:%F{red}%~%f# ")
-        sys.exit()
+        return
 
-    get_git_prompt = get_git_prompt_later()
+    git_prompt_task = asyncio.create_task(get_git_prompt())
 
     prompt = ["%F{{blue}}{}%f> ".format(get_short_dir())]
 
@@ -44,20 +43,20 @@ def main():
     if ENV.get("SSH_TTY"):
         prompt.append("%F{green}%m%f:")
 
-    # git status info
-    try:
-        prompt.append("%F{{{}}}{}%f|".format(*get_git_prompt()))
-    except IndexError:
-        pass
-
     # check about updates
     try:
         updates = open(ENV["HOME"] + "/.updates", "rb").read().hex()
     except FileNotFoundError:
+        updates = "00"
+
+    # git status info
+    try:
+        prompt.append("%F{{{}}}{}%f|".format(*(await git_prompt_task)))
+    except IndexError:
         pass
-    else:
-        if updates != "00":
-            prompt.append("%F{{yellow}}{}%f|".format(updates.lstrip()))
+
+    if updates != "00":
+        prompt.append("%F{{yellow}}{}%f|".format(updates.lstrip()))
 
     # virtualenv stuff
     venv = ENV.get("VIRTUAL_ENV")
@@ -68,4 +67,4 @@ def main():
     print("".join(prompt[::-1]))
 
 
-main()
+asyncio.run(main())

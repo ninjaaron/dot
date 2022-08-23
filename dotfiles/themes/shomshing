@@ -21,7 +21,7 @@ light_cyan="#33aa77"
 light_grey="#808080"
 white="#ffffff"
 
-font2="bitocrafull medium 9"
+font2="bitocrafull 7"
 transparent=false
 tr_settings="URxvt.shading:15
 URxvt.fading:30"
