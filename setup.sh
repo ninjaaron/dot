@@ -4,8 +4,14 @@
 # link pathogen #
 #################
 
+failwith() {
+  echo "$1"
+  exit "$2"
+}
+
 mkdir dotfiles/vim/{autoload,backups,bundle}
-curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim ||
+  failwith "could not download pathogen" "$?"
 
 ###############################
 # link config files and ~/bin #
