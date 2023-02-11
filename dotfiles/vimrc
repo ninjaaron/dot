@@ -3,7 +3,7 @@
 set nocompatible backspace=indent,eol,start history=50 nowrap mouse=a backup scs
 set ruler showcmd incsearch hlsearch lbr expandtab tabstop=2 shiftwidth=2 deco
 set softtabstop=2 nu wildmenu wildmode=list:longest,full cc=+1 foldmethod=indent
-set foldlevel=99 clipboard=unnamed listchars=tab:\|·,trai:. list
+set foldlevel=99 clipboard=unnamed listchars=tab:\|.,trai:. list
 set cot=longest,menuone
 set backupdir=./.backup,$HOME/.vim/backups,/tmp
 set directory=./.backup,$HOME/.vim/backups,/tmp
