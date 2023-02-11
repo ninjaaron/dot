@@ -6,7 +6,7 @@ from typing import Union, Sequence, NamedTuple, Mapping, List
 
 import aiohttp
 import libaaron
-from libaaron import aio
+import asyncio as aio
 
 # ## Torrent status codes ##
 # 0 /* Torrent is stopped */

@@ -9,15 +9,15 @@ function fish_prompt
   set div $nc "|"
 
   # system updates
-  set updates (b2x < ~/.updates ^ /dev/null)
-  if [ "$updates" != 00 ]
+  set updates (cat ~/.updates 2> /dev/null | b2x)
+  if [ $updates -a $updates != 00 ]
     echo -ns (set_color $colors[2]) $updates $div
   end
 
   # git branches status
-  set branch (git branch ^ /dev/null | fgrep '*' | sed 's/\* //')
+  set branch (git branch 2> /dev/null | fgrep '*' | sed 's/\* //')
   if [ "$branch" ]
-    set gitstatus (git status -s ^ /dev/null)
+    set gitstatus (git status -s 2> /dev/null)
     if [ "$gitstatus" ]
       set color (set_color $colors[3])
     else

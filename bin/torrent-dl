@@ -2,13 +2,13 @@
 import argparse
 import shlex
 import sys
-from libaaron import aio
+import asyncio as aio
 import transmission as tr
 
 
 async def sftp_dl(path, host):
     args = ['sftp', '-ar', host + ':/' + shlex.quote(path[1:]), '.']
-    proc = await aio.proc(*args)
+    proc = await aio.create_subprocess_exec(*args)
     try:
         return await proc.wait()
     except aio.CancelledError:

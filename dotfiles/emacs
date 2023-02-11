@@ -8,22 +8,20 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["#1b1b1b" "#cc4444" "#55aa55" "#ee9966" "#4477ff" "#bb33bb" "#22aaaa" "#808080"])
- '(custom-enabled-themes (quote (shomshing)))
+ '(custom-enabled-themes '(shomshing))
  '(custom-safe-themes
-   (quote
-    ("1b2c1adbfea189cbc7e5084b3c8bd9cbb6c26cc778ea6f7e3a2f3c8189bc738b" "24fc794a16809a86a63ec2e6f8801e99141aca73fc238ea30d35f87c88847329" "abffe1169d8f63953e6c9ed9c77db7cbc6fc9ac0c010d83b183c32c9825beff5")))
+   '("1b2c1adbfea189cbc7e5084b3c8bd9cbb6c26cc778ea6f7e3a2f3c8189bc738b" "24fc794a16809a86a63ec2e6f8801e99141aca73fc238ea30d35f87c88847329" "abffe1169d8f63953e6c9ed9c77db7cbc6fc9ac0c010d83b183c32c9825beff5"))
  '(elpy-modules
-   (quote
-    (elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-django elpy-module-sane-defaults)))
+   '(elpy-module-company elpy-module-eldoc elpy-module-flymake elpy-module-pyvenv elpy-module-yasnippet elpy-module-django elpy-module-sane-defaults))
+ '(elpy-rpc-virtualenv-path 'current)
  '(inhibit-startup-screen t)
+ '(ispell-dictionary nil)
  '(menu-bar-mode nil)
  '(minimap-hide-fringes t)
  '(minimap-highlight-line nil)
  '(package-selected-packages
-   (quote
-    (lsp-julia swift-mode flycheck-rust reason-mode company-lsp lsp-ui gnu-elpa-keyring-update tide typescript-mode tuareg slime lsp-mode ht f dash-functional quelpa flycheck-haskell ghc markdown-preview-mode 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython julia-mode toml-mode rust-mode 0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company elpy evil)))
- '(pyvenv-activate "~/.cache/pypoetry/virtualenvs/")
- '(safe-local-variable-values (quote ((engine . jinja2))))
+   '(geiser geiser-chez scheme-complete elpy lsp-julia swift-mode flycheck-rust reason-mode company-lsp lsp-ui gnu-elpa-keyring-update tide typescript-mode tuareg slime lsp-mode ht f dash-functional quelpa flycheck-haskell ghc markdown-preview-mode 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython julia-mode toml-mode rust-mode 0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company evil))
+ '(safe-local-variable-values '((engine . jinja2)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
 (custom-set-faces
@@ -42,8 +40,6 @@
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives 
              '("melpa" . "http://melpa.org/packages/"))
-(package-initialize)
-;; (setq lsp-julia-package-dir nil)
 (require 'lsp-julia)
 (add-hook 'julia-mode-hook #'lsp-mode)
 
@@ -162,6 +158,9 @@
 
 ;; elpy
 (elpy-enable)
+(autoload 'scheme-mode "cmuscheme" "Major mode for Scheme." t)
+(autoload 'run-scheme "cmuscheme" "Switch to interactive Scheme buffer." t)
+(setq auto-mode-alist (cons '("\\.ss" . scheme-mode) auto-mode-alist))
 
 ;; web-mode
 (require 'web-mode)

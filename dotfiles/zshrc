@@ -105,3 +105,8 @@ source $HOME/.aliases
 
 # opam configuration
 test -r /home/pi/.opam/opam-init/init.zsh && . /home/pi/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+=======
+test -r /home/ninjaaron/.opam/opam-init/init.zsh && . /home/ninjaaron/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+export PATH="$HOME/.poetry/bin:$PATH"
+eval "$(pyenv init -)"

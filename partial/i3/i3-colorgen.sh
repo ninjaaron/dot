@@ -7,7 +7,7 @@ cat ~/.i3/base > ~/.i3/config
 
 cat >> ~/.i3/config << EOF
 # Style
-font pango:${font2:-bitocra 7}
+font ${font2:-bitocra 7}
 # class                 border  backgr. text    indicator child_border
 client.focused          $bg_color ${frame_border_active_color:-$bg_color} ${window_title:-$fg_color} ${window_title:-$fg_color} ${frame_border_active_color:-$bg_color}
 client.focused_inactive ${window_border_i:-$bg_color} ${window_border_i:-$bg_color} ${window_title_i:-$dark_grey} $bg_color ${window_border_i:-$bg_color}
