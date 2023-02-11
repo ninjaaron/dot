@@ -13,7 +13,6 @@ fi
 git stash
 git checkout master
 git stash pop
-git commit -am "updating dotfiles on master"
 
 update-dotfiles
 
