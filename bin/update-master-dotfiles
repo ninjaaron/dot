@@ -3,6 +3,7 @@ get_branch() {
   git branch | awk '$1 == "*" { print $2 }'
 }
 
+cd "$DOT"
 branch="$(get_branch)"
 
 if [ "$branch" == master ]; then
