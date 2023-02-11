@@ -30,6 +30,7 @@ git pull --recurse-submodules origin master &&
     message 'there were problems' 
 
 if [ "$branch" != "master" ]; then
+  git branch
   git checkout "$branch"
   git merge master &&
     git push origin "$branch" ||
