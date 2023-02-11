@@ -31,7 +31,6 @@ git pull --recurse-submodules origin master &&
 
 if [ "$branch" != "master" ]; then
   message "== merging into $branch ==" &&
-  git branch
   git checkout "$branch"
   git merge master &&
     git push origin "$branch" ||
