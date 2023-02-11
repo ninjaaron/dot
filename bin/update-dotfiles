@@ -25,7 +25,6 @@ git commit -am "updating dotfiles"
 
 if [ "$branch" != "master" ]; then
   git checkout master
-  git commit -am "updating dotfiles"
 fi
 
 message "== pulling changes =="
