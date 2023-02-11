@@ -22,7 +22,12 @@ fi
 message "================ git ================"
 message "== committing =="
 git commit -am "updating dotfiles"
-git checkout master
+
+if [ "$branch" != "master" ]; then
+  git checkout master
+  git commit -am "updating dotfiles"
+fi
+
 message "== pulling changes =="
 git pull --recurse-submodules origin master &&
   message "== pushing changes ==" &&
