@@ -1,11 +1,38 @@
 #!/bin/sh
 
-cd $DOT
-echo "================ git ================" 1>&2
-echo "== committing ==" 1>&2
+message() {
+  echo "$@" 1>&2
+}
+fail () {
+  code="$1"
+  shift
+  message "$@"
+}
+
+get_branch() {
+  git branch | awk '$1 == "*" { print $2 }' 
+}
+
+
+cd "$DOT"
+branch="$(get_branch)"
+if [ -z "$branch" ]; then
+  exit 1
+fi
+message "================ git ================"
+message "== committing =="
 git commit -am "updating dotfiles"
-echo "== pulling changes ==" 1>&2 &&
+git checkout master
+message "== pulling changes =="
 git pull --recurse-submodules origin master &&
-echo "== pushing changes ==" 1>&2 &&
-git push origin master ||
-echo 'there were problems' 1>&2
+  message "== pushing changes ==" &&
+  git push origin master ||
+    message 'there were problems' 
+
+if [ "$branch" != "master" ]; then
+  git checkout "$branch"
+  git merge master &&
+    git push origin "$branch" ||
+      message "there were problems"
+fi
+  
