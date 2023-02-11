@@ -1,0 +1,20 @@
+#!/bin/sh
+get_branch() {
+  git branch | awk '$1 == "*" { print $2 }'
+}
+
+branch="$(get_branch)"
+
+if [ "$branch" == master ]; then
+  update-dotfiles
+  exit 0
+fi
+
+git stash
+git checkout master
+git stash pop
+git commit -am "updating dotfiles on master"
+
+update-dotfiles
+
+git checkout $branch
