@@ -1,2 +1,2 @@
 #!/bin/sh
-echo "$1" | netcat localhost 6666
+echo "$1" | netcat localhost 9091
