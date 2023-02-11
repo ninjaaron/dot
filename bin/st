@@ -1,0 +1,6 @@
+#!/bin/sh
+destination="$1"
+if [ -z "$destination" ]; then
+  echo "please provide an ssh destination" >&2
+fi
+ssh -t "$destination" tmux
