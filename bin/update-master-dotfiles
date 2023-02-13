@@ -5,7 +5,7 @@ get_branch() {
 
 branch="$(get_branch)"
 
-if [ "$branch" == master ]; then
+if [ "$branch" = master ]; then
   update-dotfiles
   exit 0
 fi

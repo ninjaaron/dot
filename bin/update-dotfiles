@@ -40,4 +40,3 @@ if [ "$branch" != "master" ]; then
     git push origin "$branch" ||
       message "there were problems"
 fi
-  
