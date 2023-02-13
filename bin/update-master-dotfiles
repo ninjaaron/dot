@@ -16,4 +16,6 @@ git stash pop
 
 update-dotfiles
 
-git checkout $branch
+git checkout "$branch"
+git merge master
+git push origin "$branch"
