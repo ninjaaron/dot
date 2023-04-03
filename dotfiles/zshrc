@@ -78,7 +78,7 @@ alias -s pdf=zathura
 precmd() {
   # PROMPT="$host%F{blue}%~%f> "
   # updates="$(xxd -ps $HOME/.updates)" 2> /dev/null
-  # branch="$(git branch | fgrep '*')" 2> /dev/null
+  # branch="$(git branch | grep -f '*')" 2> /dev/null
   # venv="$(basename "$VIRTUAL_ENV")" 2> /dev/null
   # if [[ -n $branch ]]; then
   #   [[ -n $(git status -s) ]] 2> /dev/null && colo='red' || colo='green'

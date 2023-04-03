@@ -15,7 +15,7 @@ function fish_prompt
   end
 
   # git branches status
-  set branch (git branch 2> /dev/null | fgrep '*' | sed 's/\* //')
+  set branch (git branch 2> /dev/null | grep -F '*' | sed 's/\* //')
   if [ "$branch" ]
     set gitstatus (git status -s 2> /dev/null)
     if [ "$gitstatus" ]
