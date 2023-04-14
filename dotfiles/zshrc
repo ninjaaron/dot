@@ -78,7 +78,7 @@ alias -s pdf=zathura
 precmd() {
   # PROMPT="$host%F{blue}%~%f> "
   # updates="$(xxd -ps $HOME/.updates)" 2> /dev/null
-  # branch="$(git branch | fgrep '*')" 2> /dev/null
+  # branch="$(git branch | grep -F '*')" 2> /dev/null
   # venv="$(basename "$VIRTUAL_ENV")" 2> /dev/null
   # if [[ -n $branch ]]; then
   #   [[ -n $(git status -s) ]] 2> /dev/null && colo='red' || colo='green'
@@ -102,6 +102,11 @@ source $HOME/.aliases
 # syntax highlighting
 [[ -n $HIGHLIGHT ]] && source $HIGHLIGHT
 [[ -n $COMPL ]] && source $COMPL
+<<<<<<< HEAD
+=======
+<<<<<<< Updated upstream
+=======
+>>>>>>> master
 
 # opam configuration
 test -r /home/ninjaaron/.opam/opam-init/init.zsh && . /home/ninjaaron/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
