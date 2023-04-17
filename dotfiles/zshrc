@@ -102,19 +102,3 @@ source $HOME/.aliases
 # syntax highlighting
 [[ -n $HIGHLIGHT ]] && source $HIGHLIGHT
 [[ -n $COMPL ]] && source $COMPL
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-
-# opam configuration
-test -r /home/ninjaaron/.opam/opam-init/init.zsh && . /home/ninjaaron/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-
-export PATH="$HOME/.poetry/bin:$PATH"
-eval "$(pyenv init -)"
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
