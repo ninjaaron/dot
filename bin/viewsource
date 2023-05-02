@@ -1,6 +1,9 @@
 #!/bin/sh
 what=`command -v "$1"`
-if [ -z "$PAGER" ]; then
+shift
+if [ -n "$1" ]; then
+  PAGER="$1"
+elif [ -z "$PAGER" ]; then
   PAGER=less
 fi
 
