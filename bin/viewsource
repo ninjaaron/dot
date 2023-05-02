@@ -1,7 +1,10 @@
 #!/bin/sh
 what=`command -v "$1"`
+if [ -z "$PAGER" ]; then
+  PAGER=less
+fi
 
-if (( $(echo "$what"|wc -l ) > 1 )); then
+if [ $(echo "$what"|wc -l ) -gt 1 ]; then
   echo "$what"|"$PAGER" -c 'set ft=sh'
 else
   "$PAGER" "$what"
