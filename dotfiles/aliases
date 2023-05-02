@@ -91,6 +91,7 @@ alias mpp="mpv -playlist"
 alias ymus="youtube-dl -f 140"
 alias ns="newscript"
 alias uu="udiskie-umount"
+alias show="show-it.sh"
 
 alias pbxc='xclip -o|pb'
 alias pbcb='xclip -o -selection clipboard|pb'
