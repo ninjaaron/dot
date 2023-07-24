@@ -7,6 +7,8 @@ import sys
 
 def permedit(args):
     editor = os.environ.get('EDITOR') or 'nano'
+    if not args:
+        return [editor]
     test = pathlib.Path(args[-1])
     args.insert(0, editor)
     while not test.exists():
