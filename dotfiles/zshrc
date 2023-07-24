@@ -119,11 +119,15 @@ source $HOME/.aliases
 test -r /home/ninjaaron/.opam/opam-init/init.zsh && . /home/ninjaaron/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 export PATH="$HOME/.poetry/bin:$PATH"
 eval "$(pyenv init -)"
 <<<<<<< Updated upstream
 >>>>>>> Stashed changes
 =======
+>>>>>>> Stashed changes
+=======
+eval "$(pyenv init -)"
 >>>>>>> Stashed changes
 =======
 eval "$(pyenv init -)"
