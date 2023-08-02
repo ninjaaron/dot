@@ -3,7 +3,7 @@ get_branch() {
   git branch | awk '$1 == "*" { print $2 }'
 }
 
-cd "$DOT"
+cd "$DOT" || exit 1
 
 branch="$(get_branch)"
 
@@ -18,4 +18,4 @@ git stash pop
 
 update-dotfiles
 
-git checkout $branch
+git checkout "$branch"

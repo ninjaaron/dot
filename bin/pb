@@ -34,7 +34,7 @@ EOF
 
 chmod 644 "$name.html"
 rsync "$name.html" sink:code/
-echo -n "http://phosmin.org/code/$name.html"|xclip -selection clipboard
-echo -n "http://phosmin.org/code/$name.html"|xclip -selection primary
+printf "http://phosmin.org/code/%s.html" "$name"|xclip -selection clipboard
+printf "http://phosmin.org/code/%s.html" "$name"|xclip -selection primary
 echo "http://phosmin.org/code/$name.html"
 rm "$name.html"

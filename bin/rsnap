@@ -5,7 +5,7 @@ cd /media/btrfs/snapshots && {
   snapshots="$(ls)"
   total="$(echo "$snapshots"|wc -l)"
 
-  echo "$snapshots" | head -n "$(expr "$total" - 4)" | while read i; do
+  echo "$snapshots" | head -n "$((total - 4))" | while read i; do
     btrfs subvolume delete "$i"
   done
 

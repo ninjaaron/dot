@@ -5,7 +5,11 @@
 [ -z "$1" ] && theme="$(cat ~/.theme)" || theme="$1"
 echo "$theme" > ~/.theme
 . "$HOME/.themes/$theme"
-[ -n "$vimExtra" ] && echo "$vimExtra" > ~/.vim/extra.vim || rm ~/.vim/extra.vim
+if [ -n "$vimExtra" ]; then
+  echo "$vimExtra" > ~/.vim/extra.vim
+else
+  rm ~/.vim/extra.vim
+fi
 #pkill conky
 #~/bin/conksel
 chmod +x ~/.themes/xresources-gen

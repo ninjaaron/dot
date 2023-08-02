@@ -1,5 +1,5 @@
 #!/bin/sh
-what=`command -v "$1"`
+what=$(command -v "$1")
 shift
 if [ -n "$1" ]; then
   PAGER="$1"
@@ -7,7 +7,7 @@ elif [ -z "$PAGER" ]; then
   PAGER=less
 fi
 
-if [ $(echo "$what"|wc -l ) -gt 1 ]; then
+if [ "$(echo "$what"|wc -l )" -gt 1 ]; then
   echo "$what"|"$PAGER" -c 'set ft=sh'
 else
   "$PAGER" "$what"
