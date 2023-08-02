@@ -10,8 +10,8 @@ cmd="$($DMENU < ~/.cache/"$server")"
 
 case "$cmd" in
   vim*|vi*|ed*|nano* )
-    urxvt -e $SHELL -c ssh "$server" "$cmd"
+    urxvt -e "$SHELL" -c ssh "$server" "'$cmd'"
     ;;
   *)
-    ssh "$server" "$cmd"
+    ssh "$server" "'$cmd'"
 esac

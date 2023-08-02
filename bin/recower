@@ -1,10 +1,10 @@
 #!/bin/sh
 
-cd ~
+cd ~ || exit
 wget 'https://aur.archlinux.org/cgit/aur.git/snapshot/cower.tar.gz'
 tar xaf cower.tar.gz
 rm cower.tar.gz
-cd cower
+cd cower || exit
 makepkg -sAi --skipinteg
-cd ~
+cd ~ || exit
 rm -rf cower

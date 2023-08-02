@@ -8,7 +8,7 @@ else
 fi
 
 
-if [ -x $2 ]; then
+if [ -x "$2" ]; then
   lang="${1##*.}"
 else
   lang="${2:-sh}"
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     tmpl="#!/usr/bin/env $lang"
 esac
 
-printf "$tmpl\n" >> "$1"
+printf "%s\n" "$tmpl" >> "$1"
 chmod +x "$1"
 
 if [ "$just_make" = true ]; then

@@ -1,5 +1,5 @@
 #!/bin/sh
 rm -r dist
 rm -r __pycache__
-rm *.pyc
-rm *whl
+rm ./*.pyc
+rm ./*whl

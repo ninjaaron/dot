@@ -1,4 +1,4 @@
 #!/bin/sh
 search="$1"
 shift
-find -iname "*$search*" "$@"
+find . -iname "*$search*" "$@"

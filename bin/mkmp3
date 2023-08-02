@@ -2,6 +2,6 @@
 
 # take any kind of media file and turn it into an mp3
 file="$1"
-name=`echo "$file"|cut -d'.' -f1`
+name=$(echo "$file"|cut -d'.' -f1)
 
 ffmpeg -i "$file" -ab 192k "$name".mp3
