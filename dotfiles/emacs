@@ -40,8 +40,6 @@
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives 
              '("melpa" . "http://melpa.org/packages/"))
-(require 'lsp-julia)
-(add-hook 'julia-mode-hook #'lsp-mode)
 
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
@@ -216,3 +214,5 @@
    (define-key tuareg-mode-map (kbd "C-M-<tab>") #'ocamlformat)
    (add-hook 'before-save-hook #'ocamlformat-before-save)))
                            
+(require 'lsp-julia)
+(add-hook 'julia-mode-hook #'lsp-mode)
