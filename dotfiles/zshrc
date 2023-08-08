@@ -110,3 +110,7 @@ source $HOME/.aliases
 [[ -n $COMPL ]] && source $COMPL
 
 [[ ! -r /home/ninjaaron/.opam/opam-init/init.zsh ]] || source /home/ninjaaron/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
