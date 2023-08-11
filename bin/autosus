@@ -8,7 +8,11 @@ psg() { ps aux|grep "$@"|grep -v grep; }
 sleepless="$HOME/sleepless"
 
 toggle() {
-  [ -e "$sleepless" ]  && rm "$sleepless" || touch "$sleepless"
+  if [ -e "$sleepless" ]; then
+    rm "$sleepless"
+  else
+    touch "$sleepless"
+  fi
 }
 
 idle() {

@@ -210,3 +210,5 @@
    (define-key tuareg-mode-map (kbd "C-M-<tab>") #'ocamlformat)
    (add-hook 'before-save-hook #'ocamlformat-before-save)))
                            
+(require 'lsp-julia)
+(add-hook 'julia-mode-hook #'lsp-mode)

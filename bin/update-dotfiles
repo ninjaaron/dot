@@ -7,6 +7,7 @@ fail () {
   code="$1"
   shift
   message "$@"
+  exit "$code"
 }
 
 get_branch() {
@@ -14,7 +15,7 @@ get_branch() {
 }
 
 
-cd "$DOT"
+cd "$DOT" || fail "$?" "dotfile folder does not exist"
 branch="$(get_branch)"
 if [ -z "$branch" ]; then
   exit 1
@@ -31,7 +32,7 @@ message "== pulling changes =="
 git pull --recurse-submodules origin master &&
   message "== pushing changes ==" &&
   git push origin master ||
-    message 'there were problems' 
+    message 'there were problems'
 
 if [ "$branch" != "master" ]; then
   message "== merging into $branch ==" &&

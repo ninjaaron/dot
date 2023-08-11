@@ -9,5 +9,5 @@ git commit -a
 git push
 python setup.py sdist
 pip wheel .
-twine upload *.whl dist/*
+twine upload ./*.whl dist/*
 pyclean

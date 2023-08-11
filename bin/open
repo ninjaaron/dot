@@ -1,2 +1,2 @@
 #!/bin/sh
-xdg-open $@ || mimedb -l -- $@
+xdg-open "$@" || mimedb -l -- "$@"

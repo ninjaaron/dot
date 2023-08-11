@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
-source ~/.dmenurc
+. ~/.dmenurc
 
-variant="$(fgrep 'xkb_symbols' "$DOT/kb/usvi" |
+variant="$(grep -F 'xkb_symbols' "$DOT/kb/usvi" |
            sed 's/[^"]*"\([^"]*\)".*/\1/' |
            eval "$DMENU")"
 
