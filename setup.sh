@@ -38,7 +38,6 @@ ln -s "$PWD/bin" "$HOME/bin"
 echo "generating shell profiles..."
 
 cat > $HOME/.zshenv << EOF
-export PATH="\$HOME/bin:\$HOME/.local/bin:\$PATH"
 export EDITOR="vim"
 export DOT="$PWD"
 export PYTHONSTARTUP="\$DOT/pystart.py"
@@ -51,6 +50,8 @@ echo 'export PATH="$HOME/bin:$HOME/.local/bin:$PATH"' \
   >> ~/.zprofile
 
 cp $HOME/.zshenv $HOME/.profile
+echo 'export PATH="$HOME/bin:$HOME/.local/bin:$PATH"' \
+  >> ~/.profile
 echo "source ~/.aliases" >> $HOME/.bashrc
 
 python3 -m ensurepip --user -U
