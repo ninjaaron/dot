@@ -8,7 +8,7 @@ else
 fi
 
 
-if [ -x "$2" ]; then
+if [ -z "$2" ]; then
   lang="${1##*.}"
 else
   lang="${2:-sh}"

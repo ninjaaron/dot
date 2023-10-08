@@ -24,7 +24,7 @@ alias aSyu="yay -Syu"
 alias pQ="pacman -Q"
 alias pSyu="pacupdate.sh /media/btrfs"
 
-alias sc="sudo systemctl"
+# alias sc="sudo systemctl"
 
 alias agi='sudo apt-get install'
 alias agp='sudo apt-get purge'
