@@ -10,7 +10,7 @@ failwith() {
 }
 
 mkdir dotfiles/vim/{autoload,backups,bundle}
-curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim ||
+curl -LSso dotfiles/vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim ||
   failwith "could not download pathogen" "$?"
 
 ###############################
