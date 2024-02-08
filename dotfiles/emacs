@@ -20,7 +20,7 @@
  '(minimap-hide-fringes t)
  '(minimap-highlight-line nil)
  '(package-selected-packages
-   '(geiser geiser-chez scheme-complete elpy lsp-julia swift-mode flycheck-rust reason-mode company-lsp lsp-ui gnu-elpa-keyring-update tide typescript-mode tuareg slime lsp-mode ht f dash-functional quelpa flycheck-haskell ghc markdown-preview-mode 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython julia-mode toml-mode rust-mode 0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company evil))
+   '(bison-mode geiser geiser-chez scheme-complete elpy lsp-julia swift-mode flycheck-rust reason-mode company-lsp lsp-ui gnu-elpa-keyring-update tide typescript-mode tuareg slime lsp-mode ht f dash-functional quelpa flycheck-haskell ghc markdown-preview-mode 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython julia-mode toml-mode rust-mode 0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company evil))
  '(safe-local-variable-values '((engine . jinja2)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
