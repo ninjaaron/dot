@@ -110,7 +110,11 @@ source $HOME/.aliases
 [[ -n $COMPL ]] && source $COMPL
 
 # opam configuration
+<<<<<<< HEAD
 test -r /home/ninjaaron/.opam/opam-init/init.zsh && . /home/ninjaaron/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 export PATH="$HOME/.poetry/bin:$PATH"
 eval "$(pyenv init -)"
+=======
+[[ ! -r /home/ninjaaron/.opam/opam-init/init.zsh ]] || source /home/ninjaaron/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+>>>>>>> master
