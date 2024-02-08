@@ -22,10 +22,10 @@ if [ -z "$branch" ]; then
 fi
 message "================ git ================"
 message "== committing =="
-git commit -am "updating dotfiles"
+git commit -am "updating dotfiles" || message "there were problems"
 
 if [ "$branch" != "master" ]; then
-  git checkout master
+  git switch master || message "there were problems"
 fi
 
 message "== pulling changes =="
@@ -36,7 +36,7 @@ git pull --recurse-submodules origin master &&
 
 if [ "$branch" != "master" ]; then
   message "== merging into $branch ==" &&
-  git checkout "$branch"
+  git switch "$branch"
   git merge master &&
     git push origin "$branch" ||
       message "there were problems"
