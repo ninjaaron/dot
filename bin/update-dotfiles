@@ -22,7 +22,7 @@ if [ -z "$branch" ]; then
 fi
 if [ "$branch" = "master" ]; then
   read -p "you are changing master, not the repo for the local machine. \
-Continue? [y/N]" response
+Continue? [y/N] " response
   if [ "$response" != "y" ]; then
     fail 1 "aborting"
   fi
