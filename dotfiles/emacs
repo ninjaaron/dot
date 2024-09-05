@@ -20,7 +20,7 @@
  '(minimap-hide-fringes t)
  '(minimap-highlight-line nil)
  '(package-selected-packages
-   '(eglot docker docker-compose-mode dockerfile-mode geiser geiser-chez scheme-complete elpy lsp-julia swift-mode flycheck-rust reason-mode company-lsp lsp-ui gnu-elpa-keyring-update tide typescript-mode tuareg slime lsp-mode ht f dash-functional quelpa flycheck-haskell ghc markdown-preview-mode 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython julia-mode toml-mode rust-mode 0blayout markdown-mode rainbow-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company evil))
+   '(pyvenv django-mode eglot docker docker-compose-mode geiser geiser-chez scheme-complete lsp-julia swift-mode flycheck-rust reason-mode company-lsp lsp-ui gnu-elpa-keyring-update tide typescript-mode tuareg slime ht dash-functional quelpa flycheck-haskell ghc markdown-preview-mode 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython toml-mode 0blayout rainbow-mode markdown-mode+ markdown-preview-eww evil-leader use-package minimap company))
  '(safe-local-variable-values '((engine . jinja2)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
@@ -48,12 +48,7 @@
   (require 'use-package))
 (use-package evil
   :ensure t)
-(use-package lsp-mode
-  :hook (julia-mode . lsp)
-  :commands lsp)
 (use-package minimap
-  :ensure t)
-(use-package elpy
   :ensure t)
 (use-package evil-leader
   :ensure t)
@@ -152,8 +147,6 @@
 
 (add-hook 'typescript-mode-hook #'setup-tide-mode)
 
-;; elpy
-(elpy-enable)
 (autoload 'scheme-mode "cmuscheme" "Major mode for Scheme." t)
 (autoload 'run-scheme "cmuscheme" "Switch to interactive Scheme buffer." t)
 (setq auto-mode-alist (cons '("\\.ss" . scheme-mode) auto-mode-alist))
@@ -169,6 +162,7 @@
 (add-to-list 'interpreter-mode-alist '("eggshell" . python-mode))
 (add-hook 'python-mode-hook (lambda () (set-fill-column 79)))
 (add-hook 'python-mode-hook (lambda () (auto-fill-mode t)))
+;; (add-hook 'python-mode-hook 'eglot ensure)
 (global-linum-mode t)
 (column-number-mode t)
 (tool-bar-mode -1)
@@ -186,6 +180,8 @@
 (setq-default indent-tabs-mode nil)
 (setq sh-indentation 2)
 (setq js-indent-level 4)
+
+;; (add-hook 'haskell-mode-hook 'eglot-ensure)
 
 (add-hook 'c-mode-hook
           '(lambda()
@@ -209,4 +205,4 @@
    (define-key tuareg-mode-map (kbd "C-M-<tab>") #'ocamlformat)
    (add-hook 'before-save-hook #'ocamlformat-before-save)))
                            
-(add-hook 'rust-mode 'eglot-ensure)
+;; (add-hook 'rust-mode 'eglot-ensure)

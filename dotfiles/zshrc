@@ -114,3 +114,5 @@ source $HOME/.aliases
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+[ -f "/home/ninjaaron/.ghcup/env" ] && . "/home/ninjaaron/.ghcup/env" # ghcup-env

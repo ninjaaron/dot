@@ -8,9 +8,9 @@ alias xn='xargs -d "\n"'
 # vim aliases
 alias book="$EDITOR ~/doc/work/heb/book.asciidoc"
 alias heb="cd ~/doc/work/heb/git/"
-alias hla="$EDITOR ~/.config/herbstluftwm/autostart"
-alias hlf="$EDITOR ~/.config/herbstluftwm/func"
-alias hls="$EDITOR ~/.config/herbstluftwm/swap"
+# alias hla="$EDITOR ~/.config/herbstluftwm/autostart"
+# alias hlf="$EDITOR ~/.config/herbstluftwm/func"
+# alias hls="$EDITOR ~/.config/herbstluftwm/swap"
 alias nosyntax="$EDITOR -c 'syntax off'"
 
 alias dot="cd $DOT"
