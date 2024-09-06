@@ -20,24 +20,31 @@ branch="$(get_branch)"
 if [ -z "$branch" ]; then
   exit 1
 fi
+if [ "$branch" = "master" ]; then
+  read -p "you are changing master, not the repo for the local machine. \
+Continue? [y/N] " response
+  if [ "$response" != "y" ]; then
+    fail 1 "aborting"
+  fi
+fi
 message "================ git ================"
 message "== committing =="
-git commit -am "updating dotfiles" || message "there were problems"
+git commit -am "updating dotfiles" || fail "$?" "there were problems"
 
 if [ "$branch" != "master" ]; then
-  git switch master || message "there were problems"
+  git switch master || fail "$?" "there were problems"
 fi
 
 message "== pulling changes =="
 git pull --recurse-submodules origin master &&
   message "== pushing changes ==" &&
   git push origin master ||
-    message 'there were problems'
+    fail "$?" 'there were problems'
 
 if [ "$branch" != "master" ]; then
   message "== merging into $branch ==" &&
   git switch "$branch"
   git merge master &&
     git push origin "$branch" ||
-      message "there were problems"
+      fail "$?" "there were problems"
 fi
