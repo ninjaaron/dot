@@ -20,7 +20,7 @@
  '(minimap-hide-fringes t)
  '(minimap-highlight-line nil)
  '(package-selected-packages
-   '(pyvenv django-mode eglot docker docker-compose-mode geiser geiser-chez scheme-complete lsp-julia swift-mode flycheck-rust reason-mode company-lsp lsp-ui gnu-elpa-keyring-update tide typescript-mode tuareg slime ht dash-functional quelpa flycheck-haskell ghc markdown-preview-mode 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython toml-mode 0blayout rainbow-mode markdown-mode+ markdown-preview-eww evil-leader use-package minimap company))
+   '(eglot pyvenv django-mode docker docker-compose-mode geiser geiser-chez scheme-complete lsp-julia swift-mode flycheck-rust reason-mode company-lsp lsp-ui gnu-elpa-keyring-update tide typescript-mode tuareg slime ht dash-functional quelpa flycheck-haskell ghc markdown-preview-mode 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython toml-mode 0blayout rainbow-mode markdown-mode+ markdown-preview-eww evil-leader use-package minimap company))
  '(safe-local-variable-values '((engine . jinja2)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
@@ -163,7 +163,7 @@
 (add-hook 'python-mode-hook (lambda () (set-fill-column 79)))
 (add-hook 'python-mode-hook (lambda () (auto-fill-mode t)))
 ;; (add-hook 'python-mode-hook 'eglot ensure)
-(global-linum-mode t)
+(global-display-line-numbers-mode t)
 (column-number-mode t)
 (tool-bar-mode -1)
 (menu-bar-mode -1) ;; open menu with F10... for now. mwahahahaha
@@ -184,7 +184,7 @@
 ;; (add-hook 'haskell-mode-hook 'eglot-ensure)
 
 (add-hook 'c-mode-hook
-          '(lambda()
+          #'(lambda()
              (setq indent-tabs-mode t)
              (setq c-default-style "linux")
              (setq c-basic-offset 8)
