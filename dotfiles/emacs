@@ -29,7 +29,7 @@
  '(minimap-active-region-background ((t (:background "#1b1b1b"))))
  '(minimap-font-face ((t (:height 30 :family "Ubuntu Mono"))))
  '(minimap-semantic-function-face ((t (:inherit (font-lock-function-name-face Ubuntu\ Mono) :background "#202414" :box (:line-width 1 :color "white") :height 2.75)))))
-(add-to-list 'default-frame-alist '(font . "bitocrafull-9:width=condensed"))
+(add-to-list 'default-frame-alist '(font . "Ubuntu Mono 12"))
 ;; (load "/home/ninjaaron/.opam/4.08.1/share/emacs/site-lisp/tuareg-site-file")
 
 ;; added melpa
@@ -157,7 +157,7 @@
 (add-to-list 'interpreter-mode-alist '("eggshell" . python-mode))
 (add-hook 'python-mode-hook (lambda () (set-fill-column 79)))
 (add-hook 'python-mode-hook (lambda () (auto-fill-mode t)))
-(global-linum-mode t)
+(global-display-line-numbers-mode t)
 (column-number-mode t)
 (tool-bar-mode -1)
 (menu-bar-mode -1) ;; open menu with F10... for now. mwahahahaha
