@@ -17,7 +17,7 @@
  '(minimap-hide-fringes t)
  '(minimap-highlight-line nil)
  '(package-selected-packages
-   '(eglot flymake ## cider clojure-mode inf-clojure geiser geiser-chez scheme-complete flycheck-rust gnu-elpa-keyring-update tide typescript-mode tuareg slime ht f dash-functional quelpa flycheck-haskell ghc markdown-preview-mode 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython julia-mode toml-mode rust-mode 0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company evil))
+   '(coq-commenter proof-general idris-mode eglot flymake ## cider clojure-mode inf-clojure geiser geiser-chez scheme-complete flycheck-rust gnu-elpa-keyring-update tide typescript-mode tuareg slime ht f dash-functional quelpa flycheck-haskell ghc markdown-preview-mode 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython julia-mode toml-mode rust-mode 0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company evil))
  '(safe-local-variable-values '((engine . jinja2)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
@@ -30,7 +30,12 @@
  '(minimap-font-face ((t (:height 30 :family "Ubuntu Mono"))))
  '(minimap-semantic-function-face ((t (:inherit (font-lock-function-name-face Ubuntu\ Mono) :background "#202414" :box (:line-width 1 :color "white") :height 2.75)))))
 (add-to-list 'default-frame-alist '(font . "Ubuntu Mono 12"))
+(add-to-list 'default-frame-alist '(height . 36))
+(add-to-list 'default-frame-alist '(width . 85))
 ;; (load "/home/ninjaaron/.opam/4.08.1/share/emacs/site-lisp/tuareg-site-file")
+
+(if (window-system)
+  (set-frame-size (selected-frame) 85 37))
 
 ;; added melpa
 (require 'package)
@@ -114,7 +119,8 @@
 (defun ubuntu12 ()
   "set font to Ubuntu Mono 12"
   (interactive)
-  (set-frame-font "Ubuntu Mono 12"))
+  (set-frame-font "Ubuntu Mono 12")
+  (set-frame-size (selected-frame) 85 37))
 
 (defun bitocra-font ()
   "change to bitocra font"
@@ -179,7 +185,7 @@
       js2-basic-offset 4)
 
 (add-hook 'c-mode-hook
-          '(lambda()
+          #'(lambda()
              (setq indent-tabs-mode t)
              (setq c-default-style "linux")
              (setq c-basic-offset 8)
