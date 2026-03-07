@@ -7,17 +7,30 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
-   ["#1b1b1b" "#cc4444" "#55aa55" "#ee9966" "#4477ff" "#bb33bb" "#22aaaa" "#808080"])
+   ["#1b1b1b" "#cc4444" "#55aa55" "#ee9966" "#4477ff" "#bb33bb" "#22aaaa"
+    "#808080"])
  '(custom-enabled-themes '(shomshing))
  '(custom-safe-themes
-   '("1b2c1adbfea189cbc7e5084b3c8bd9cbb6c26cc778ea6f7e3a2f3c8189bc738b" "24fc794a16809a86a63ec2e6f8801e99141aca73fc238ea30d35f87c88847329" "abffe1169d8f63953e6c9ed9c77db7cbc6fc9ac0c010d83b183c32c9825beff5"))
+   '("1b2c1adbfea189cbc7e5084b3c8bd9cbb6c26cc778ea6f7e3a2f3c8189bc738b"
+     "24fc794a16809a86a63ec2e6f8801e99141aca73fc238ea30d35f87c88847329"
+     "abffe1169d8f63953e6c9ed9c77db7cbc6fc9ac0c010d83b183c32c9825beff5"))
  '(inhibit-startup-screen t)
  '(ispell-dictionary nil)
  '(menu-bar-mode nil)
  '(minimap-hide-fringes t)
  '(minimap-highlight-line nil)
  '(package-selected-packages
-   '(coq-commenter proof-general idris-mode eglot flymake ## cider clojure-mode inf-clojure geiser geiser-chez scheme-complete flycheck-rust gnu-elpa-keyring-update tide typescript-mode tuareg slime ht f dash-functional quelpa flycheck-haskell ghc markdown-preview-mode 4clojure @ a aa-edit-mode fish-mode haskell-mode racket-mode flycheck-julia flycheck-nimsuggest flycheck-nim nim-mode cython-mode flycheck-cython julia-mode toml-mode rust-mode 0blayout markdown-mode rainbow-mode js2-mode markdown-mode+ markdown-preview-eww web-mode evil-leader use-package minimap yaml-mode company evil))
+   '(## 0blayout 4clojure @ a aa-edit-mode cider clojure-mode company
+        coq-commenter cython-mode dash-functional eglot evil
+        evil-leader f fish-mode flycheck-cython flycheck-haskell
+        flycheck-julia flycheck-nim flycheck-nimsuggest flycheck-rust
+        flymake geiser geiser-chez ghc gnu-elpa-keyring-update
+        haskell-mode ht idris-mode inf-clojure js2-mode julia-mode
+        markdown-mode markdown-mode+ markdown-preview-eww
+        markdown-preview-mode minimap nim-mode proof-general quelpa
+        racket-mode rainbow-mode rust-mode scheme-complete slime tide
+        toml-mode tuareg typescript-mode use-package web-mode
+        yaml-mode))
  '(safe-local-variable-values '((engine . jinja2)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))

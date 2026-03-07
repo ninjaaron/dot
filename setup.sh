@@ -9,9 +9,9 @@ failwith() {
   exit "$2"
 }
 
-mkdir dotfiles/vim/{autoload,backups,bundle}
-curl -LSso dotfiles/vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim ||
-  failwith "could not download pathogen" "$?"
+# mkdir dotfiles/vim/{autoload,backups,bundle}
+# curl -LSso dotfiles/vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim ||
+#   failwith "could not download pathogen" "$?"
 
 ###############################
 # link config files and ~/bin #

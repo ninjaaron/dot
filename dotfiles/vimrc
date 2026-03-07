@@ -90,8 +90,26 @@ endif
 if count(s:opam_available_tools,"ocp-indent") == 0
   source "/home/ninjaaron/.opam/5.1.1/share/ocp-indent/vim/indent/ocaml.vim"
 endif
-" ## added by OPAM user-setup for vim / ocp-indent ## 24340a0985257eeba101ce2e8fbdfe80 ## you can edit, but keep this line
 if count(s:opam_available_tools,"ocp-indent") == 0
-  source "/home/ninjaaron/.opam/5.4.0+flambda/share/ocp-indent/vim/indent/ocaml.vim"
+  source "/home/ninjaaron/.opam/5.1.1/share/ocp-indent/vim/indent/ocaml.vim"
+endif
+if count(s:opam_available_tools,"ocp-indent") == 0
+  source "/home/ninjaaron/.opam/5.1.1/share/ocp-indent/vim/indent/ocaml.vim"
+endif
+if count(s:opam_available_tools,"ocp-indent") == 0
+  source "/home/ninjaaron/.opam/5.1.1/share/ocp-indent/vim/indent/ocaml.vim"
+endif
+if count(s:opam_available_tools,"ocp-indent") == 0
+  source "/home/ninjaaron/.opam/5.1.1/share/ocp-indent/vim/indent/ocaml.vim"
+endif
+if count(s:opam_available_tools,"ocp-indent") == 0
+  source "/home/ninjaaron/.opam/5.1.1/share/ocp-indent/vim/indent/ocaml.vim"
+endif
+if count(s:opam_available_tools,"ocp-indent") == 0
+  source "/home/ninjaaron/.opam/5.1.1/share/ocp-indent/vim/indent/ocaml.vim"
+endif
+" ## added by OPAM user-setup for vim / ocp-indent ## 7099cb7048d4809f9fa97dda4f476ab6 ## you can edit, but keep this line
+if count(s:opam_available_tools,"ocp-indent") == 0
+  source "/home/ninjaaron/.opam/5.4.1+flambda/share/ocp-indent/vim/indent/ocaml.vim"
 endif
 " ## end of OPAM user-setup addition for vim / ocp-indent ## keep this line
