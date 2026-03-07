@@ -3,8 +3,8 @@ mapclear | mapclear!
 let mapleader=" "
 command Va VoomToggle asciidoc
 noremap <C-N> :NERDTreeToggle<CR>
-command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-      \ | wincmd p | diffthis
+" command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+"      \ | wincmd p | diffthis
 
 function! DvorakSwap()
   nnoremap t l
