@@ -176,7 +176,10 @@
 (add-to-list 'interpreter-mode-alist '("eggshell" . python-mode))
 (add-hook 'python-mode-hook (lambda () (set-fill-column 79)))
 (add-hook 'python-mode-hook (lambda () (auto-fill-mode t)))
-(global-display-line-numbers-mode t)
+;; Enable line numbers globally
+(if (version<= "26.0.50" emacs-version)
+    (global-display-line-numbers-mode)
+  (global-linum-mode 1))  ;; fallback for older Emacs versions
 (column-number-mode t)
 (tool-bar-mode -1)
 (menu-bar-mode -1) ;; open menu with F10... for now. mwahahahaha
